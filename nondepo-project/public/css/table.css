@@ -1,0 +1,10 @@
+table{
+    border-color: rgb(255, 238, 0);
+}
+.table-container {
+    overflow-x: auto;
+    
+}
+.table-bordered{
+    border: 2px solid yellow;
+}

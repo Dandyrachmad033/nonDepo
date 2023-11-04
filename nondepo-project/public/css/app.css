@@ -1,0 +1,265 @@
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background: rgb(14, 13, 13);
+}
+#side_nav{
+    transition: all 0.3s;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    min-width: 250px;
+    max-width: 250px;
+    position: relative;
+
+}
+.images-profile {
+    padding-left: 0px;
+    margin-bottom: -10px;
+    margin-right: 57px;
+    margin-top: -20px;
+    padding-top: 40px;
+}
+
+.menu-btn-rn{
+    width: 78px;
+        padding-left: 10px;
+        cursor: pointer;
+        z-index: 1;
+        display: none
+}
+
+.menu-btn-rn .active{
+    display: block;
+}
+
+
+.content{
+    min-height: 100vh;
+    width: 100%;
+}
+.sidebar li.active{
+    background: #eee;
+    border-radius: 8px;
+}
+
+.sidebar li.active a, .sidebar li.active a:hover {
+color: #27374D;
+}
+.sidebar li a{
+color: white;
+}
+.graph-container{
+    height: 80%;
+}
+.table-container{
+    height: 100%;
+}
+.table-fix-head{
+    overflow: auto;
+    height: 100%;
+}
+.table-fix-head thead th{
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+#main-navbar{
+    width: 100% !important;
+}
+.disable-mini-item{
+    left: 0;
+    background: rgba(82, 109, 130, 0.5);
+    z-index: 99;
+}
+.btn-plugging-monitoring{
+    width: 200px !important;
+}
+@media screen and (max-width: 991.5px) {
+    .sidebar-sticky {
+        position: relative;
+        top: 0;
+        height: calc(100vh - 48px);
+        padding-top: 0.5rem;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+        .menu-btn-rn {
+            
+            display: none;
+        }
+    
+    .images-profile{
+        padding-top: 40px;
+    }
+
+    /* Kontainer Start */
+    .mini-item-contianer{
+        order: 1 !important;
+        width: 100% !important;
+        --bs-gutter-x: 0px;
+    }
+    .mini-item{
+        flex: 0 0 auto !important;
+        width: 49% !important;
+        display: flex !important;
+    }
+    .mini-item-3{
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        display: flex !important;
+    }
+    .graph-container{
+        height: 70% !important;
+    }
+    /* Kontainer Ends */
+
+    /* Lift In / Lift Off Start */
+    #lolo-left{
+        padding: 0.25rem !important;
+    }
+    #lolo-right{
+        height: 300px !important;
+        margin-top: 2rem !important;
+        padding: 0.25rem !important;
+    }
+    /* Lift In / Lift Off Ends */
+
+    /* Storage Yard Start */
+    #storageYard{
+        height: fit-content !important;
+    }
+    #storageYard-left{
+        padding: 0.25rem !important;
+    }
+    #storageYard-right{
+        height: 300px !important;
+        margin-top: 2rem !important;
+    }
+    /* Storage Yard Ends */
+
+    /* Storage Warehouse Start */
+    #storageWarehouse{
+        height: fit-content !important;
+    }
+    #storageWarehouse-left{
+        padding: 0.25rem !important;
+    }
+    #storageWarehouse-right{
+        height: 300px !important;
+        margin-top: 2rem !important;
+    }
+    /* Storage Warehouse Ends */
+
+    /* Trucking Start */
+    #trucking{
+        height: fit-content !important;
+    }
+    #trucking-left{
+        padding: 0.25rem !important;
+    }
+    #trucking-right{
+        height: 300px !important;
+        margin-top: 2rem !important;
+    }
+    /* Trucking Ends */
+
+
+    /* Plugging & Monitoring Start */
+    #pluggingMonitoring{
+        height: fit-content !important;
+    }
+    #pluggingMonitoring-left{
+        padding: 0.25rem !important;
+    }
+    #pluggingMonitoring-right{
+        height: fit-content !important;
+        margin-top: 2rem !important;
+    }
+    #pluggingMonitoringTable{
+        height: 300px !important;
+    }
+    #pluggingMonitoringChart{
+        height: 300px !important;
+    }
+    .table-fix-head{
+        height: 85%;
+    }
+    /* Plugging & Monitoring Ends */
+
+
+    /* Stuffing & Stripping Start */
+    #stuffingStripping{
+        height: fit-content !important;
+    }
+    #stuffingStripping-left{
+        padding: 0.25rem !important;
+    }
+    #stuffingStripping-right{
+        height: 300px !important;
+        margin-top: 2rem !important;
+    }
+    /* Stuffing & Stripping Ends */
+}
+
+@media(max-width: 767px){
+    #side_nav{
+        margin-left: -500px;
+        position: absolute;
+        min-height: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+    #side_nav_content{
+        margin-left: -500px;
+        position: absolute;
+        min-height: 100vh;
+        z-index: 1;
+    }
+    #side_nav.active{
+        margin-left: 0;
+        position: fixed;
+        z-index: 999999;
+    }
+    #side_nav_content.active{
+        margin-left: 0 !important;
+    }
+
+    .menu-btn-rn{
+        display: none;
+    }
+    .images-profile {
+            padding-top: 0px;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    #lolo-right{
+        height: 400px !important;
+    }
+    #lolo-left{
+        padding: 0.25rem !important;
+        margin-bottom: 1rem !important;
+    }
+    .mini-item-contianer{
+        order: 1 !important;
+        width: 100% !important;
+    }
+    .mini-item{
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        display: flex !important;
+    }
+    .table-fix-head{
+        height: 85%;
+    }
+        .menu-btn-rn {
+            display: none;
+            
+        }
+        .images-profile {
+            padding-top: 0px;
+        }
+}

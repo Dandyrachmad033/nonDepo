@@ -1,0 +1,259 @@
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     font-family: "Poppins", sans-serif;
+
+ }
+
+
+
+
+
+ .home-section {
+     position: relative;
+     background: #FAF9F6;
+     min-height: 100vh;
+     top: 0;
+     left: 10px;
+     position: relative;
+     width: calc(100% - 10px);
+     transition: all 0.5s ease;
+     z-index: 2;
+     padding-left: 15px;
+
+ }
+
+ .side-bar {
+     background: #ffc107;
+     backdrop-filter: blur(15px);
+     width: 200px;
+     height: 100vh;
+     position: relative;
+     top: 0;
+     left: -250px;
+     overflow-y: auto;
+     transition: 0.6s ease;
+     transition-property: left;
+     color: #bec2c7;
+ }
+
+ .sidebar {
+     margin-left: 0px;
+     overflow-y: auto;
+ }
+
+ .sidebar::-webkit-scrollbar {
+     width: 0px;
+ }
+
+ .sidebar.active {
+     max-width: 0;
+     min-width: 0;
+ }
+
+ .sidebar.active.home-section {
+     left: 78px;
+ }
+
+ h1 {
+
+     text-align: center;
+     font-weight: 500;
+     font-size: 25px;
+     padding-bottom: 13px;
+     font-family: sans-serif;
+     letter-spacing: 2px;
+ }
+
+ .sidebar .menu {
+     width: 100%;
+     margin-top: 20px;
+
+ }
+
+ .sidebar .menu .item {
+     position: relative;
+     cursor: pointer;
+ }
+
+ .sidebar .menu .item a {
+     color: #080808;
+     font-size: 16px;
+     text-decoration: none;
+     display: block;
+     padding: 5px 15px;
+     line-height: 60px;
+ }
+
+
+
+ .sidebar .menu .item i {
+     margin-right: 20px;
+ }
+
+ .sidebar .menu .item a .dropdown {
+     position: absolute;
+     right: 0;
+     margin: 20px;
+     transition: 0.3s ease;
+ }
+
+ .sidebar .menu .item .sub-menu {
+     background: #e5ac00;
+     display: none;
+     white-space: nowrap;
+ }
+
+ .sidebar .menu .item .sub-menu a {
+     padding-left: 50px;
+     margin-right: 25px;
+ }
+
+ .rotate {
+     transform: rotate(90deg);
+ }
+
+ .close-btn {
+     position: absolute;
+     color: #0d0d0d;
+
+     font-size: 23px;
+     right: 0px;
+     margin: 15px;
+     cursor: pointer;
+ }
+
+ .menu-btn {
+     width: 78px;
+     margin-right: 30px;
+     visibility: visible;
+     background: #e5ac00;
+     position: absolute;
+ }
+
+ .main {
+     height: 100vh;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     padding: 50px;
+     color: aqua;
+ }
+
+ .main h1 {
+     color: rgba(0, 0, 0, 0.8);
+     font-size: 60px;
+     text-align: center;
+     line-height: 80px;
+ }
+
+ @media (max-width: 900px) {
+     .main h1 {
+         font-size: 40px;
+         line-height: 60px;
+     }
+ }
+
+ img {
+     width: 100px;
+     margin: 15px;
+     border-radius: 50%;
+     margin-left: 70px;
+     border: 3px solid #b4b8b9;
+ }
+
+ header {
+     background: #d69108d8;
+     /* padding: 0px 57px; */
+ }
+
+ label {
+     color: rgb(0, 0, 0);
+ }
+
+ .wrapper {
+     background-color: rgb(255, 255, 255);
+     padding: 5px;
+     padding-top: 10px;
+     margin: 15px;
+     margin-bottom: 15px;
+     border-radius: 10px;
+     width: fit-content;
+     padding-right: 5px;
+     padding-bottom: 20px;
+     overflow-x: hidden;
+     margin-right: 1px;
+
+ }
+
+ .two-field {
+     display: flex;
+     margin-right: 100%;
+ }
+
+ .text-type {
+     align-items: center;
+     color: rgb(0, 0, 0);
+     font-family: "Poppins",
+         sans-serif;
+     text-align: center;
+     font-size: 18px;
+     font-weight: bold;
+     padding-bottom: 20px;
+
+ }
+
+ .footer-sidebar {
+
+     top: 50px;
+     left: 0;
+     right: 0;
+     background-color: #ffc107;
+
+     /* Atur warna latar belakang sesuai kebutuhan Anda */
+
+ }
+
+
+ /* contoh saja pada sidebar copy */
+
+ #side_nav {
+     background: #ffc107;
+     min-width: 250px;
+     max-width: 250px;
+     transition: all 0.3s;
+
+ }
+
+ .content {
+     min-height: 100vh;
+     width: 100%;
+ }
+
+ hr.h-color {
+     background: #eee;
+ }
+
+ .sidebar li.active {
+     background: #eee;
+     border-radius: 8px;
+ }
+
+ .sidebar li.active a,
+ .sidebar li.active a:hover {
+     color: #000;
+ }
+
+ .sidebar li a {
+     color: #fff;
+ }
+ .scrollbar-sidebar::-webkit-scrollbar {
+     display: none;
+ }
+  .sidebar .menu .item a:hover {
+      background: #ffc107;
+      transition: 0.3s ease;
+  }
