@@ -23,10 +23,11 @@
                         <div class="justify-content-between "
                             style="display: flex; align-items:center; margin-top:-20px; padding-right:50px">
                             <div>
-                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                    Formulir CFS
-                                </button>
+                                <a href="{{ route('cfs') }}">
+                                    <button type="button" class="btn btn-success btn-sm">
+                                        Formulir CFS
+                                    </button>
+                                </a>
 
                             </div>
                             <div>
@@ -38,7 +39,7 @@
                     </div>
 
                     <div class="row w-100 justify-content-center">
-                        <div class="shadow p-3 mb-5 bg-white col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
+                        <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
                             <a href="{{ route('details') }}" class="btn btn-block w-100" style=" cursor: pointer;">
                                 <div class="card border-dark w-100">
                                     <div class="card-header bg-warning border-dark border-bottom text-center"

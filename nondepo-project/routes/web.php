@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
     //Route to Controller menu stuffing stripping
     Route::get('/stuffing-stripping', [staffingstrippingController::class, 'index'])->name('index');
     Route::get('/details', [staffingstrippingController::class, 'detail'])->name('details');
+    Route::get('/cfs_view', [staffingstrippingController::class, 'cfs_view'])->name('cfs');
 
     //Route To Analisis Data
     Route::get('/analisis', [AnalisisController::class, 'index'])->name('analisis');

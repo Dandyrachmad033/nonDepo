@@ -30,21 +30,8 @@ class Bongkar extends Controller
 
         if ($principal_valid) {
 
-            // $seletedlabel = session('action');
             $pricipal = $request->input('principal');
-            // $string_principal = $seletedlabel . $pricipal;
             session(['name_principal' => $pricipal]);
-            // $action_code = [''];
-            // $options = [
-            //     'K28HAPAG' => '1', 'K35HAPAG' => '2', 'K41HAPAG' => '3', 'C45HAPAG' => '4', 'F49HAPAG' => '5',
-            //     'K28KMTC' => '13', 'K35KMTC' => '14', 'K41KMTC' => '15', 'C45KMTC' => '16', 'F49KMTC' => '17',
-            //     'K28SSL' => '18', 'K35SSL' => '19', 'K41SSL' => '20', 'C45SSL' => '21', 'F49SSL' => '22',
-            //     'K28ONE' => '23', 'K35ONE' => '24', 'K41ONE' => '25', 'C45ONE' => '26', 'F49ONE' => '27',
-            // ];
-            // $action_id = $options[$string_principal];
-            // session(['action_id' => $action_id]);
-            // $username_id = session('username_id');
-            // users_actions::where('users_id', $username_id)->update(['actions_id' => $action_id, 'action_status' => $seletedlabel]);
 
 
             return redirect()->route('bongkar_data');

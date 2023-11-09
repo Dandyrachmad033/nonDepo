@@ -26,17 +26,32 @@
                     </div>
                     <form action="{{ url('/bongkar_principal') }}" method="POST" class="text-center" id="submit_data">
                         @csrf
-                        <div class="data" style="margin: 30px 0px">
-                            <select class="form-select form-select-lg mb-3 border border-dark border-2"
-                                style="overflow-y: scroll, height:50x;" name="principal">
-                                <option selected></option>
-                                <option value="HAPAG">HAPAG</option>
-                                <option value="KMTC">KMTC</option>
-                                <option value="SSL">SSL</option>
-                                <option value="ONE">ONE</option>
-                            </select>
-
+                        <input type="hidden" name="principal" id="dropdownMenuLink" value="">
+                        <div class="dropdown">
+                            <a class="btn btn-outline-success bg-white" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false" id="valuelink" style="font-size: 25px;color:black">
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" onclick="updateButton('HAPAG')">HAPAG</a>
+                                </li>
+                                <li><a class="dropdown-item" onclick="updateButton('KMTC')"">KMTC</a></li>
+                                <li><a class="dropdown-item" onclick="updateButton('SSL')">SSL</a></li>
+                                <li><a class="dropdown-item" onclick="updateButton('ONE')">ONE</a></li>
+                                <li><a class="dropdown-item">Action</a></li>
+                                <li><a class="dropdown-item">Action</a></li>
+                                <li><a class="dropdown-item">Action</a></li>
+                                <li><a class="dropdown-item">Action</a></li>
+                                <li><a class="dropdown-item">Action</a></li>
+                                <li><a class="dropdown-item">Action</a></li>
+                                <li><a class="dropdown-item">Action</a></li>
+                                <li><a class="dropdown-item">Action</a></li>
+                                <li><a class="dropdown-item">Action</a></li>
+                                <li><a class="dropdown-item">Action</a></li>
+                                <li><a class="dropdown-item">Action</a></li>
+                            </ul>
                         </div>
+
+
                         @error('principal')
                             <div class="alert alert-warning d-flex align-items-center justify-content-center" role="alert"
                                 style="height: 10px;margin-left:10px">
@@ -61,6 +76,7 @@
 
         </div>
     </div>
+
     {{-- <div>
                 @foreach ($data as $data)
                     {{ $data->data }}
@@ -83,6 +99,13 @@
             </form> --}}
 
     <script>
+        function updateButton(value) {
+            // Update the button text with the selected value
+            document.getElementById('valuelink').innerText = value;
+            document.getElementById('dropdownMenuLink').value = value;
+        }
+    </script>
+    <script>
         document.getElementById("send_data").addEventListener("click", function() {
             var form1 = document.getElementById("submit_data");
             form1.submit();
@@ -97,6 +120,9 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
     </script>
 </body>
 

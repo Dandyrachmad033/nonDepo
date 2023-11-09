@@ -22,6 +22,12 @@ body {
 
 }
 
+.dropdown-menu{
+    max-height: 150px;
+    width: 350px;
+    overflow-y: scroll;
+}
+
 
 .logo-images {
     text-align: center;

@@ -2,11 +2,10 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="{{ asset('css/bongkar_data.css') }}">
+
     <link href="https:cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-
+    <link rel="stylesheet" href="{{ asset('css/bongkar_data.css') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -16,220 +15,255 @@
 </head>
 
 <body>
-
-    <div class="justify-content-center align-items-center home-section" style="height: 100vh;">
-        <div class="card-container" style="padding-top: 50px;margin-bottom:30px">
-            <div class="card text-center border border-dark">
-                <div class="card-header bg-dark" style="color: white">
-                    User : {{ auth()->user()->username }}
-                </div>
-                <div class="card-body" style="width: 500px">
-                    <h5 class="card-title" style="font-size: 40px">Pcincipal : {{ $principal }}</h5>
-                </div>
-                <div class="card-footer bg-warning text-muted border-top border-dark text-center">
-                    <h6 style="color: black"> Action: {{ $action }}</h6>
-                </div>
-            </div>
-        </div>
-
-        <a href="{{ route('bongkar') }}">
-            <div class="card-container" style="margin-bottom:30px">
-                <button type="button" class="btn btn-secondary" style="width:100px" id="send_back"
-                    onclick="simpanKeDatabase()">back</button>
-            </div>
-        </a>
-
-
-        <div class="card-container">
-            <div class="card text-white border border-dark mb-3 " style="width: 18rem;margin-right:50px">
-                <div class="card-header border-bottom border-dark bg-dark text-center">Bongkar 20
-                    Feet
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">
-
-                        <h5 style="color: black">[B20] : <span id="b20Value">{{ $dataB20 }} </span> </h5>
-
-                    </h5>
-                    <div>
-                        @if (auth()->user()->role == 'admin')
-                            <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
-                                onclick="kurangiNilaib20()">Kurang</button>
-                        @endif
-                        <button type="button" class="btn btn-outline-success"
-                            onclick="tambahNilaib20()">Tambah</button>
-                    </div>
-                </div>
-            </div>
-            <div>
-            </div>
-
-            <div class="card text-white border border-dark mb-3" style="width: 18rem;margin-right:50px">
-                <div class="card-header border-bottom border-dark bg-dark text-center">Bongkar 40
-                    Feet
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">
-
-                        <h5 style="color: black">[B40] : <span id="b40Value">{{ $dataB40 }} </span> </h5>
-
-                    </h5>
-                    <div>
-                        @if (auth()->user()->role == 'admin')
-                            <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
-                                onclick="kurangiNilaib40()">Kurang
-                            </button>
-                        @endif
-                        <button type="button" class="btn btn-outline-success"
-                            onclick="tambahNilaib40()">Tambah</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card text-white border border-dark mb-3" style="width: 18rem;margin-right:50px">
-                <div class="card-header border-bottom border-dark bg-dark text-center">Muat 20
-                    Feet
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">
-
-                        <h5 style="color: black">[M20] : <span id="m20Value"> {{ $dataM20 }}</span> </h5>
-
-                    </h5>
-                    <div>
-                        @if (auth()->user()->role == 'admin')
-                            <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
-                                onclick="kurangiNilaim20()">Kurang
-                            </button>
-                        @endif
-                        <button type="button" class="btn btn-outline-success"
-                            onclick="tambahNilaim20()">Tambah</button>
-                    </div>
-                </div>
-            </div>
-            <div>
-            </div>
-
-            <div class="card text-white border border-dark mb-3" style="width: 18rem;">
-                <div class="card-header border-bottom border-dark bg-dark text-center">Muat 40
-                    Feet
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">
-
-                        <h5 style="color: black">[M40] : <span id="m40Value">{{ $dataM40 }}</span> </h5>
-
-                    </h5>
-                    <div>
-                        @if (auth()->user()->role == 'admin')
-                            <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
-                                onclick="kurangiNilaim40()">Kurang
-                            </button>
-                        @endif
-                        <button type="button" class="btn btn-outline-success"
-                            onclick="tambahNilaim40()">Tambah</button>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="  col col-lg-4 col-md-6 col-sm-12 col-12">
+                <div class="shadow p-3 mb-3 mt-3 me-4 ms-4 bg-white">
+                    <div class="card-container">
+                        <div class="card border border-dark">
+                            <div class="card-header text-center bg-dark" style="color: white">
+                                User : {{ auth()->user()->username }}
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title" style="font-size: 40px">Pcincipal : {{ $principal }}</h5>
+                            </div>
+                            <div class="card-footer bg-warning text-muted border-top border-dark text-center">
+                                <h6 style="color: black"> Action: {{ $action }}</h6>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="card-container">
-            <div class="card text-white border border-dark mb-3" style="width: 18rem;margin-right:50px">
-                <div class="card-header border-bottom border-dark bg-dark text-center">Shifting 20
-                    Feet
+        <div class="row justify-content-center">
+            <a href="{{ route('bongkar') }}">
+                <div class="card-container" style="margin-bottom:30px">
+                    <button type="button" class="btn btn-secondary" style="width:150px" id="send_back"
+                        onclick="simpanKeDatabase()">Submit & back</button>
                 </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">
+            </a>
+        </div>
+        <div class="row" style="margin-left:25px">
+            <div class="col text-center col-lg-3 col-md-6 col-sm-12 col-12">
+                <div class="shadow p-3 mb-5 bg-white" style="max-width: 18rem;">
+                    <div class=" card text-white border border-dark mb-3 " style="max-width: 18rem;">
+                        <div class="card-header border-bottom border-dark bg-dark text-center">Bongkar 20
+                            Feet
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">
 
-                        <h5 style="color: black">[S20] : <span id="s20Value"> {{ $dataS20 }}</span> </h5>
+                                <h5 style="color: black">[B20] : <span id="b20Value">{{ $dataB20 }} </span> </h5>
 
-                    </h5>
-                    <div>
-                        @if (auth()->user()->role == 'admin')
-                            <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
-                                onclick="kurangiNilais20()">Kurang
-                            </button>
-                        @endif
-                        <button type="button" class="btn btn-outline-success"
-                            onclick="tambahNilais20()">Tambah</button>
+                            </h5>
+                            <div>
+                                @if (auth()->user()->role == 'admin')
+                                    <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
+                                        onclick="kurangiNilaib20()">Kurang</button>
+                                @endif
+                                <button type="button" class="btn btn-outline-success"
+                                    onclick="tambahNilaib20()">Tambah</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col text-center col-lg-3 col-md-6 col-sm-12 col-12">
+                <div class="shadow p-3 mb-5 bg-white" style="max-width: 18rem;">
+                    <div class=" card text-white border border-dark mb-3" style="max-width: 18rem;">
+                        <div class="card-header border-bottom border-dark bg-dark text-center">Bongkar 40
+                            Feet
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">
+
+                                <h5 style="color: black">[B40] : <span id="b40Value">{{ $dataB40 }} </span> </h5>
+
+                            </h5>
+                            <div>
+                                @if (auth()->user()->role == 'admin')
+                                    <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
+                                        onclick="kurangiNilaib40()">Kurang
+                                    </button>
+                                @endif
+                                <button type="button" class="btn btn-outline-success"
+                                    onclick="tambahNilaib40()">Tambah</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col text-center col-lg-3 col-md-6 col-sm-12 col-12">
+                <div class="shadow p-3 mb-5 bg-white" style="max-width: 18rem;">
+                    <div class="card text-white border border-dark mb-3" style="max-width: 18rem;">
+                        <div class="card-header border-bottom border-dark bg-dark text-center">Muat 20
+                            Feet
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">
+
+                                <h5 style="color: black">[M20] : <span id="m20Value"> {{ $dataM20 }}</span> </h5>
+
+                            </h5>
+                            <div>
+                                @if (auth()->user()->role == 'admin')
+                                    <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
+                                        onclick="kurangiNilaim20()">Kurang
+                                    </button>
+                                @endif
+                                <button type="button" class="btn btn-outline-success"
+                                    onclick="tambahNilaim20()">Tambah</button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
-            <div>
+
+
+            <div class="col text-center col-lg-3 col-md-6 col-sm-12 col-12">
+                <div class="shadow p-3 mb-5 bg-white" style="max-width: 18rem">
+                    <div class="card text-white border border-dark mb-3" style="max-width: 18rem; ">
+                        <div class="card-header border-bottom border-dark bg-dark text-center">Muat 40
+                            Feet
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">
+
+                                <h5 style="color: black">[M40] : <span id="m40Value">{{ $dataM40 }}</span> </h5>
+
+                            </h5>
+                            <div>
+                                @if (auth()->user()->role == 'admin')
+                                    <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
+                                        onclick="kurangiNilaim40()">Kurang
+                                    </button>
+                                @endif
+                                <button type="button" class="btn btn-outline-success"
+                                    onclick="tambahNilaim40()">Tambah</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
-            <div class="card text-white border border-dark mb-3" style="width: 18rem;margin-right:50px">
-                <div class="card-header border-bottom border-dark bg-dark text-center">Shifting 40
-                    Feet
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">
+        </div>
+        <div class="row" style="margin-left: 25px">
+            <div class="col text-center col-lg-3 col-md-6 col-sm-12 col-12">
+                <div class="shadow p-3 mb-5 bg-white" style="max-width: 18rem">
+                    <div class="card text-white border border-dark mb-3" style="max-width: 18rem;">
+                        <div class="card-header border-bottom border-dark bg-dark text-center">Shifting 20
+                            Feet
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">
 
-                        <h5 style="color: black">[S40] : <span id="s40Value">{{ $dataS40 }}</span> </h5>
+                                <h5 style="color: black">[S20] : <span id="s20Value"> {{ $dataS20 }}</span>
+                                </h5>
 
-                    </h5>
-                    <div>
-                        @if (auth()->user()->role == 'admin')
-                            <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
-                                onclick="kurangiNilais40()">Kurang
-                            </button>
-                        @endif
-                        <button type="button" class="btn btn-outline-success"
-                            onclick="tambahNilais40()">Tambah</button>
+                            </h5>
+                            <div>
+                                @if (auth()->user()->role == 'admin')
+                                    <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
+                                        onclick="kurangiNilais20()">Kurang
+                                    </button>
+                                @endif
+                                <button type="button" class="btn btn-outline-success"
+                                    onclick="tambahNilais20()">Tambah</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="col text-center col-lg-3 col-md-6 col-sm-12 col-12">
+                <div class="shadow p-3 mb-5 bg-white" style="max-width: 18rem">
 
-            <div class="card text-white border border-dark mb-3" style="width: 18rem;margin-right:50px">
-                <div class="card-header border-bottom border-dark bg-dark text-center">Repair 20
-                    Feet
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">
+                    <div class="card text-white border border-dark mb-3" style="max-width: 18rem;">
+                        <div class="card-header border-bottom border-dark bg-dark text-center">Shifting 40
+                            Feet
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">
 
-                        <h5 style="color: black">[R20] : <span id="r20Value"> {{ $dataR20 }}</span> </h5>
+                                <h5 style="color: black">[S40] : <span id="s40Value">{{ $dataS40 }}</span>
+                                </h5>
 
-                    </h5>
-                    <div>
-                        @if (auth()->user()->role == 'admin')
-                            <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
-                                onclick="kurangiNilair20()">Kurang
-                            </button>
-                        @endif
-                        <button type="button" class="btn btn-outline-success"
-                            onclick="tambahNilair20()">Tambah</button>
+                            </h5>
+                            <div>
+                                @if (auth()->user()->role == 'admin')
+                                    <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
+                                        onclick="kurangiNilais40()">Kurang
+                                    </button>
+                                @endif
+                                <button type="button" class="btn btn-outline-success"
+                                    onclick="tambahNilais40()">Tambah</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div>
-            </div>
+            <div class="col text-center col-lg-3 col-md-6 col-sm-12 col-12">
+                <div class="shadow p-3 mb-5 bg-white" style="max-width:18rem;">
+                    <div class="card text-white border border-dark mb-3" style="max-width: 18rem;">
+                        <div class="card-header border-bottom border-dark bg-dark text-center">Repair 20
+                            Feet
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">
 
-            <div class="card text-white border border-dark mb-3" style="width: 18rem;">
-                <div class="card-header border-bottom border-dark bg-dark text-center">Repair 40
-                    Feet
+                                <h5 style="color: black">[R20] : <span id="r20Value"> {{ $dataR20 }}</span>
+                                </h5>
+
+                            </h5>
+                            <div>
+                                @if (auth()->user()->role == 'admin')
+                                    <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
+                                        onclick="kurangiNilair20()">Kurang
+                                    </button>
+                                @endif
+                                <button type="button" class="btn btn-outline-success"
+                                    onclick="tambahNilair20()">Tambah</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">
+            </div>
+            <div class="col text-center col-lg-3 col-md-6 col-sm-12 col-12">
+                <div class="shadow p-3 mb-5 mt-1 bg-white" style="max-width: 18rem;">
+                    <div class="card text-white border border-dark mb-3" style="max-width: 18rem;">
+                        <div class="card-header border-bottom border-dark bg-dark text-center">Repair 40
+                            Feet
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">
 
-                        <h5 style="color: black">[R40] : <span id="r40Value">{{ $dataR40 }}</span> </h5>
+                                <h5 style="color: black">[R40] : <span id="r40Value">{{ $dataR40 }}</span>
+                                </h5>
 
-                    </h5>
-                    <div>
-                        @if (auth()->user()->role == 'admin')
-                            <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
-                                onclick="kurangiNilair40()">Kurang
-                            </button>
-                        @endif
-                        <button type="button" class="btn btn-outline-success"
-                            onclick="tambahNilair40()">Tambah</button>
+                            </h5>
+                            <div>
+                                @if (auth()->user()->role == 'admin')
+                                    <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
+                                        onclick="kurangiNilair40()">Kurang
+                                    </button>
+                                @endif
+                                <button type="button" class="btn btn-outline-success"
+                                    onclick="tambahNilair40()">Tambah</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div>
-    </div>
-    </div>
+
+
+
     <!-- Versi terbaru dari jQuery -->
     <script src="https://code.jquery.com/jquery.min.js"></script>
 
