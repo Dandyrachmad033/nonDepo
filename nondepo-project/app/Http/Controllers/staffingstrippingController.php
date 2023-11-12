@@ -28,4 +28,9 @@ class staffingstrippingController extends Controller
         $menu = m_module::with('sub_m_module')->get();
         return view('cfs_form', ['showdata' => $menu,]);
     }
+
+    public function cfs_form(Request $request)
+    {
+        dd($request);
+    }
 }

@@ -48,21 +48,25 @@
                                 class="fas fa-tachometer-alt"></i>Dashboard<i></i></a>
                     </div>
                     @foreach ($showdata as $menuItem)
-                        <div class="item">
-                            <a href="{{ $menuItem['module_link'] }}" class="sub-btn"
-                                data-index="{{ $menuItem['module_id'] }}"><i
-                                    class="{{ $menuItem['module_icon'] }}"></i>{{ $menuItem['module_name'] }}
-                                @if (count($menuItem->sub_m_module) > 0)
-                                    <i class="fas fa-angle-right dropdown"></i>
-                                @endif
-                            </a>
-                            <div class="sub-menu" data-index="{{ $menuItem['module_id'] }}">
-                                @foreach ($menuItem->sub_m_module as $subItem)
-                                    <a href="{{ url($subItem['module_link']) }}"
-                                        class="sub-item">{{ $subItem['module_name'] }}</a>
-                                @endforeach
+                        @if ($menuItem['module_status'] != '0')
+                            <div class="item">
+                                <a href="{{ $menuItem['module_link'] }}" class="sub-btn"
+                                    data-index="{{ $menuItem['module_id'] }}"><i
+                                        class="{{ $menuItem['module_icon'] }}"></i>{{ $menuItem['module_name'] }}
+                                    @if (count($menuItem->sub_m_module) > 0)
+                                        <i class="fas fa-angle-right dropdown"></i>
+                                    @endif
+                                </a>
+                                <div class="sub-menu" data-index="{{ $menuItem['module_id'] }}">
+                                    @foreach ($menuItem->sub_m_module as $subItem)
+                                        @if ($subItem['module_status'] != '0')
+                                            <a href="{{ url($subItem['module_link']) }}"
+                                                class="sub-item">{{ $subItem['module_name'] }}</a>
+                                        @endif
+                                    @endforeach
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     @endforeach
 
                     @if (auth()->user()->role == 'admin')

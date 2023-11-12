@@ -31,7 +31,7 @@
         <div class="scrollbar-sidebar" style="overflow-y: scroll; max-height:500px;scrollbar-width: thin;">
             <div class="menu">
                 <div class="item">
-                    <a class="sub-btn" href="{{ url('/dashboard') }}"><i
+                    <a class="sub-btn" href="{{ url('/analisis') }}"><i
                             class="fas fa-tachometer-alt"></i>Dashboard<i></i></a>
                 </div>
 
@@ -73,7 +73,7 @@
         </footer>
     </div>
     <script src="{{ asset('js/script.js') }}"></script>
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </body>
 
 </html>

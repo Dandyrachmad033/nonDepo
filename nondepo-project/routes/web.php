@@ -27,7 +27,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::middleware(['auth'])->group(function () {
     // Route to Controller Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/dashboard', [AnalisisController::class, 'index']);
 
     //Route to Controller menu reefer service
     Route::get('/reefer_pti', [reeferserviceController::class, 'pti'])->name('pti');
@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/stuffing-stripping', [staffingstrippingController::class, 'index'])->name('index');
     Route::get('/details', [staffingstrippingController::class, 'detail'])->name('details');
     Route::get('/cfs_view', [staffingstrippingController::class, 'cfs_view'])->name('cfs');
+    Route::post('/cfs_form', [staffingstrippingController::class, 'cfs_form'])->name('cfs_form');
 
     //Route To Analisis Data
     Route::get('/analisis', [AnalisisController::class, 'index'])->name('analisis');
@@ -71,12 +72,17 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/remove_module/{id}', [ModulesController::class, 'remove_module'])->name('remove_module');
 
     // Route to Controller Access management
-    Route::get('/access_management', [AccessController::class, 'index']);
+    Route::get('/access_management', [AccessController::class, 'index'])->name('access_managament');
     Route::get('/edit_access_management', [AccessController::class, 'editaccess']);
+    Route::post('/disable', [AccessController::class, 'disable_access'])->name('disable');
+    Route::post('/enable', [AccessController::class, 'enable_access'])->name('enable');
 
     // Route to Controller User management
-    Route::get('/user_management', [userController::class, 'index']);
-    Route::get('/edit_user_management', [userController::class, 'edituser']);
+    Route::get('/user_management', [userController::class, 'index'])->name('user_management')->name('user_management');
+    Route::get('/edit_user_management/{name}', [userController::class, 'edituser'])->name('edit_user_management');
+    Route::post('/change_password', [userController::class, 'change_password']);
+    Route::post('/disable_user', [userController::class, 'disable_user'])->name('disable_user');
+    Route::post('/enable_user', [userController::class, 'enable_user'])->name('enable_user');
 
     // Route to admin Monitoring
     Route::get('/not_monitoring', [reeferserviceController::class, 'not_monitoring'])->name('not_monitoring');

@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="{{ asset('css/table.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,72 +18,71 @@
     @extends('layouts.sidebarcopy')
     @section('content')
         <section class="home-section">
-            <div class="text" style="font-size: 40px">Reefer Plugging</div>
+            <div class="text" style="font-size: 30px">Reefer Plugging</div>
             <div data-aos="fade-left" data-aos-duration="300">
-                <div class="row">
-                    <div class="table-container shadow p-3 mb-5 bg-white rounded" style="max-width: 98%">
 
-                        <div class="justify-content-between " style="display: flex; align-items:center;">
-                            <div>
-                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                    Start Plugging
-                                </button>
+                <div class="table-container shadow p-3 mb-5 bg-white rounded" style="max-width: 98%">
 
-                            </div>
-                            <div>
-                                <img src="{{ asset('images/flag-samudera.png') }}" alt="samudera" class="img-fluid"
-                                    style="border: 0px; height:50px; width:250px;">
-                            </div>
+                    <div class="justify-content-between " style="display: flex; align-items:center;">
+                        <div>
+                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                                Start Plugging
+                            </button>
+
                         </div>
-
-
-                        <table class="table table-striped border-warning" style="width: 100%">
-                            <thead>
-                                <tr class="bg-warning text-center">
-                                    <th>No</th>
-                                    <th>Container No</th>
-                                    <th>Set Point</th>
-                                    <th>Supply</th>
-                                    <th>Return</th>
-                                    <th>Remark</th>
-                                    <th>start plug</th>
-                                    <th style="max-width: 100px"></th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $counter = 1;
-                                @endphp
-                                @foreach ($data as $index => $item)
-                                    @if ($item->status == 'Plugging')
-                                        <tr class="text-center">
-                                            <td>{{ $counter }}</td>
-                                            <td>{{ $item->no_container }}</td>
-                                            <td>{{ $item->set_temp }}</td>
-                                            <td>{{ $item->sup_temp }}</td>
-                                            <td>{{ $item->ret_temp }}</td>
-                                            <td>{{ $item->remark }}</td>
-                                            <td class="text-center">{{ $item->time }}</td>
-                                            <td class="text-center"> <button type="button" class="btn btn-danger btn-sm"
-                                                    data-bs-toggle="modal" data-bs-target="#end_plugging"
-                                                    data-no-container="{{ $item->no_container }}"
-                                                    data-set-temp="{{ $item->set_temp }}"
-                                                    data-remark="{{ $item->remark }}">
-                                                    End Plugging
-                                                </button></td>
-                                            <td class="text-center">{{ $item->status }}</td>
-                                        </tr>
-                                        @php
-                                            $counter++;
-                                        @endphp
-                                    @endif
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <div>
+                            <img src="{{ asset('images/flag-samudera.png') }}" alt="samudera" class="img-fluid"
+                                style="border: 0px; height:50px; width:250px;">
+                        </div>
                     </div>
+
+
+                    <table class="table table-striped border-warning" style="width: 100%">
+                        <thead>
+                            <tr class="bg-warning text-center">
+                                <th>No</th>
+                                <th>Container No</th>
+                                <th>Set Point</th>
+                                <th>Supply</th>
+                                <th>Return</th>
+                                <th>Remark</th>
+                                <th>start plug</th>
+                                <th style="max-width: 100px"></th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $counter = 1;
+                            @endphp
+                            @foreach ($data as $index => $item)
+                                @if ($item->status == 'Plugging')
+                                    <tr class="text-center">
+                                        <td>{{ $counter }}</td>
+                                        <td>{{ $item->no_container }}</td>
+                                        <td>{{ $item->set_temp }}</td>
+                                        <td>{{ $item->sup_temp }}</td>
+                                        <td>{{ $item->ret_temp }}</td>
+                                        <td>{{ $item->remark }}</td>
+                                        <td class="text-center">{{ $item->time }}</td>
+                                        <td class="text-center"> <button type="button" class="btn btn-danger btn-sm"
+                                                data-bs-toggle="modal" data-bs-target="#end_plugging"
+                                                data-no-container="{{ $item->no_container }}"
+                                                data-set-temp="{{ $item->set_temp }}" data-remark="{{ $item->remark }}">
+                                                End Plugging
+                                            </button></td>
+                                        <td class="text-center">{{ $item->status }}</td>
+                                    </tr>
+                                    @php
+                                        $counter++;
+                                    @endphp
+                                @endif
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
+
 
             </div>
             <!-- Button trigger modal -->

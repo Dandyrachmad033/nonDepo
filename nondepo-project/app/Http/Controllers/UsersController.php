@@ -36,27 +36,40 @@ class UsersController extends Controller
 
         $action_data = $request->input('actions');
         if (Auth::attempt($credentials)) {
-            if ($request->filled('actions')) {
-                $get_username = $credentials['username'];
-                $get_actions = $action_data;
-                session(['username' => $get_username]);
-                $find_user_id = Users::where('username', $get_username)->first();
-                if ($find_user_id->status == 'logout') {
-                    if ($find_user_id) {
-                        $user_id = $find_user_id->id;
-                        session(['username_id' => $user_id]);
-                        session(['action' => $get_actions]);
+            $get_username = $credentials['username'];
+            $find_user_id = Users::where('username', $get_username)->first();
+            $status_user = $find_user_id->status_user;
+            $status_option = [
+                '1' => 'enable',
+                '0' => 'disable'
+            ];
+            $check_status = $status_option[$status_user];
+
+            if ($check_status != 'disable') {
+                if ($request->filled('actions')) {
+                    $get_actions = $action_data;
+                    session(['username' => $get_username]);
+                    if ($find_user_id->status == 'logout') {
+                        if ($find_user_id) {
+                            $user_id = $find_user_id->id;
+                            session(['username_id' => $user_id]);
+                            session(['action' => $get_actions]);
+                            return redirect()->intended('/bongkar');
+                        }
                         return redirect()->intended('/bongkar');
+                    } else {
+                        return redirect()->intended('/')
+                            ->with('error', 'User Sedang Login')
+                            ->withInput($request->only('username'));
                     }
-                    return redirect()->intended('/bongkar');
-                } else {
-                    return redirect()->intended('/')
-                        ->with('error', 'User Sedang Login')
-                        ->withInput($request->only('username'));
                 }
+
+                $request->session()->regenerate();
+                return redirect()->intended('/dashboard');
             }
-            $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/')
+                ->with('error', 'Akun Disable Mohon konfirmasi ke IT')
+                ->withInput($request->only('username'));
         }
 
         return redirect()->intended('/')

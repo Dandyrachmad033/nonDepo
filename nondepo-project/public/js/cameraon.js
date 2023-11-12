@@ -1,4 +1,4 @@
-   document.getElementById('cancel-button').addEventListener('click', stopCamera);
+    document.getElementById('cancel-button').addEventListener('click', stopCamera);
     document.getElementById('camera-button').addEventListener('click', startCamera);
     document.getElementById('x-button').addEventListener('click', stopCamera);
     document.getElementById('camera-button2').addEventListener('click', startCamera);
