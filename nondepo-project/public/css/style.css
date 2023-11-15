@@ -138,15 +138,7 @@ form .forgot-pass a:hover {
     text-decoration: underline;
 }
 
-form .btn {
-    margin: 20px 0;
-    height: 45px;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-    background-color: #000000;
-}
+
 
 form .btn .inner {
     height: 100%;

@@ -59,7 +59,8 @@
                         @enderror
                         <div class="data" style="margin: 30px 0px">
                             <label>ECH (Opsional)</label>
-                            <select class="form-select" aria-label="Default select example" name="actions">
+                            <select class="form-select border border-dark" aria-label="Default select example"
+                                name="actions">
                                 <option selected></option>
                                 <option value="K28">K28</option>
                                 <option value="K35">K35</option>
@@ -73,11 +74,14 @@
                             <a href="#" style="color: black">Forgot Password?</a>
                         </div>
 
-
-                        <div class="btn">
-                            {{-- <div class="inner"></div> --}}
-                            <button type="submit">login</button>
+                        <br>
+                        <div class="col text-center" style="margin-top: -20px">
+                            <button type="submit" class="btn btn-dark align-self-center">login</button>
                         </div>
+                        <br>
+                        {{-- <div class="inner"></div> --}}
+
+
                         @if (session('error'))
                             <div class="alert alert-danger d-flex align-items-center justify-content-center"
                                 role="alert" style="height: 10px;margin-left:10px">
@@ -87,7 +91,7 @@
                             </div>
                         @endif
                         <div class="col text-center" style="margin-top: -20px">
-                            <button type="button" class="btn btn-primary w-50 align-self-center" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-dark w-50 align-self-center" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">View User
                                 Login</button>
                         </div>

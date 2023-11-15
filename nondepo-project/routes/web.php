@@ -43,6 +43,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/details', [staffingstrippingController::class, 'detail'])->name('details');
     Route::get('/cfs_view', [staffingstrippingController::class, 'cfs_view'])->name('cfs');
     Route::post('/cfs_form', [staffingstrippingController::class, 'cfs_form'])->name('cfs_form');
+    Route::get('/cfs_tally', [staffingstrippingController::class, 'cfs_tally'])->name('cfs_tally');
+    Route::get('/cargo_release', [staffingstrippingController::class, 'cargo_release'])->name('cargo_release');
+    Route::get('/cargo_receiving', [staffingstrippingController::class, 'cargo_receiving'])->name('cargo_receiving');
+
 
     //Route To Analisis Data
     Route::get('/analisis', [AnalisisController::class, 'index'])->name('analisis');

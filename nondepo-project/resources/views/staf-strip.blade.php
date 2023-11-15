@@ -23,9 +23,27 @@
                         <div class="justify-content-between "
                             style="display: flex; align-items:center; margin-top:-20px; padding-right:50px">
                             <div>
-                                <a href="{{ route('cfs') }}">
-                                    <button type="button" class="btn btn-success btn-sm">
-                                        Formulir CFS
+                                <a href="{{ route('cfs') }}" style="display: inline-block; ">
+                                    <button type="button" class="btn btn-warning btn-sm m-2">
+                                        CFS Worksheet
+                                    </button>
+                                </a>
+
+                                <a href="{{ route('cfs_tally') }}" style="display: inline-block; ">
+                                    <button type="button" class="btn btn-warning btn-sm m-2">
+                                        CFS Tally
+                                    </button>
+                                </a>
+
+                                <a href="{{ route('cargo_release') }}" style="display: inline-block; ">
+                                    <button type="button" class="btn btn-warning btn-sm m-2">
+                                        Cargo Release
+                                    </button>
+                                </a>
+
+                                <a href="{{ route('cargo_receiving') }}" style="display: inline-block; ">
+                                    <button type="button" class="btn btn-warning btn-sm m-2" style="width: 140px">
+                                        Cargo Receiving
                                     </button>
                                 </a>
 

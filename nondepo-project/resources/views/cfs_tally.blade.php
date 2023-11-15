@@ -7,7 +7,7 @@
         <section class="home-section">
             <form action="{{ url('/cfs_form') }}" method="POST" id="submit_cfs">
                 @csrf
-                <div class="text" style="font-size: 40px">CFS Worksheet</div>
+                <div class="text" style="font-size: 40px">CFS Tally</div>
                 <div class="container-fluid justify-content-center" style="margin-bottom:10px">
 
 
@@ -57,15 +57,6 @@
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
                                 <div class="card text-dark bg-light border-dark mb-3">
-                                    <div class="card-header bg-dark"> <label class="form-label"
-                                            style="color:white">SHIPPER</label></div>
-                                    <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="shipper">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
                                     <div class="card-header bg-dark"><label class="form-label"
                                             style="color:white">CARGO</label>
                                     </div>
@@ -77,7 +68,7 @@
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
                                 <div class="card text-dark bg-light border-dark mb-3">
                                     <div class="card-header bg-dark"> <label class="form-label"
-                                            style="color:white">party</label></div>
+                                            style="color:white">PARTY</label></div>
                                     <div class="card-body">
                                         <input type="text" class="form-control border border-dark mb-3" name="party">
                                     </div>
@@ -85,20 +76,30 @@
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
                                 <div class="card text-dark bg-light border-dark mb-3">
-                                    <div class="card-header bg-dark"> <label class="form-label" style="color:white">Closing
-                                            date</label></div>
+                                    <div class="card-header bg-dark"> <label class="form-label"
+                                            style="color:white">CONTAINER NO(STRIPPING)</label></div>
                                     <div class="card-body">
-                                        <input type="date" class="form-control border border-dark mb-3"
-                                            name="closing_date">
+                                        <input type="text" class="form-control border border-dark mb-3"
+                                            name="container_strip">
                                     </div>
                                 </div>
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
                                 <div class="card text-dark bg-light border-dark mb-3">
                                     <div class="card-header bg-dark"> <label class="form-label"
-                                            style="color:white">Remark</label></div>
+                                            style="color:white">QUANTITY</label></div>
                                     <div class="card-body">
                                         <input type="text" class="form-control border border-dark mb-3" name="remark">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
+                                <div class="card text-dark bg-light border-dark mb-3">
+                                    <div class="card-header bg-dark"> <label class="form-label" style="color:white">STUFFING
+                                            CONTAINER NO</label></div>
+                                    <div class="card-body">
+                                        <input type="text" class="form-control border border-dark mb-3"
+                                            name="container_stuf">
                                     </div>
                                 </div>
                             </div>
@@ -107,35 +108,39 @@
 
 
                     <div class="clone-in-here">
-                        <div class="row shadow bg-white clone-this" style="margin-bottom: 30px">
+                        <div class="row shadow pb-3 bg-white clone-this" style="margin-bottom: 30px">
                             <div class="fw-bold count"></div>
-                            <div class="col text-center  col-lg-6 col-md-6 col-sm-12 col-12 mb-0 ">
+                            <div class="col text-center  col-lg-12 col-md-12 col-sm-12 col-12 mb-0 ">
                                 <div class="card text-dark bg-warning border-dark">
                                     <div class="card-header bg-dark" style="color: white">Stripping</div>
                                     <div class="card-body">
-                                        <label class="form-label">No Container</label>
+                                        <label class="form-label">DESCRIPTION OF GOODS</label>
+                                        <textarea class="form-control border border-dark" id="exampleFormControlTextarea1" rows="3" name="desc[]"></textarea>
+                                        <label class="form-label">DIMENSION</label>
                                         <input type="text" class="form-control border border-dark"
-                                            style="margin-bottom: 10px" name="no_container_strip[]">
-                                        <label class="form-label">No Seal</label>
+                                            style="margin-bottom: 10px" name="dimension[]">
+                                        <label class="form-label">UNIT</label>
                                         <input type="text" class="form-control border border-dark"
-                                            style="margin-bottom: 10px" name="seal_strip[]">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col text-center col-lg-6 col-md-6 col-sm-12 col-12 ">
-                                <div class="card text-dark bg-warning border-dark mb-3 border-bottom">
-                                    <div class="card-header bg-dark " style="color: white">Stripping</div>
-                                    <div class="card-body">
-                                        <label class="form-label">No Container</label>
-                                        <input type="text" class="form-control border border-dark"
-                                            style="margin-bottom: 10px" name="no_container_staf[]">
-                                        <label class="form-label">No Seal</label>
-                                        <input type="text" class="form-control border border-dark"
-                                            style="margin-bottom: 10px" name="seal_staf[]">
-                                    </div>
-                                </div>
+                                            style="margin-bottom: 10px" name="unit[]">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <button type="button" class="btn btn-lg btn-danger rounded-circle"
+                                                id="decrement">-</button>
+                                            <label class="form-label" id="counter" style="font-size: 30px">0</label>
+                                            <button type="button" class="btn btn-lg btn-success rounded-circle"
+                                                id="increment">+</button>
 
+                                        </div>
+
+                                        <div class="card text-dark bg-light border-dark mb-3 d-none" id="TotalCard">
+                                            <div class="card-header bg-dark"> <label class="form-label"
+                                                    style="color:white">TOTAL NILAI : <label class="form-label"
+                                                        style="color:white" id="total_value"> </label> </label></div>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -173,11 +178,42 @@
                     input.setAttribute("id", input.getAttribute("id") + cloneCounter);
                     input.value = ""; // Clear input values in the new form
                 });
+                document.getElementById('TotalCard').classList.remove('d-none');
 
                 document.querySelector('.clone-in-here').appendChild(clone);
             }
         </script>
 
+        <script>
+            // Ambil elemen-elemen yang diperlukan
+            var decrementButton = document.getElementById('decrement');
+            var incrementButton = document.getElementById('increment');
+            var counterLabel = document.getElementById('counter');
+            var total = document.getElementById('total_value');
+
+            // Inisialisasi counter
+            var counterValue = 0;
+
+            // Tambahkan event listener untuk tombol decrement
+            decrementButton.addEventListener('click', function() {
+                if (counterValue > 0) {
+                    counterValue--;
+                    updateCounter();
+                }
+            });
+
+            // Tambahkan event listener untuk tombol increment
+            incrementButton.addEventListener('click', function() {
+                counterValue++;
+                updateCounter();
+            });
+
+            // Fungsi untuk memperbarui nilai counter pada label
+            function updateCounter() {
+                counterLabel.textContent = counterValue;
+                total.textContent = counterValue;
+            }
+        </script>
 
 
 

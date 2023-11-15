@@ -15,9 +15,7 @@
                         PT Samudera Indonesia
                     </div>
                     <div>
-                        <button type="button" class="btn btn-danger btn-sm">
-                            Pending
-                        </button>
+
                     </div>
 
                 </div>
