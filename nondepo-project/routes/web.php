@@ -39,14 +39,16 @@ Route::middleware(['auth'])->group(function () {
 
 
     //Route to Controller menu stuffing stripping
-    Route::get('/stuffing-stripping', [staffingstrippingController::class, 'index'])->name('index');
-    Route::get('/details', [staffingstrippingController::class, 'detail'])->name('details');
+    Route::get('/stuffing-stripping', [staffingstrippingController::class, 'index'])->name('stuffing-stripping');
+    Route::get('/details/{id}', [staffingstrippingController::class, 'detail'])->name('details');
     Route::get('/cfs_view', [staffingstrippingController::class, 'cfs_view'])->name('cfs');
     Route::post('/cfs_form', [staffingstrippingController::class, 'cfs_form'])->name('cfs_form');
+    Route::post('/form_tally', [staffingstrippingController::class, 'form_tally'])->name('form_tally');
     Route::get('/cfs_tally', [staffingstrippingController::class, 'cfs_tally'])->name('cfs_tally');
     Route::get('/cargo_release', [staffingstrippingController::class, 'cargo_release'])->name('cargo_release');
     Route::get('/cargo_receiving', [staffingstrippingController::class, 'cargo_receiving'])->name('cargo_receiving');
-
+    Route::get('/resume_cfs/{id}', [staffingstrippingController::class, 'resume_cfs'])->name('resume_cfs');
+    Route::post('/resume_worksheet', [staffingstrippingController::class, 'resume_worksheet'])->name('resume_worksheet');
 
     //Route To Analisis Data
     Route::get('/analisis', [AnalisisController::class, 'index'])->name('analisis');

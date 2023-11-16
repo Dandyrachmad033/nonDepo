@@ -115,10 +115,10 @@
                                     <div class="card-body">
                                         <label class="form-label">No Container</label>
                                         <input type="text" class="form-control border border-dark"
-                                            style="margin-bottom: 10px" name="no_container_strip[]">
+                                            style="margin-bottom: 10px" name="strip_container_no[]">
                                         <label class="form-label">No Seal</label>
                                         <input type="text" class="form-control border border-dark"
-                                            style="margin-bottom: 10px" name="seal_strip[]">
+                                            style="margin-bottom: 10px" name="strip_seal_no[]">
                                     </div>
                                 </div>
                             </div>
@@ -128,10 +128,10 @@
                                     <div class="card-body">
                                         <label class="form-label">No Container</label>
                                         <input type="text" class="form-control border border-dark"
-                                            style="margin-bottom: 10px" name="no_container_staf[]">
+                                            style="margin-bottom: 10px" name="stuf_container_no[]">
                                         <label class="form-label">No Seal</label>
                                         <input type="text" class="form-control border border-dark"
-                                            style="margin-bottom: 10px" name="seal_staf[]">
+                                            style="margin-bottom: 10px" name="stuf_seal_no[]">
                                     </div>
                                 </div>
 

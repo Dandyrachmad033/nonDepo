@@ -57,71 +57,61 @@
                     </div>
 
                     <div class="row w-100 justify-content-center">
-                        <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
-                            <a href="{{ route('details') }}" class="btn btn-block w-100" style=" cursor: pointer;">
-                                <div class="card border-dark w-100">
-                                    <div class="card-header bg-warning border-dark border-bottom text-center"
-                                        style="">
-                                        NOMOR JOB ORDER
+                        @foreach ($cfs as $data)
+                            <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
+                                <a href="{{ route('details', ['id' => $data->id_job_order]) }}" class="btn btn-block w-100"
+                                    style=" cursor: pointer;">
+                                    <div class="card border-dark w-100">
+                                        <div class="card-header bg-warning border-dark border-bottom text-center"
+                                            style="">
+                                            {{ $data->form_type }}
+                                        </div>
+                                        <div class="card-body text-dark">
+                                            <h5 class="card-title fw-bold">{{ $data->principal }}</h5>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold"
+                                                    style="text-align: left; margin-right:10px;margin-right:10px">
+                                                    Fowarder:
+                                                <p class="card-text"> {{ $data->forwarder }}</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Shipper:
+                                                <p class="card-text"> {{ $data->shipper }} </p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    cargo:
+                                                <p class="card-text">{{ $data->cargo }}</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Party:
+                                                <p class="card-text">{{ $data->party }} </p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Start Time:
+                                                <p class="card-text">{{ $data->activity_date }}</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Finish Time:
+                                                <p class="card-text">{{ $data->clossing_date }}</p>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer bg-dark border-warning " style="color: white">See Details>
+                                        </div>
                                     </div>
-                                    <div class="card-body text-dark">
-                                        <h5 class="card-title">Nama PT</h5>
-                                        <p class="card-text" style="text-align: left">Customer: </p>
-                                        <p class="card-text" style="text-align: left">Nama PT: </p>
-                                        <p class="card-text" style="text-align: left">Source: </p>
-                                        <p class="card-text" style="text-align: left">Destination: </p>
-                                        <p class="card-text" style="text-align: left">Start Time: </p>
-                                        <p class="card-text" style="text-align: left">Finish Time: </p>
-                                    </div>
-                                    <div class="card-footer bg-dark border-warning " style="color: white">See Details></div>
-                                </div>
-                            </a>
-
-                        </div>
-
-                        <div class="col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
-
-                            <a href="{{ route('details') }}" class="btn btn-block w-100" style=" cursor: pointer;">
-                                <div class="card border-dark ">
-                                    <div class="card-header bg-warning border-dark border-bottom text-center"
-                                        style="">
-                                        NOMOR JOB ORDER
-                                    </div>
-                                    <div class="card-body text-dark">
-                                        <h5 class="card-title">Nama PT</h5>
-                                        <p class="card-text" style="text-align: left">Customer: </p>
-                                        <p class="card-text" style="text-align: left">Nama PT: </p>
-                                        <p class="card-text" style="text-align: left">Source: </p>
-                                        <p class="card-text" style="text-align: left">Destination: </p>
-                                        <p class="card-text" style="text-align: left">Start Time: </p>
-                                        <p class="card-text" style="text-align: left">Finish Time: </p>
-                                    </div>
-                                    <div class="card-footer bg-dark border-warning " style="color: white">See Details></div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
-                            <a href="{{ route('details') }}" class="btn btn-block w-100" style=" cursor: pointer;">
-                                <div class="card border-dark ">
-                                    <div class="card-header bg-warning border-dark border-bottom text-center"
-                                        style="">
-                                        NOMOR JOB ORDER
-                                    </div>
-                                    <div class="card-body text-dark">
-                                        <h5 class="card-title">Nama PT</h5>
-                                        <p class="card-text" style="text-align: left">Customer: </p>
-                                        <p class="card-text" style="text-align: left">Nama PT: </p>
-                                        <p class="card-text" style="text-align: left">Source: </p>
-                                        <p class="card-text" style="text-align: left">Destination: </p>
-                                        <p class="card-text" style="text-align: left">Start Time: </p>
-                                        <p class="card-text" style="text-align: left">Finish Time: </p>
-                                    </div>
-                                    <div class="card-footer bg-dark border-warning " style="color: white">See Details>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

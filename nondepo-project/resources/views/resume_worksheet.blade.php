@@ -5,13 +5,10 @@
     @extends('layouts.sidebarcopy')
     @section('content')
         <section class="home-section">
-            <form action="{{ url('/form_tally') }}" method="POST" id="submit_cfs">
+            <form action="{{ url('/resume_worksheet') }}" method="POST" id="submit_cfs">
                 @csrf
-                <div class="text" style="font-size: 40px">CFS Tally</div>
+                <div class="text" style="font-size: 40px">CFS Worksheet</div>
                 <div class="container-fluid justify-content-center" style="margin-bottom:10px">
-
-
-
                     <div data-aos="fade-left" data-aos-duration="300">
                         <div class="row shadow bg-white pt-3">
 
@@ -21,8 +18,9 @@
                                             ACTIVITY
                                             DATE</label></div>
                                     <div class="card-body">
+                                        <input type="hidden" value="{{ $data_cfs->id_job_order }}" name="id">
                                         <input type="Date" class="form-control border border-dark mb-3 mb-3"
-                                            name="activity_date">
+                                            name="activity_date" value="{{ $tgl_activity }}">
                                     </div>
                                 </div>
 
@@ -33,7 +31,8 @@
                                             JO/ORDER
                                             NO</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="no_order">
+                                        <input type="text" class="form-control border border-dark mb-3" name="no_order"
+                                            value="{{ $data_cfs->no_order }}">
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +41,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">PRINCIPAL</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="principal">
+                                        <input type="text" class="form-control border border-dark mb-3" name="principal"
+                                            value="{{ $data_cfs->principal }}">
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +51,18 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">FORWARDER</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="forwarder">
+                                        <input type="text" class="form-control border border-dark mb-3" name="forwarder"
+                                            value="{{ $data_cfs->forwarder }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
+                                <div class="card text-dark bg-light border-dark mb-3">
+                                    <div class="card-header bg-dark"> <label class="form-label"
+                                            style="color:white">SHIPPER</label></div>
+                                    <div class="card-body">
+                                        <input type="text" class="form-control border border-dark mb-3" name="shipper"
+                                            value="{{ $data_cfs->shipper }}">
                                     </div>
                                 </div>
                             </div>
@@ -61,86 +72,82 @@
                                             style="color:white">CARGO</label>
                                     </div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="cargo">
+                                        <input type="text" class="form-control border border-dark mb-3" name="cargo"
+                                            value="{{ $data_cfs->cargo }}">
                                     </div>
                                 </div>
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
                                 <div class="card text-dark bg-light border-dark mb-3">
                                     <div class="card-header bg-dark"> <label class="form-label"
-                                            style="color:white">PARTY</label></div>
+                                            style="color:white">party</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="party">
+                                        <input type="text" class="form-control border border-dark mb-3" name="party"
+                                            value="{{ $data_cfs->party }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
+                                <div class="card text-dark bg-light border-dark mb-3">
+                                    <div class="card-header bg-dark"> <label class="form-label" style="color:white">Closing
+                                            date</label></div>
+                                    <div class="card-body">
+                                        <input type="date" class="form-control border border-dark mb-3"
+                                            name="closing_date" value="{{ $tgl_clossing }}">
                                     </div>
                                 </div>
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
                                 <div class="card text-dark bg-light border-dark mb-3">
                                     <div class="card-header bg-dark"> <label class="form-label"
-                                            style="color:white">CONTAINER NO(STRIPPING)</label></div>
+                                            style="color:white">Remark</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3"
-                                            name="container_strip">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
-                                    <div class="card-header bg-dark"> <label class="form-label"
-                                            style="color:white">QUANTITY</label></div>
-                                    <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
-                                    <div class="card-header bg-dark"> <label class="form-label" style="color:white">STUFFING
-                                            CONTAINER NO</label></div>
-                                    <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3"
-                                            name="container_stuf">
+                                        <input type="text" class="form-control border border-dark mb-3" name="remark"
+                                            value="{{ $data_cfs->remark }}">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="clone-in-here">
-                        <div class="row shadow pb-3 bg-white clone-this" style="margin-bottom: 30px">
+                    @foreach ($stufstrip as $item)
+                        <div class="row shadow bg-white clone-this" style="margin-bottom: 30px">
                             <div class="fw-bold count"></div>
-                            <div class="col text-center col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="col text-center  col-lg-6 col-md-6 col-sm-12 col-12 mb-0 ">
                                 <div class="card text-dark bg-warning border-dark">
                                     <div class="card-header bg-dark" style="color: white">Stripping</div>
                                     <div class="card-body">
-                                        <label class="form-label">DESCRIPTION OF GOODS</label>
-                                        <textarea class="form-control border border-dark" id="exampleFormControlTextarea1" rows="3" name="desc[]"></textarea>
-                                        <label class="form-label">DIMENSION</label>
+                                        <input type="hidden" name="group_id[]" value="{{ $item->group_id }}">
+                                        <label class="form-label">No Container</label>
                                         <input type="text" class="form-control border border-dark"
-                                            style="margin-bottom: 10px" name="dimension[]">
-                                        <label class="form-label">UNIT</label>
+                                            style="margin-bottom: 10px" name="strip_container_no[]"
+                                            value="{{ $item->strip_container_no }}" placeholder="no container">
+                                        <label class="form-label">No Seal</label>
                                         <input type="text" class="form-control border border-dark"
-                                            style="margin-bottom: 10px" name="unit[]">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <button type="button"
-                                                class="btn btn-lg btn-danger rounded-circle btn-decrement">-</button>
-                                            <label class="form-label counter" style="font-size: 30px">0</label>
-                                            <button type="button"
-                                                class="btn btn-lg btn-success rounded-circle btn-increment">+</button>
-                                        </div>
-                                        <div class="card text-dark bg-light border-dark mb-3 d-none" id="TotalCard">
-                                            <div class="card-header bg-dark">
-                                                <label class="form-label" style="color:white">TOTAL NILAI :
-                                                    <label class="form-label" style="color:white" class="total_value">
-                                                    </label>
-                                                </label>
-                                            </div>
-                                        </div>
+                                            style="margin-bottom: 10px" name="strip_seal_no[]"
+                                            value="{{ $item->strip_seal_no }}" placeholder="no seal">
                                     </div>
                                 </div>
                             </div>
+                            <div class="col text-center col-lg-6 col-md-6 col-sm-12 col-12 ">
+                                <div class="card text-dark bg-warning border-dark mb-3 border-bottom">
+                                    <div class="card-header bg-dark " style="color: white">Stripping</div>
+                                    <div class="card-body">
+                                        <label class="form-label">No Container</label>
+                                        <input type="text" class="form-control border border-dark"
+                                            style="margin-bottom: 10px" name="stuf_container_no[]"
+                                            value="{{ $item->stuf_container_no }}" placeholder="no container">
+                                        <label class="form-label">No Seal</label>
+                                        <input type="text" class="form-control border border-dark"
+                                            style="margin-bottom: 10px" name="stuf_seal_no[]"
+                                            value="{{ $item->stuf_seal_no }}" placeholder="no seal">
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
+                    @endforeach
+                    <div class="clone-in-here">
+
                     </div>
                 </div>
                 <div class="d-flex justify-content-between position-sticky">
@@ -169,50 +176,19 @@
                 const clone = originalForm.cloneNode(true);
                 clone.classList.remove("clone-this");
                 clone.classList.add(`clone-${cloneCounter}`);
-
                 // Change labels and input IDs if needed
                 clone.querySelectorAll("label").forEach(label => {
                     label.setAttribute("for", label.getAttribute("for") + cloneCounter);
                 });
-                clone.querySelectorAll("input, textarea").forEach(input => {
+                clone.querySelectorAll("input").forEach(input => {
                     input.setAttribute("id", input.getAttribute("id") + cloneCounter);
                     input.value = ""; // Clear input values in the new form
                 });
 
-                // Ambil elemen-elemen yang diperlukan dalam form yang di-clone
-                var decrementButton = clone.querySelector('.btn-decrement');
-                var incrementButton = clone.querySelector('.btn-increment');
-                var counterLabel = clone.querySelector('.counter');
-                var total = clone.querySelector('.total_value');
-
-                // Inisialisasi counter pada elemen clone
-                var counterValue = 0;
-
-                // Tambahkan event listener untuk tombol decrement pada elemen clone
-                decrementButton.addEventListener('click', function() {
-                    if (counterValue > 0) {
-                        counterValue--;
-                        updateCounter();
-                    }
-                });
-
-                // Tambahkan event listener untuk tombol increment pada elemen clone
-                incrementButton.addEventListener('click', function() {
-                    counterValue++;
-                    updateCounter();
-                });
-
-                // Fungsi untuk memperbarui nilai counter pada label pada elemen clone
-                function updateCounter() {
-                    counterLabel.textContent = counterValue;
-                    total.textContent = counterValue;
-                }
-
-                document.getElementById('TotalCard').classList.remove('d-none');
-
                 document.querySelector('.clone-in-here').appendChild(clone);
             }
         </script>
+
 
 
 
