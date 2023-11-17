@@ -5,13 +5,10 @@
     @extends('layouts.sidebarcopy')
     @section('content')
         <section class="home-section">
-            <form action="{{ url('/cfs_form') }}" method="POST" id="submit_cfs">
+            <form action="{{ url('/form_release') }}" method="POST" id="submit_cfs">
                 @csrf
                 <div class="text" style="font-size: 40px">Cargo Release</div>
                 <div class="container-fluid justify-content-center" style="margin-bottom:10px">
-
-
-
                     <div data-aos="fade-left" data-aos-duration="300">
                         <div class="row shadow bg-white pt-3">
 
@@ -52,7 +49,7 @@
                                             NO/SIZE</label>
                                     </div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="cargo">
+                                        <input type="text" class="form-control border border-dark mb-3" name="con_size">
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +58,7 @@
                                     <div class="card-header bg-dark"> <label class="form-label" style="color:white">VEHICLE
                                             TYPE</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="party">
+                                        <input type="text" class="form-control border border-dark mb-3" name="veh_type">
                                     </div>
                                 </div>
                             </div>
@@ -70,8 +67,7 @@
                                     <div class="card-header bg-dark"> <label class="form-label" style="color:white">VEHICLE
                                             ID</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3"
-                                            name="container_strip">
+                                        <input type="text" class="form-control border border-dark mb-3" name="veh_id">
                                     </div>
                                 </div>
                             </div>
@@ -82,14 +78,14 @@
                                     <div class="card-body">
                                         <div class="form-check">
                                             <input class="form-check-input border border-dark" type="checkbox"
-                                                value="" id="flexCheckDefault">
+                                                value="GROUNDED" id="flexCheckDefault" name="grounded">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 GROUNDED
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input border border-dark" type="checkbox"
-                                                value="" id="flexCheckDefault">
+                                                value="ON CHASIS" id="flexCheckDefault" name="on_chasis">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 ON CHASIS
                                             </label>
@@ -102,8 +98,7 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">REMARK</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3"
-                                            name="container_stuf">
+                                        <input type="text" class="form-control border border-dark mb-3" name="remark">
                                     </div>
                                 </div>
                             </div>
@@ -127,18 +122,20 @@
                                         <input type="text" class="form-control border border-dark"
                                             style="margin-bottom: 10px" name="unit[]">
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <button type="button" class="btn btn-lg btn-danger rounded-circle"
-                                                id="decrement">-</button>
-                                            <label class="form-label" id="counter" style="font-size: 30px">0</label>
-                                            <button type="button" class="btn btn-lg btn-success rounded-circle"
-                                                id="increment">+</button>
+                                            <button type="button"
+                                                class="btn btn-lg btn-danger rounded-circle btn-decrement">-</button>
+                                            <input type="hidden" name="value[]">
+                                            <label class="form-label counter" style="font-size: 30px">0</label>
+                                            <button type="button"
+                                                class="btn btn-lg btn-success rounded-circle btn-increment">+</button>
 
                                         </div>
 
-                                        <div class="card text-dark bg-light border-dark mb-3 d-none" id="TotalCard">
+                                        <div class="card text-dark bg-light border-dark mb-3" id="TotalCard">
                                             <div class="card-header bg-dark"> <label class="form-label"
-                                                    style="color:white">TOTAL NILAI : <label class="form-label"
-                                                        style="color:white" id="total_value"> </label> </label></div>
+                                                    style="color:white">TOTAL NILAI : <label
+                                                        class="form-label total_value" style="color:white"
+                                                        id="total_value"> </label> </label></div>
 
                                         </div>
                                     </div>
@@ -170,35 +167,71 @@
             function cloneForm() {
                 cloneCounter++;
                 const originalForm = document.querySelector(".clone-this");
-
                 const clone = originalForm.cloneNode(true);
                 clone.classList.remove("clone-this");
                 clone.classList.add(`clone-${cloneCounter}`);
+                // document.getElementById('TotalCard').classList.remove('d-none');
+
                 // Change labels and input IDs if needed
-                clone.querySelectorAll("label").forEach(label => {
+                clone.querySelectorAll(".total_value").forEach(label => {
                     label.setAttribute("for", label.getAttribute("for") + cloneCounter);
+                    label.textContent = "";
                 });
-                clone.querySelectorAll("input").forEach(input => {
+                clone.querySelectorAll(".counter").forEach(label => {
+                    label.setAttribute("for", label.getAttribute("for") + cloneCounter);
+                    label.textContent = "0";
+                });
+                clone.querySelectorAll("input, textarea").forEach(input => {
                     input.setAttribute("id", input.getAttribute("id") + cloneCounter);
                     input.value = ""; // Clear input values in the new form
                 });
-                document.getElementById('TotalCard').classList.remove('d-none');
+
+
+                // Ambil elemen-elemen yang diperlukan dalam form yang di-clone
+                var decrementButton = clone.querySelector('.btn-decrement');
+                var incrementButton = clone.querySelector('.btn-increment');
+                var counterLabel = clone.querySelector('.counter');
+                var total = clone.querySelector('.total_value');
+                var hiddenInput = clone.querySelector('[name="value[]"]');
+
+                // Inisialisasi counter pada elemen clone
+                var counterValue = 0;
+
+                // Tambahkan event listener untuk tombol decrement pada elemen clone
+                decrementButton.addEventListener('click', function() {
+                    if (counterValue > 0) {
+                        counterValue--;
+                        updateCounter();
+                    }
+                });
+
+                // Tambahkan event listener untuk tombol increment pada elemen clone
+                incrementButton.addEventListener('click', function() {
+                    counterValue++;
+                    updateCounter();
+                });
+
+                // Fungsi untuk memperbarui nilai counter pada label pada elemen clone
+                function updateCounter() {
+                    counterLabel.textContent = counterValue;
+                    total.textContent = counterValue;
+                    hiddenInput.value = counterValue;
+                }
+
+
 
                 document.querySelector('.clone-in-here').appendChild(clone);
             }
-        </script>
 
-        <script>
-            // Ambil elemen-elemen yang diperlukan
-            var decrementButton = document.getElementById('decrement');
-            var incrementButton = document.getElementById('increment');
-            var counterLabel = document.getElementById('counter');
-            var total = document.getElementById('total_value');
-
-            // Inisialisasi counter
+            var decrementButton = document.querySelector('.btn-decrement');
+            var incrementButton = document.querySelector('.btn-increment');
+            var counterLabel = document.querySelector('.counter');
+            var total = document.querySelector('.total_value');
+            var hiddenInput = document.querySelector('[name="value[]"]');
+            // Inisialisasi counter pada elemen clone
             var counterValue = 0;
 
-            // Tambahkan event listener untuk tombol decrement
+            // Tambahkan event listener untuk tombol decrement pada elemen clone
             decrementButton.addEventListener('click', function() {
                 if (counterValue > 0) {
                     counterValue--;
@@ -206,16 +239,17 @@
                 }
             });
 
-            // Tambahkan event listener untuk tombol increment
+            // Tambahkan event listener untuk tombol increment pada elemen clone
             incrementButton.addEventListener('click', function() {
                 counterValue++;
                 updateCounter();
             });
 
-            // Fungsi untuk memperbarui nilai counter pada label
+            // Fungsi untuk memperbarui nilai counter pada label pada elemen clone
             function updateCounter() {
                 counterLabel.textContent = counterValue;
                 total.textContent = counterValue;
+                hiddenInput.value = counterValue;
             }
         </script>
 
