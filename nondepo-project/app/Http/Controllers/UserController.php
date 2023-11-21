@@ -83,6 +83,7 @@ class UserController extends Controller
 
         if ($find_user_disable) {
             $find_user_disable->update(['status_user' => '0']);
+            return response()->json(['message' => 'Pengguna berhasil dinonaktifkan']);
             return redirect()->route('user_management');
         }
     }
@@ -98,6 +99,7 @@ class UserController extends Controller
 
         if ($find_user_enable) {
             $find_user_enable->update(['status_user' => '1']);
+            return response()->json(['message' => 'Pengguna berhasil diaktifkan']);
             return redirect()->route('user_management');
         }
     }

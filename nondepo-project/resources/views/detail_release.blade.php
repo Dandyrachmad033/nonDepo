@@ -7,7 +7,7 @@
     @extends('layouts.sidebarcopy')
     @section('content')
         <section class="home-section">
-            <div class="text" style="font-size: 40px">Details Staffing-Stripping</div>
+            <div class="text" style="font-size: 40px">Details Staffing-Stripping Cargo Release</div>
             <div class="shadow p-3 mb-5 bg-white " style="max-width: 98%">
                 <div class="border border-dark border-2">
                     <div class="border-bottom border-dark border-2 text text-center text-center d-flex justify-content-center align-items-center bg-warning"
@@ -15,12 +15,11 @@
                         PT Samudera Indonesia
                     </div>
                     <div class="container-fluid m-0 mt-2">
-                        <form action="{{ route('resume_cfs', ['id' => $data_cfs->id_job_order]) }}" method="get">
+                        <form action="{{ route('resume_cfs_release', ['id' => $data_cfs->id_job_order]) }}" method="get">
                             @csrf
-
                             <div class="row justify-content-center align-items-center h-100">
                                 <div class="col col-lg-6 col-md-6 col-sm-12 p-0 m-0 text-center">
-                                    <h4>CFS WORKSHEET</h4>
+                                    <h4>CFS CARGO RELEASE</h4>
                                 </div>
                                 <div class="col col-lg-6 col-md-6 col-sm-12 h-100">
 
@@ -62,30 +61,30 @@
                                 <div class="col col-lg-3 col-md-6 col-sm-12 col-12">
                                     <div class="card mb-4 border border-dark">
                                         <div class="card-header bg-dark text-center">
-                                            <p class="text-white m-0">FORWARDER:</p>
+                                            <p class="text-white m-0">VEHICLE TYPE:</p>
                                         </div>
                                         <div class="card-body text-center my-auto p-2">
-                                            <p class="fs-5 m-0">{{ $data_cfs->forwarder }}</p>
+                                            <p class="fs-5 m-0">{{ $data_cfs->veh_type }}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col col-lg-3 col-md-6 col-sm-12 col-12">
                                     <div class="card mb-4 border border-dark">
                                         <div class="card-header bg-dark text-center">
-                                            <p class="text-white m-0">SHIPPER:</p>
+                                            <p class="text-white m-0">VEHICLE ID:</p>
                                         </div>
                                         <div class="card-body text-center my-auto p-2">
-                                            <p class="fs-5 m-0">{{ $data_cfs->shipper }}</p>
+                                            <p class="fs-5 m-0">{{ $data_cfs->veh_id }}</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col col-lg-3 col-md-6 col-sm-12 col-12">
+                                <div class="col col-lg-3 col-md-4 col-sm-12 col-12">
                                     <div class="card mb-4 border border-dark">
                                         <div class="card-header bg-dark text-center">
-                                            <p class="text-white m-0">CARGO:</p>
+                                            <p class="text-white m-0">CONTAINER NO/SIZE:</p>
                                         </div>
                                         <div class="card-body text-center my-auto p-2">
-                                            <p class="fs-5 m-0">{{ $data_cfs->cargo }}</p>
+                                            <p class="fs-5 m-0">{{ $data_cfs->con_size }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -94,43 +93,34 @@
                                 <div class="col col-lg-3 col-md-4 col-sm-12 col-12">
                                     <div class="card mb-4 border border-dark">
                                         <div class="card-header bg-dark text-center">
-                                            <p class="text-white m-0">PARTY:</p>
+                                            <p class="text-white m-0">CONTAINER ACTIVITY TYPE (if using container):</p>
                                         </div>
                                         <div class="card-body text-center my-auto p-2">
-                                            <p class="fs-5 m-0">{{ $data_cfs->party }}</p>
+                                            <p class="fs-5 m-0">{{ $data_cfs->con_act }}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col col-lg-3 col-md-4 col-sm-12 col-12">
                                     <div class="card mb-4 border border-dark">
                                         <div class="card-header bg-dark text-center">
-                                            <p class="text-white m-0">CLOSSING DATE:</p>
-                                        </div>
-                                        <div class="card-body text-center my-auto p-2">
-                                            <p class="fs-5 m-0">{{ $data_cfs->clossing_date }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col col-lg-6 col-md-4 col-sm-12 col-12">
-                                    <div class="card mb-4 border border-dark">
-                                        <div class="card-header bg-dark text-center">
-                                            <p class="text-white m-0">REMARK:</p>
+                                            <p class="text-white m-0">Remark:</p>
                                         </div>
                                         <div class="card-body text-center my-auto p-2">
                                             <p class="fs-5 m-0">{{ $data_cfs->remark }}</p>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 
                             @php
                                 $number = 1;
                             @endphp
-                            @foreach ($data_column as $data)
+                            @foreach ($data_column_release as $data)
                                 <div class="row mb-3 g-0 h-100">
                                     <div class="col col-lg-2 col-md-2 col-sm-3 col-3">
                                         <div class="card h-100 justify-content-center">
-                                            <div class="card-header bg-warning text-center  border border-dark">
+                                            <div class="card-header bg-warning border border-dark text-center ">
                                                 No
                                             </div>
                                             <div class="card-body text-center border border-dark">
@@ -145,25 +135,25 @@
                                                     <div class="col-12 m-0 h-100">
                                                         <div class="card h-100">
                                                             <div
-                                                                class="card-header bg-warning text-center border border-dark">
-                                                                Stripping
+                                                                class="card-header bg-warning border border-dark text-center ">
+                                                                DATA
                                                             </div>
                                                             <div class="card-body border border-dark">
                                                                 <div class="row p-0 mb-3">
                                                                     <div class="col">
-                                                                        <p class="m-0">CONTAINER NO:</p>
+                                                                        <p class="m-0">DESCRIPTION OF GOODS:</p>
                                                                     </div>
                                                                     <div class="col">
-                                                                        <p class="m-0">{{ $data->strip_container_no }}
+                                                                        <p class="m-0">{{ $data->desc }}
                                                                         </p>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row p-0 mb-0">
                                                                     <div class="col">
-                                                                        <p class="m-0">SEAL NO:</p>
+                                                                        <p class="m-0">DIMENSION:</p>
                                                                     </div>
                                                                     <div class="col">
-                                                                        <p class="m-0">{{ $data->strip_seal_no }}</p>
+                                                                        <p class="m-0">{{ $data->dimension }}</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -176,25 +166,25 @@
                                                     <div class="col-12 m-0 h-100">
                                                         <div class="card h-100">
                                                             <div
-                                                                class="card-header bg-warning text-center border border-dark">
-                                                                Stuffing
+                                                                class="card-header bg-warning border border-dark text-center">
+                                                                Data
                                                             </div>
                                                             <div class="card-body border border-dark">
                                                                 <div class="row p-0 mb-3">
                                                                     <div class="col">
-                                                                        <p class="m-0">CONTAINER NO:</p>
+                                                                        <p class="m-0">UNIT:</p>
                                                                     </div>
                                                                     <div class="col">
-                                                                        <p class="m-0">{{ $data->stuf_container_no }}
+                                                                        <p class="m-0">{{ $data->unit }}
                                                                         </p>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row p-0 mb-0">
                                                                     <div class="col">
-                                                                        <p class="m-0">SEAL NO:</p>
+                                                                        <p class="m-0">JUMLAH:</p>
                                                                     </div>
                                                                     <div class="col">
-                                                                        <p class="m-0">{{ $data->stuf_seal_no }}</p>
+                                                                        <p class="m-0">{{ $data->value }}</p>
                                                                     </div>
                                                                 </div>
                                                             </div>

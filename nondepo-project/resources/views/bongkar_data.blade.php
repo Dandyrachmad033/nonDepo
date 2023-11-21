@@ -15,23 +15,23 @@
 </head>
 
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid bg-warning">
         <div class="row justify-content-center">
             <div class="  col col-lg-4 col-md-6 col-sm-12 col-12">
-                <div class="shadow p-3 mb-3 mt-3 me-4 ms-4 bg-white">
-                    <div class="card-container">
-                        <div class="card border border-dark">
-                            <div class="card-header text-center bg-dark" style="color: white">
-                                User : {{ auth()->user()->username }}
-                            </div>
-                            <div class="card-body text-center">
-                                <h5 class="card-title" style="font-size: 40px">Pcincipal : {{ $principal }}</h5>
-                            </div>
-                            <div class="card-footer bg-warning text-muted border-top border-dark text-center">
-                                <h6 style="color: black"> Action: {{ $action }}</h6>
-                            </div>
+                <div class="shadow p-3 mb-3 mt-3 me-5 ms-5 bg-white" style="border-radius: 10px">
+
+                    <div class="card border border-dark">
+                        <div class="card-header text-center bg-dark" style="color: white">
+                            User : {{ auth()->user()->username }}
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title" style="font-size: 40px">Pcincipal : {{ $principal }}</h5>
+                        </div>
+                        <div class="card-footer bg-warning text-muted border-top border-dark text-center">
+                            <h6 style="color: black"> Action: {{ $action }}</h6>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -39,15 +39,15 @@
         <div class="row justify-content-center">
             <a href="{{ route('bongkar') }}">
                 <div class="card-container" style="margin-bottom:30px">
-                    <button type="button" class="btn btn-secondary" style="width:150px" id="send_back"
+                    <button type="button" class="btn btn-success" style="width:150px" id="send_back"
                         onclick="simpanKeDatabase()">Submit & back</button>
                 </div>
             </a>
         </div>
         <div class="row" style="margin-left:25px">
             <div class="col text-center col-lg-3 col-md-6 col-sm-12 col-12">
-                <div class="shadow p-3 mb-5 bg-white" style="max-width: 18rem;">
-                    <div class=" card text-white border border-dark mb-3 " style="max-width: 18rem;">
+                <div class="shadow p-3 mb-5 bg-white" style="max-width: 18rem; border-radius: 10px">
+                    <div class=" card text-white border border-dark  " style="max-width: 18rem;">
                         <div class="card-header border-bottom border-dark bg-dark text-center">Bongkar 20
                             Feet
                         </div>
@@ -71,8 +71,8 @@
                 </div>
             </div>
             <div class="col text-center col-lg-3 col-md-6 col-sm-12 col-12">
-                <div class="shadow p-3 mb-5 bg-white" style="max-width: 18rem;">
-                    <div class=" card text-white border border-dark mb-3" style="max-width: 18rem;">
+                <div class="shadow p-3 mb-5 bg-white" style="max-width: 18rem;border-radius: 10px">
+                    <div class=" card text-white border border-dark " style="max-width: 18rem;">
                         <div class="card-header border-bottom border-dark bg-dark text-center">Bongkar 40
                             Feet
                         </div>
@@ -97,8 +97,8 @@
                 </div>
             </div>
             <div class="col text-center col-lg-3 col-md-6 col-sm-12 col-12">
-                <div class="shadow p-3 mb-5 bg-white" style="max-width: 18rem;">
-                    <div class="card text-white border border-dark mb-3" style="max-width: 18rem;">
+                <div class="shadow p-3 mb-5 bg-white" style="max-width: 18rem; border-radius: 10px">
+                    <div class="card text-white border border-dark " style="max-width: 18rem;">
                         <div class="card-header border-bottom border-dark bg-dark text-center">Muat 20
                             Feet
                         </div>
@@ -125,8 +125,8 @@
 
 
             <div class="col text-center col-lg-3 col-md-6 col-sm-12 col-12">
-                <div class="shadow p-3 mb-5 bg-white" style="max-width: 18rem">
-                    <div class="card text-white border border-dark mb-3" style="max-width: 18rem; ">
+                <div class="shadow p-3 mb-5 bg-white" style="max-width: 18rem; border-radius: 10px">
+                    <div class="card text-white border border-dark " style="max-width: 18rem; ">
                         <div class="card-header border-bottom border-dark bg-dark text-center">Muat 40
                             Feet
                         </div>
@@ -154,8 +154,8 @@
         </div>
         <div class="row" style="margin-left: 25px">
             <div class="col text-center col-lg-3 col-md-6 col-sm-12 col-12">
-                <div class="shadow p-3 mb-5 bg-white" style="max-width: 18rem">
-                    <div class="card text-white border border-dark mb-3" style="max-width: 18rem;">
+                <div class="shadow p-3 mb-5 bg-white" style="max-width: 18rem; border-radius: 10px">
+                    <div class="card text-white border border-dark " style="max-width: 18rem;">
                         <div class="card-header border-bottom border-dark bg-dark text-center">Shifting 20
                             Feet
                         </div>
@@ -180,9 +180,9 @@
                 </div>
             </div>
             <div class="col text-center col-lg-3 col-md-6 col-sm-12 col-12">
-                <div class="shadow p-3 mb-5 bg-white" style="max-width: 18rem">
+                <div class="shadow p-3 mb-5 bg-white" style="max-width: 18rem;border-radius: 10px">
 
-                    <div class="card text-white border border-dark mb-3" style="max-width: 18rem;">
+                    <div class="card text-white border border-dark " style="max-width: 18rem;">
                         <div class="card-header border-bottom border-dark bg-dark text-center">Shifting 40
                             Feet
                         </div>
@@ -207,8 +207,8 @@
                 </div>
             </div>
             <div class="col text-center col-lg-3 col-md-6 col-sm-12 col-12">
-                <div class="shadow p-3 mb-5 bg-white" style="max-width:18rem;">
-                    <div class="card text-white border border-dark mb-3" style="max-width: 18rem;">
+                <div class="shadow p-3 mb-5 bg-white" style="max-width:18rem; border-radius: 10px">
+                    <div class="card text-white border border-dark " style="max-width: 18rem;">
                         <div class="card-header border-bottom border-dark bg-dark text-center">Repair 20
                             Feet
                         </div>
@@ -234,8 +234,8 @@
                 </div>
             </div>
             <div class="col text-center col-lg-3 col-md-6 col-sm-12 col-12">
-                <div class="shadow p-3 mb-5 mt-1 bg-white" style="max-width: 18rem;">
-                    <div class="card text-white border border-dark mb-3" style="max-width: 18rem;">
+                <div class="shadow p-3 mb-5 mt-1 bg-white" style="max-width: 18rem; border-radius: 10px">
+                    <div class="card text-white border border-dark " style="max-width: 18rem;">
                         <div class="card-header border-bottom border-dark bg-dark text-center">Repair 40
                             Feet
                         </div>

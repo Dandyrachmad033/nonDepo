@@ -115,7 +115,7 @@
                             success: function(response) {
                                 console.log('Nilai berhasil diperbarui ke database');
                                 console.log(response);
-
+                                window.location.reload();
 
                             },
                             error: function(error) {
@@ -126,7 +126,6 @@
                         });
 
                         // Me-refresh halaman setelah tindakan selesai
-                        window.location.reload();
 
                     });
                 });
@@ -159,6 +158,7 @@
                             success: function(response) {
                                 console.log('Nilai berhasil diperbarui ke database');
                                 console.log(response);
+                                window.location.reload();
 
 
                             },
@@ -170,7 +170,6 @@
                         });
 
                         // Me-refresh halaman setelah tindakan selesai
-                        window.location.reload();
 
                     });
                 });

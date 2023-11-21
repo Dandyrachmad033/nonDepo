@@ -96,7 +96,7 @@
                             success: function(response) {
                                 console.log('Nilai berhasil diperbarui ke database');
                                 console.log(response);
-
+                                window.location.reload();
 
                             },
                             error: function(error) {
@@ -104,15 +104,18 @@
                                     error);
 
                             }
+
                         });
 
+
                         // Me-refresh halaman setelah tindakan selesai
-                        window.location.reload();
 
                     });
+
                 });
             });
         </script>
+
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 // Ketika tombol Nonaktifkan diklik
@@ -138,7 +141,7 @@
                             success: function(response) {
                                 console.log('Nilai berhasil diperbarui ke database');
                                 console.log(response);
-
+                                window.location.reload();
 
                             },
                             error: function(error) {
@@ -149,9 +152,10 @@
                         });
 
                         // Me-refresh halaman setelah tindakan selesai
-                        window.location.reload();
+
 
                     });
+
                 });
             });
         </script>

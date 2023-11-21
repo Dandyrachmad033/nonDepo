@@ -5,12 +5,10 @@
     @extends('layouts.sidebarcopy')
     @section('content')
         <section class="home-section">
-            <form action="{{ url('/form_release') }}" method="POST" id="submit_cfs">
+            <form action="{{ url('/resume_tally') }}" method="POST" id="submit_cfs">
                 @csrf
                 <div class="text" style="font-size: 40px">CFS Tally</div>
                 <div class="container-fluid justify-content-center" style="margin-bottom:10px">
-
-
 
                     <div data-aos="fade-left" data-aos-duration="300">
                         <div class="row shadow bg-white pt-3">
@@ -21,6 +19,7 @@
                                             ACTIVITY
                                             DATE</label></div>
                                     <div class="card-body">
+                                        <input type="hidden" value="{{ $data_cfs->id_job_order }}" name="id">
                                         <input type="Date" class="form-control border border-dark mb-3 mb-3"
                                             name="activity_date" value="{{ $tgl_activity }}">
                                     </div>
@@ -113,7 +112,9 @@
                     </div>
 
 
-
+                    @php
+                        $id_input = 1;
+                    @endphp
                     @foreach ($tally as $item)
                         <div class="row shadow pb-3 bg-white clone-this" style="margin-bottom: 30px">
                             <div class="fw-bold count"></div>
@@ -124,25 +125,32 @@
                                         <label class="form-label">DESCRIPTION OF GOODS</label>
                                         <textarea class="form-control border border-dark" id="exampleFormControlTextarea1" rows="3" name="desc[]">{{ $item->desc }}</textarea>
                                         <label class="form-label">DIMENSION</label>
+                                        <input type="hidden" name="group_id[]" value="{{ $item->group_id }}">
                                         <input type="text" class="form-control border border-dark"
                                             style="margin-bottom: 10px" name="dimension[]"
-                                            value="{{ $item->dimension }}">
+                                            value="{{ $item->dimension }}" id="dimension_{{ $id_input }}">
                                         <label class="form-label">UNIT</label>
                                         <input type="text" class="form-control border border-dark"
-                                            style="margin-bottom: 10px" name="unit[]" value="{{ $item->unit }}">
+                                            style="margin-bottom: 10px" name="unit[]" value="{{ $item->unit }}"
+                                            id="unit_{{ $id_input }}">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <button type="button"
-                                                class="btn btn-lg btn-danger rounded-circle btn-decrement">-</button>
-                                            <input type="hidden" name="value[]" value="{{ $item->value }}">
-                                            <label class="form-label counter"
-                                                style="font-size: 30px">{{ $item->value }}</label>
+                                                class="btn btn-lg btn-danger rounded-circle btn-decrement"
+                                                data-target="{{ $id_input }}">-</button>
+                                            <input type="hidden" name="value[]" value="{{ $item->value }}"
+                                                id="value_{{ $id_input }}">
+                                            <label class="form-label counter" style="font-size: 30px"
+                                                id="counter_{{ $id_input }}">{{ $item->value }}</label>
                                             <button type="button"
-                                                class="btn btn-lg btn-success rounded-circle btn-increment">+</button>
+                                                class="btn btn-lg btn-success rounded-circle btn-increment"
+                                                data-target="{{ $id_input }}">+</button>
                                         </div>
                                         <div class="card text-dark bg-light border-dark mb-3 totalCard" id="TotalCard">
                                             <div class="card-header bg-dark">
                                                 <label class="form-label" style="color:white">TOTAL NILAI :
-                                                    <label class="form-label total-value" style="color:white">
+                                                    <label class="form-label total_value total_value_{{ $id_input }}"
+                                                        style="color:white"
+                                                        id="counter_{{ $id_input }}">{{ $item->value }}
                                                     </label>
                                                 </label>
                                             </div>
@@ -151,6 +159,9 @@
                                 </div>
                             </div>
                         </div>
+                        @php
+                            $id_input += 1;
+                        @endphp
                     @endforeach
                     <div class="clone-in-here">
 
@@ -186,11 +197,11 @@
 
                 // Change labels and input IDs if needed
                 clone.querySelectorAll(".total_value").forEach(label => {
-                    label.setAttribute("for", label.getAttribute("for") + cloneCounter);
-                    label.textContent = "";
+
+                    label.textContent = "0";
                 });
                 clone.querySelectorAll(".counter").forEach(label => {
-                    label.setAttribute("for", label.getAttribute("for") + cloneCounter);
+
                     label.textContent = "0";
                 });
                 clone.querySelectorAll("input, textarea").forEach(input => {
@@ -234,35 +245,56 @@
 
                 document.querySelector('.clone-in-here').appendChild(clone);
             }
+        </script>
 
-            var decrementButton = document.querySelector('.btn-decrement');
-            var incrementButton = document.querySelector('.btn-increment');
-            var counterLabel = document.querySelector('.counter');
-            var total = document.querySelector('.total-value');
-            var hiddenInput = document.querySelector('[name="value[]"]');
-            // Inisialisasi counter pada elemen clone
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
 
-            var counterValue = parseInt(counterLabel.textContent, 10);
-            // Tambahkan event listener untuk tombol decrement pada elemen clone
-            decrementButton.addEventListener('click', function() {
-                if (counterValue > 0) {
-                    counterValue--;
-                    updateCounter();
+                document.querySelectorAll('.btn-increment').forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        var targetId = this.getAttribute('data-target');
+                        incrementCounter(targetId);
+                    });
+                });
+
+                // Mendaftarkan event listener untuk setiap tombol decrement
+                document.querySelectorAll('.btn-decrement').forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        var targetId = this.getAttribute('data-target');
+                        decrementCounter(targetId);
+                    });
+                });
+
+                function incrementCounter(targetId) {
+                    var counterLabel = document.getElementById('counter_' + targetId);
+                    var total = document.querySelector('.total_value_' + targetId);
+                    console.log(total);
+                    var hiddenInput = document.getElementById('value_' + targetId);
+                    var counterValue = parseInt(counterLabel.textContent);
+
+                    counterValue++;
+                    updateCounter(targetId, counterLabel, hiddenInput, counterValue, total);
+                }
+
+                function decrementCounter(targetId) {
+                    var counterLabel = document.getElementById('counter_' + targetId);
+                    var hiddenInput = document.getElementById('value_' + targetId);
+                    var total = document.querySelector('.total_value_' + targetId);
+                    var counterValue = parseInt(counterLabel.textContent);
+
+                    if (counterValue > 0) {
+                        counterValue--;
+                        updateCounter(targetId, counterLabel, hiddenInput, counterValue, total);
+                    }
+                }
+
+                function updateCounter(targetId, counterLabel, hiddenInput, counterValue, total) {
+                    counterLabel.textContent = counterValue;
+                    hiddenInput.value = counterValue;
+                    total.textContent = counterValue;
+                    // Update total_value or perform any other necessary updates
                 }
             });
-
-            // Tambahkan event listener untuk tombol increment pada elemen clone
-            incrementButton.addEventListener('click', function() {
-                counterValue++;
-                updateCounter();
-            });
-
-            // Fungsi untuk memperbarui nilai counter pada label pada elemen clone
-            function updateCounter() {
-                counterLabel.textContent = counterValue;
-                total.textContent = counterValue;
-                hiddenInput.value = counterValue;
-            }
         </script>
 
 

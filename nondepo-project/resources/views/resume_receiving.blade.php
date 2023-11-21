@@ -5,12 +5,10 @@
     @extends('layouts.sidebarcopy')
     @section('content')
         <section class="home-section">
-            <form action="{{ url('/form_receiving') }}" method="POST" id="submit_cfs">
+            <form action="{{ url('/resume_receiving') }}" method="POST" id="submit_cfs">
                 @csrf
-                <div class="text" style="font-size: 40px">Cargo Receiving</div>
+                <div class="text" style="font-size: 40px">CFS Release</div>
                 <div class="container-fluid justify-content-center" style="margin-bottom:10px">
-
-
 
                     <div data-aos="fade-left" data-aos-duration="300">
                         <div class="row shadow bg-white pt-3">
@@ -18,11 +16,12 @@
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
                                 <div class="card text-dark bg-light border-dark mb-3">
                                     <div class="card-header bg-dark"><label class="form-label" style="color: white">
-                                            RECEIVING
+                                            ACTIVITY
                                             DATE</label></div>
                                     <div class="card-body">
+                                        <input type="hidden" value="{{ $data_cfs->id_job_order }}" name="id">
                                         <input type="Date" class="form-control border border-dark mb-3 mb-3"
-                                            name="activity_date">
+                                            name="activity_date" value="{{ $tgl_activity }}">
                                     </div>
                                 </div>
 
@@ -33,185 +32,147 @@
                                             JO/ORDER
                                             NO</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="no_order">
+                                        <input type="text" class="form-control border border-dark mb-3" name="no_order"
+                                            value="{{ $data_cfs->no_order }}">
                                     </div>
                                 </div>
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
                                 <div class="card text-dark bg-light border-dark mb-3">
                                     <div class="card-header bg-dark"> <label class="form-label"
-                                            style="color:white">PRINCIPAL/CUSTOMER</label></div>
+                                            style="color:white">PRINCIPAL</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="principal">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
-                                    <div class="card-header bg-dark"><label class="form-label" style="color:white">CONTAINER
-                                            NO/SIZE</label>
-                                    </div>
-                                    <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="con_size">
+                                        <input type="text" class="form-control border border-dark mb-3" name="principal"
+                                            value="{{ $data_cfs->principal }}">
                                     </div>
                                 </div>
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
                                 <div class="card text-dark bg-light border-dark mb-3">
                                     <div class="card-header bg-dark"> <label class="form-label" style="color:white">VEHICLE
-                                            TYPE</label></div>
+                                            TYPE:</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="veh_type">
+                                        <input type="text" class="form-control border border-dark mb-3" name="veh_type"
+                                            value="{{ $data_cfs->veh_type }}">
                                     </div>
                                 </div>
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
                                 <div class="card text-dark bg-light border-dark mb-3">
-                                    <div class="card-header bg-dark"> <label class="form-label" style="color:white">VEHICLE
-                                            ID</label></div>
+                                    <div class="card-header bg-dark"><label class="form-label" style="color:white">VEHICLE
+                                            ID</label>
+                                    </div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="veh_id">
+                                        <input type="text" class="form-control border border-dark mb-3" name="veh_id"
+                                            value="{{ $data_cfs->veh_id }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
+                                <div class="card text-dark bg-light border-dark mb-3">
+                                    <div class="card-header bg-dark"> <label class="form-label"
+                                            style="color:white">CONTAINER NO/SIZE</label></div>
+                                    <div class="card-body">
+                                        <input type="text" class="form-control border border-dark mb-3" name="con_size"
+                                            value="{{ $data_cfs->con_size }}">
                                     </div>
                                 </div>
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
                                 <div class="card text-dark bg-light border-dark mb-3">
                                     <div class="card-header bg-dark"> <label class="form-label"
-                                            style="color:white">STRIPPING TYPE</label></div>
+                                            style="color:white">CONTAINER ACTIVITY TYPE</label></div>
                                     <div class="card-body">
-                                        <div class="form-check">
-                                            <input class="form-check-input border border-dark" type="checkbox"
-                                                value="TO WAREHOUSE" id="flexCheckDefault" name="warehouse">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                TO WAREHOUSE
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input border border-dark" type="checkbox"
-                                                value="TO YARD" id="flexCheckDefault" name="yard">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                TO YARD
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input border border-dark" type="checkbox"
-                                                value="TO CONTAINER" id="flexCheckDefault" name="to_con">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                TO CONTAINER
-                                            </label>
-                                        </div>
+                                        <input type="text" class="form-control border border-dark mb-3" name="con_act"
+                                            value="{{ $data_cfs->con_act }}">
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
-                                    <div class="card-header bg-dark"> <label class="form-label"
-                                            style="color:white">CONTAINER ACTIVITY TYPE (if using container)</label></div>
-                                    <div class="card-body">
-                                        <div class="form-check">
-                                            <input class="form-check-input border border-dark" type="checkbox"
-                                                value="GROUNDED" id="flexCheckDefault" name="grounded">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                GROUNDED
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input border border-dark" type="checkbox"
-                                                value=" ON CHASIS" id="flexCheckDefault" name="on_chasis">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                ON CHASIS
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
                                 <div class="card text-dark bg-light border-dark mb-3">
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">REMARK</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3"
-                                            name="remark">
+                                        <input type="text" class="form-control border border-dark mb-3" name="remark"
+                                            value="{{ $data_cfs->remark }}">
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
 
 
-                    <div class="clone-in-here">
+                    @php
+                        $id_input = 1;
+                    @endphp
+                    @foreach ($receiving as $item)
                         <div class="row shadow pb-3 bg-white clone-this" style="margin-bottom: 30px">
                             <div class="fw-bold count"></div>
-                            <div class="col text-center  col-lg-12 col-md-12 col-sm-12 col-12 mb-0 ">
+                            <div class="col text-center col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
                                 <div class="card text-dark bg-warning border-dark">
                                     <div class="card-header bg-dark" style="color: white">Stripping</div>
                                     <div class="card-body">
                                         <label class="form-label">DESCRIPTION OF GOODS</label>
-                                        <textarea class="form-control border border-dark" id="exampleFormControlTextarea1" rows="3" name="desc[]"></textarea>
+                                        <textarea class="form-control border border-dark" id="exampleFormControlTextarea1" rows="3" name="desc[]">{{ $item->desc }}</textarea>
                                         <label class="form-label">DIMENSION</label>
+                                        <input type="hidden" name="group_id[]" value="{{ $item->group_id }}">
                                         <input type="text" class="form-control border border-dark"
-                                            style="margin-bottom: 10px" name="dimension[]">
+                                            style="margin-bottom: 10px" name="dimension[]"
+                                            value="{{ $item->dimension }}" id="dimension_{{ $id_input }}">
                                         <label class="form-label">UNIT</label>
                                         <input type="text" class="form-control border border-dark"
-                                            style="margin-bottom: 10px" name="unit[]">
+                                            style="margin-bottom: 10px" name="unit[]" value="{{ $item->unit }}"
+                                            id="unit_{{ $id_input }}">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <button type="button"
                                                 class="btn btn-lg btn-danger rounded-circle btn-decrement"
-                                                id="decrement">-</button>
-                                            <input type="hidden" name="value[]">
-                                            <label class="form-label counter" id="counter"
-                                                style="font-size: 30px">0</label>
+                                                data-target="{{ $id_input }}">-</button>
+                                            <input type="hidden" name="value[]" value="{{ $item->value }}"
+                                                id="value_{{ $id_input }}">
+                                            <label class="form-label counter" style="font-size: 30px"
+                                                id="counter_{{ $id_input }}">{{ $item->value }}</label>
                                             <button type="button"
                                                 class="btn btn-lg btn-success rounded-circle btn-increment"
-                                                id="increment">+</button>
-
+                                                data-target="{{ $id_input }}">+</button>
                                         </div>
-
-                                        <div class="card text-dark bg-light border-dark mb-3 d-none" id="TotalCard">
-                                            <div class="card-header bg-dark"> <label class="form-label"
-                                                    style="color:white">TOTAL NILAI : <label
-                                                        class="form-label total_value" style="color:white"
-                                                        id="total_value"> </label> </label></div>
-
+                                        <div class="card text-dark bg-light border-dark mb-3 totalCard" id="TotalCard">
+                                            <div class="card-header bg-dark">
+                                                <label class="form-label" style="color:white">TOTAL NILAI :
+                                                    <label class="form-label total_value total_value_{{ $id_input }}"
+                                                        style="color:white"
+                                                        id="counter_{{ $id_input }}">{{ $item->value }}
+                                                    </label>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
+                        @php
+                            $id_input += 1;
+                        @endphp
+                    @endforeach
+                    <div class="clone-in-here">
+
                     </div>
+
                 </div>
                 <div class="d-flex justify-content-between position-sticky">
                     <button type="button" class="btn btn-success position-sticky bottom-0 end mb-3"
                         onclick="cloneForm()">Add
                         Form</button>
 
-                    <button type="submit" class="btn btn-success position-sticky bottom-0 end mb-3" id="send_cfs"
-                        data-bs-toggle="modal" data-bs-target="#submit_receiving">Submit</button>
+                    <button type="submit" class="btn btn-success position-sticky bottom-0 end mb-3"
+                        id="send_cfs">Submit</button>
                 </div>
             </form>
         </section>
 
 
-        <div class="modal fade" id="submit_receiving" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body bg-warning text-center" style="color:black">
-                        Data Berhasil Didapatkan
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-        </script>
+
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script>
@@ -227,11 +188,11 @@
 
                 // Change labels and input IDs if needed
                 clone.querySelectorAll(".total_value").forEach(label => {
-                    label.setAttribute("for", label.getAttribute("for") + cloneCounter);
-                    label.textContent = "";
+
+                    label.textContent = "0";
                 });
                 clone.querySelectorAll(".counter").forEach(label => {
-                    label.setAttribute("for", label.getAttribute("for") + cloneCounter);
+
                     label.textContent = "0";
                 });
                 clone.querySelectorAll("input, textarea").forEach(input => {
@@ -275,35 +236,56 @@
 
                 document.querySelector('.clone-in-here').appendChild(clone);
             }
+        </script>
 
-            var decrementButton = document.querySelector('.btn-decrement');
-            var incrementButton = document.querySelector('.btn-increment');
-            var counterLabel = document.querySelector('.counter');
-            var total = document.querySelector('.total_value');
-            var hiddenInput = document.querySelector('[name="value[]"]');
-            // Inisialisasi counter pada elemen clone
-            var counterValue = 0;
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
 
-            // Tambahkan event listener untuk tombol decrement pada elemen clone
-            decrementButton.addEventListener('click', function() {
-                if (counterValue > 0) {
-                    counterValue--;
-                    updateCounter();
+                document.querySelectorAll('.btn-increment').forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        var targetId = this.getAttribute('data-target');
+                        incrementCounter(targetId);
+                    });
+                });
+
+                // Mendaftarkan event listener untuk setiap tombol decrement
+                document.querySelectorAll('.btn-decrement').forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        var targetId = this.getAttribute('data-target');
+                        decrementCounter(targetId);
+                    });
+                });
+
+                function incrementCounter(targetId) {
+                    var counterLabel = document.getElementById('counter_' + targetId);
+                    var total = document.querySelector('.total_value_' + targetId);
+                    console.log(total);
+                    var hiddenInput = document.getElementById('value_' + targetId);
+                    var counterValue = parseInt(counterLabel.textContent);
+
+                    counterValue++;
+                    updateCounter(targetId, counterLabel, hiddenInput, counterValue, total);
+                }
+
+                function decrementCounter(targetId) {
+                    var counterLabel = document.getElementById('counter_' + targetId);
+                    var hiddenInput = document.getElementById('value_' + targetId);
+                    var total = document.querySelector('.total_value_' + targetId);
+                    var counterValue = parseInt(counterLabel.textContent);
+
+                    if (counterValue > 0) {
+                        counterValue--;
+                        updateCounter(targetId, counterLabel, hiddenInput, counterValue, total);
+                    }
+                }
+
+                function updateCounter(targetId, counterLabel, hiddenInput, counterValue, total) {
+                    counterLabel.textContent = counterValue;
+                    hiddenInput.value = counterValue;
+                    total.textContent = counterValue;
+                    // Update total_value or perform any other necessary updates
                 }
             });
-
-            // Tambahkan event listener untuk tombol increment pada elemen clone
-            incrementButton.addEventListener('click', function() {
-                counterValue++;
-                updateCounter();
-            });
-
-            // Fungsi untuk memperbarui nilai counter pada label pada elemen clone
-            function updateCounter() {
-                counterLabel.textContent = counterValue;
-                total.textContent = counterValue;
-                hiddenInput.value = counterValue;
-            }
         </script>
 
 

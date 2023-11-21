@@ -144,15 +144,30 @@
                         onclick="cloneForm()">Add
                         Form</button>
 
-                    <button type="submit" class="btn btn-success position-sticky bottom-0 end mb-3"
-                        id="send_cfs">Submit</button>
+                    <button type="submit" class="btn btn-success position-sticky bottom-0 end mb-3" id="send_cfs"
+                        data-bs-toggle="modal" data-bs-target="#submit_worksheet">Submit</button>
                 </div>
             </form>
         </section>
 
+        {{-- modal confirm submit --}}
+        <div class="modal fade" id="submit_worksheet" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body bg-warning text-center" style="color:black">
+                        Data Berhasil Didapatkan
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
 
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script>

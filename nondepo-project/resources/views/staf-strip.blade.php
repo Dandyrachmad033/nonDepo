@@ -210,9 +210,9 @@
                             @endif
                             @if ($data->form_type == 'Cargo Release')
                                 <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
-                                    <a href="{{ route('details_tally', ['id' => $data->id_job_order]) }}"
+                                    <a href="{{ route('details_release', ['id' => $data->id_job_order]) }}"
                                         class="btn btn-block w-100" style=" cursor: pointer;">
-                                        <div class="card border-dark w-100" style="height: 338px">
+                                        <div class="card border-dark w-100">
                                             <div class="card-header bg-warning border-dark border-bottom text-center"
                                                 style="">
                                                 {{ $data->form_type }}
@@ -250,6 +250,13 @@
                                                 <div class="d-flex">
                                                     <p class="card-text fw-bold"
                                                         style="text-align: left; margin-right:10px">
+                                                        CONTAINER NO/SIZE:
+                                                    <p class="card-text">{{ $data->con_size }}</p>
+                                                    </p>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <p class="card-text fw-bold"
+                                                        style="text-align: left; margin-right:10px">
                                                         Remark:
                                                     <p class="card-text">{{ $data->remark }}</p>
                                                     </p>
@@ -272,9 +279,9 @@
                             @endif
                             @if ($data->form_type == 'Cargo Receiving')
                                 <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
-                                    <a href="{{ route('details_tally', ['id' => $data->id_job_order]) }}"
+                                    <a href="{{ route('details_receiving', ['id' => $data->id_job_order]) }}"
                                         class="btn btn-block w-100" style=" cursor: pointer;">
-                                        <div class="card border-dark w-100" style="height: 338px">
+                                        <div class="card border-dark w-100">
                                             <div class="card-header bg-warning border-dark border-bottom text-center"
                                                 style="">
                                                 {{ $data->form_type }}
@@ -321,6 +328,13 @@
                                                         style="text-align: left; margin-right:10px">
                                                         STRIPPING TYPE:
                                                     <p class="card-text">{{ $data->strip_type }}</p>
+                                                    </p>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <p class="card-text fw-bold"
+                                                        style="text-align: left; margin-right:10px">
+                                                        CONTAINER NO/SIZE:
+                                                    <p class="card-text">{{ $data->con_size }}</p>
                                                     </p>
                                                 </div>
                                                 <div class="d-flex">

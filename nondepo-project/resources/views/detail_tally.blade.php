@@ -129,7 +129,7 @@
                                 <div class="row mb-3 g-0 h-100">
                                     <div class="col col-lg-2 col-md-2 col-sm-3 col-3">
                                         <div class="card h-100 justify-content-center">
-                                            <div class="card-header bg-dark text-center text-white">
+                                            <div class="card-header bg-warning border border-dark text-center ">
                                                 No
                                             </div>
                                             <div class="card-body text-center border border-dark">
@@ -143,7 +143,8 @@
                                                 <div class="row h-100 text-start">
                                                     <div class="col-12 m-0 h-100">
                                                         <div class="card h-100">
-                                                            <div class="card-header bg-dark text-white">
+                                                            <div
+                                                                class="card-header bg-warning border border-dark text-center ">
                                                                 DATA
                                                             </div>
                                                             <div class="card-body border border-dark">
@@ -173,7 +174,8 @@
                                                 <div class="row h-100 text-start">
                                                     <div class="col-12 m-0 h-100">
                                                         <div class="card h-100">
-                                                            <div class="card-header bg-dark text-white border border-dark">
+                                                            <div
+                                                                class="card-header bg-warning border border-dark text-center">
                                                                 Data
                                                             </div>
                                                             <div class="card-body border border-dark">

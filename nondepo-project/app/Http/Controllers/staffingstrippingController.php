@@ -19,7 +19,7 @@ class staffingstrippingController extends Controller
 {
     public function index()
     {
-        $db_cfs = cfs::orderBy('id_job_order', 'desc')->get();
+        $db_cfs = cfs::orderBy('activity_date', 'asc')->get();
 
         $menu = m_module::with('sub_m_module')->get();
         return view('staf-strip', ['showdata' => $menu, 'cfs' => $db_cfs]);
@@ -44,6 +44,25 @@ class staffingstrippingController extends Controller
             cfs::leftJoin('stufstrip_tally', 'cfs.id_job_order', '=', 'stufstrip_tally.id_job_order_tally')->where('stufstrip_tally.id_job_order_tally', $id_tally)
             ->select('stufstrip_tally.desc', 'stufstrip_tally.dimension', 'stufstrip_tally.unit', 'stufstrip_tally.value')->get();
         return view('detail_tally', ['data_cfs' => $data_tally, 'showdata' => $menu, 'data_column_tally' => $data_column_tally]);
+    }
+
+    public function detail_release($id_release)
+    {
+        $menu = m_module::with('sub_m_module')->get();
+        $data_release = cfs::where('id_job_order', $id_release)->first();
+        $data_column_release =
+            cfs::leftJoin('stufstrip_release', 'cfs.id_job_order', '=', 'stufstrip_release.id_job_order_release')->where('stufstrip_release.id_job_order_release', $id_release)
+            ->select('stufstrip_release.desc', 'stufstrip_release.dimension', 'stufstrip_release.unit', 'stufstrip_release.value')->get();
+        return view('detail_release', ['data_cfs' => $data_release, 'showdata' => $menu, 'data_column_release' => $data_column_release]);
+    }
+
+    public function detail_receiving($id_receiving)
+    {
+        $menu = m_module::with('sub_m_module')->get();
+        $data_receiving = cfs::where('id_job_order', $id_receiving)->first();
+        $data_column_receiving = cfs::leftJoin('stufstrip_receiving', 'cfs.id_job_order', '=', 'stufstrip_receiving.id_job_order_receiving')->where('stufstrip_receiving.id_job_order_receiving', $id_receiving)
+            ->select('stufstrip_receiving.desc', 'stufstrip_receiving.dimension', 'stufstrip_receiving.unit', 'stufstrip_receiving.value')->get();
+        return view('detail_receiving', ['data_cfs' => $data_receiving, 'showdata' => $menu, 'data_column_receiving' => $data_column_receiving]);
     }
 
     public function cfs_view()
@@ -101,8 +120,42 @@ class staffingstrippingController extends Controller
         }
 
         $data_column_tally = cfs::leftJoin('stufstrip_tally', 'cfs.id_job_order', '=', 'stufstrip_tally.id_job_order_tally')->where('stufstrip_tally.id_job_order_tally', $tally_id)
-            ->select('stufstrip_tally.desc', 'stufstrip_tally.dimension', 'stufstrip_tally.unit', 'stufstrip_tally.value')->get();
+            ->select('stufstrip_tally.desc', 'stufstrip_tally.dimension', 'stufstrip_tally.unit', 'stufstrip_tally.value', 'stufstrip_tally.group_id')->get();
         return view('resume_tally', ['data_cfs' => $resume_id, 'tally' => $data_column_tally, 'showdata' => $menu, 'tgl_activity' => $format_activity]);
+    }
+
+    public function resume_cfs_release($release_id)
+    {
+        $menu = m_module::with('sub_m_module')->get();
+        $resume_id = cfs::where('id_job_order', $release_id)->first();
+        if ($resume_id) {
+            $tanggal_activity = is_string($resume_id->activity_date) ? new \DateTime($resume_id->activity_date) : $resume_id->activity_date;
+            $format_activity = $tanggal_activity->format('Y-m-d');
+        } else {
+            // Setel $tanggal ke null atau nilai default lainnya jika tidak ada rekaman yang sesuai
+            $tanggal = null;
+        }
+
+        $data_column_release = cfs::leftJoin('stufstrip_release', 'cfs.id_job_order', '=', 'stufstrip_release.id_job_order_release')->where('stufstrip_release.id_job_order_release', $release_id)
+            ->select('stufstrip_release.desc', 'stufstrip_release.dimension', 'stufstrip_release.unit', 'stufstrip_release.value', 'stufstrip_release.group_id')->get();
+        return view('resume_release', ['data_cfs' => $resume_id, 'release' => $data_column_release, 'showdata' => $menu, 'tgl_activity' => $format_activity]);
+    }
+
+    public function resume_cfs_receiving($receiving_id)
+    {
+        $menu = m_module::with('sub_m_module')->get();
+        $resume_id = cfs::where('id_job_order', $receiving_id)->first();
+        if ($resume_id) {
+            $tanggal_activity = is_string($resume_id->activity_date) ? new \DateTime($resume_id->activity_date) : $resume_id->activity_date;
+            $format_activity = $tanggal_activity->format('Y-m-d');
+        } else {
+            // Setel $tanggal ke null atau nilai default lainnya jika tidak ada rekaman yang sesuai
+            $tanggal = null;
+        }
+
+        $data_column_receiving = cfs::leftJoin('stufstrip_receiving', 'cfs.id_job_order', '=', 'stufstrip_receiving.id_job_order_receiving')->where('stufstrip_receiving.id_job_order_receiving', $receiving_id)
+            ->select('stufstrip_receiving.desc', 'stufstrip_receiving.dimension', 'stufstrip_receiving.unit', 'stufstrip_receiving.value', 'stufstrip_receiving.group_id')->get();
+        return view('resume_receiving', ['data_cfs' => $resume_id, 'receiving' => $data_column_receiving, 'showdata' => $menu, 'tgl_activity' => $format_activity]);
     }
 
     public function cfs_form(Request $request)
@@ -204,7 +257,6 @@ class staffingstrippingController extends Controller
             'is_complete',
         ];
         $group_id = $request->input('group_id');
-
         cfs::where('id_job_order', $id)->update($cfs_data);
         $total_index = count($request->input('strip_container_no'));
         $index = 0;
@@ -299,6 +351,8 @@ class staffingstrippingController extends Controller
 
     public function resume_tally(Request $request)
     {
+
+        $id_tally = $request->input('id');
         $activity_date = $request->input('activity_date');
         $no_order = $request->input('no_order');
         $principal = $request->input('principal');
@@ -308,6 +362,57 @@ class staffingstrippingController extends Controller
         $container_strip = $request->input('container_strip');
         $quantity = intval($request->input('quantity'));
         $container_stuf = $request->input('container_stuf');
+
+        $cfs_tally = [
+            'activity_date' => $activity_date,
+            'no_order' => $no_order,
+            'principal' => $principal,
+            'forwarder' => $forwarder,
+            'cargo' => $cargo,
+            'party' => $party,
+            'strip_container' => $container_strip,
+            'stuf_container' => $container_stuf,
+            'quantity' => $quantity,
+
+        ];
+
+        cfs::where('id_job_order', $id_tally)->update($cfs_tally);
+        $total_index_tally = count($request->input('desc'));
+
+        $columnTally = [
+            'desc',
+            'dimension',
+            'unit',
+            'value',
+            'is_complete'
+        ];
+        $group_id_tally = $request->input('group_id');
+
+        $index_tally = 0;
+        for ($index_tally; $index_tally < $total_index_tally; $index_tally++) {
+            $optionalData = [];
+            $fix_temp = '1';
+            $id_group = $group_id_tally[$index_tally];
+            foreach ($columnTally as $column) {
+                if ($request->has($column)) {
+                    $values = $request->input($column);
+                    $valueToStore = isset($values[$index_tally]) ? $values[$index_tally] : null;
+                    if ($valueToStore == null) {
+                        $fix_temp = '0';
+                    }
+                    $optionalData[$column] = $valueToStore;
+                } else {
+                    $optionalData[$column] = $fix_temp;
+                }
+            }
+            if ($id_group == 0) {
+                tally_stufstrip::create($optionalData);
+                $last_id = tally_stufstrip::latest()->first()->idstufstrip_tally;
+                tally_stufstrip::where('idstufstrip_tally', $last_id)->update(['group_id' => $last_id, 'id_job_order_tally' => $id_tally]);
+            }
+            tally_stufstrip::where('idstufstrip_tally', $id_group)->update($optionalData);
+        }
+        return redirect()->route('stuffing-stripping');
     }
 
     public function form_release(Request $request)
@@ -371,6 +476,72 @@ class staffingstrippingController extends Controller
             release_stufstrip::create(array_merge($Data_release, ['id_job_order_release' => $last_id]));
             $group_id = release_stufstrip::where('desc', $Data_release['desc'])->value('idstufstrip_release');
             release_stufstrip::where('idstufstrip_release', $group_id)->update(['group_id' => $group_id]);
+        }
+        return redirect()->route('stuffing-stripping');
+    }
+
+    public function resume_release(Request $request)
+    {
+        $id_release = $request->input('id');
+        $activity_date = $request->input('activity_date');
+        $no_order = $request->input('no_order');
+        $principal = $request->input('principal');
+        $veh_type  = $request->input('veh_type');
+        $veh_id = intval($request->input('veh_id'));
+        $con_size = $request->input('con_size');
+        $con_act = $request->input('con_act');
+        $remark = $request->input('remark');
+
+
+
+        $cfs_release = [
+            'activity_date' => $activity_date,
+            'no_order' => $no_order,
+            'principal' => $principal,
+            'veh_type' => $veh_type,
+            'veh_id' => $veh_id,
+            'con_size' => $con_size,
+            'con_act' => $con_act,
+            'remark' => $remark,
+
+
+        ];
+
+        cfs::where('id_job_order', $id_release)->update($cfs_release);
+        $total_index_release = count($request->input('desc'));
+
+        $columnrelease = [
+            'desc',
+            'dimension',
+            'unit',
+            'value',
+            'is_complete'
+        ];
+        $group_id_release = $request->input('group_id');
+
+        $index_release = 0;
+        for ($index_release; $index_release < $total_index_release; $index_release++) {
+            $optionalData = [];
+            $fix_temp = '1';
+            $id_group = $group_id_release[$index_release];
+            foreach ($columnrelease as $column) {
+                if ($request->has($column)) {
+                    $values = $request->input($column);
+                    $valueToStore = isset($values[$index_release]) ? $values[$index_release] : null;
+                    if ($valueToStore == null) {
+                        $fix_temp = '0';
+                    }
+                    $optionalData[$column] = $valueToStore;
+                } else {
+                    $optionalData[$column] = $fix_temp;
+                }
+            }
+            if ($id_group == 0) {
+                release_stufstrip::create($optionalData);
+                $last_id = release_stufstrip::latest()->first()->idstufstrip_release;
+                release_stufstrip::where('idstufstrip_release', $last_id)->update(['group_id' => $last_id, 'id_job_order_release' => $id_release]);
+            }
+            release_stufstrip::where('idstufstrip_release', $id_group)->update($optionalData);
         }
         return redirect()->route('stuffing-stripping');
     }
@@ -449,6 +620,72 @@ class staffingstrippingController extends Controller
             receiving_stufstrip::create(array_merge($Data_receiving, ['id_job_order_receiving' => $last_id]));
             $group_id = receiving_stufstrip::where('desc', $Data_receiving['desc'])->value('idstufstrip_receiving');
             receiving_stufstrip::where('idstufstrip_receiving', $group_id)->update(['group_id' => $group_id]);
+        }
+        return redirect()->route('stuffing-stripping');
+    }
+
+    public function resume_receiving(Request $request)
+    {
+        $id_receiving = $request->input('id');
+        $activity_date = $request->input('activity_date');
+        $no_order = $request->input('no_order');
+        $principal = $request->input('principal');
+        $veh_type  = $request->input('veh_type');
+        $veh_id = intval($request->input('veh_id'));
+        $con_size = $request->input('con_size');
+        $con_act = $request->input('con_act');
+        $remark = $request->input('remark');
+
+
+
+        $cfs_receiving = [
+            'activity_date' => $activity_date,
+            'no_order' => $no_order,
+            'principal' => $principal,
+            'veh_type' => $veh_type,
+            'veh_id' => $veh_id,
+            'con_size' => $con_size,
+            'con_act' => $con_act,
+            'remark' => $remark,
+
+
+        ];
+
+        cfs::where('id_job_order', $id_receiving)->update($cfs_receiving);
+        $total_index_receiving = count($request->input('desc'));
+
+        $columnreceiving = [
+            'desc',
+            'dimension',
+            'unit',
+            'value',
+            'is_complete'
+        ];
+        $group_id_receiving = $request->input('group_id');
+
+        $index_receiving = 0;
+        for ($index_receiving; $index_receiving < $total_index_receiving; $index_receiving++) {
+            $optionalData = [];
+            $fix_temp = '1';
+            $id_group = $group_id_receiving[$index_receiving];
+            foreach ($columnreceiving as $column) {
+                if ($request->has($column)) {
+                    $values = $request->input($column);
+                    $valueToStore = isset($values[$index_receiving]) ? $values[$index_receiving] : null;
+                    if ($valueToStore == null) {
+                        $fix_temp = '0';
+                    }
+                    $optionalData[$column] = $valueToStore;
+                } else {
+                    $optionalData[$column] = $fix_temp;
+                }
+            }
+            if ($id_group == 0) {
+                receiving_stufstrip::create($optionalData);
+                $last_id = receiving_stufstrip::latest()->first()->idstufstrip_receiving;
+                receiving_stufstrip::where('idstufstrip_receiving', $last_id)->update(['group_id' => $last_id, 'id_job_order_receiving' => $id_receiving]);
+            }
+            receiving_stufstrip::where('idstufstrip_receiving', $id_group)->update($optionalData);
         }
         return redirect()->route('stuffing-stripping');
     }

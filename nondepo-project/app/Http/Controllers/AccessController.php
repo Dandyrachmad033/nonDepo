@@ -29,9 +29,11 @@ class AccessController extends Controller
         $search_name_module = m_module::where('module_name', $moduleName)->first();
         if ($search_name_module) {
             $search_name_module->update(['module_status' => '0']);
+            return response()->json(['message' => 'Module berhasil dinonaktifkan']);
             return redirect()->route('access_managament');
         } else {
             m_sub_module::where('module_name', $moduleName)->update(['module_status' => '0']);
+            return response()->json(['message' => 'Module berhasil dinonaktifkan']);
             return redirect()->route('access_managament');
         }
     }
@@ -43,9 +45,11 @@ class AccessController extends Controller
         $search_name_module = m_module::where('module_name', $moduleName)->first();
         if ($search_name_module) {
             $search_name_module->update(['module_status' => '1']);
+            return response()->json(['message' => 'Module berhasil diaktifkan']);
             return redirect()->route('access_managament');
         } else {
             m_sub_module::where('module_name', $moduleName)->update(['module_status' => '1']);
+            return response()->json(['message' => 'Module berhasil diaktifkan']);
             return redirect()->route('access_managament');
         }
     }
