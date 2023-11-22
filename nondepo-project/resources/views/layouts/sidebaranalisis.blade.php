@@ -10,7 +10,6 @@
         {{-- Sidebar Start --}}
         <div id="side_nav" class="sidebar">
             <div class="header-box px-2 pt-3 pb-4 d-flex justify-content-between">
-
                 <header style="height: 170px; margin-top:-20px;margin-left:-8px; padding-right:8px;">
                     <button type="button" class="btn btn-warning btn-sm text-right close-btn-rn d-md-none d-block "
                         style="margin-left: 15em; margin-top:20px;">

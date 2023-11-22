@@ -11,14 +11,14 @@ class UserController extends Controller
     public function index()
     {
         $db = m_module::all();
-        $user = Users::select('username', 'email', 'phone', 'role', 'status_user')->get();
+        $user = Users::select('username', 'email', 'phone', 'role', 'status_user', 'id')->get();
         return view('user_management', ['showdata' => $db, 'users' => $user]);
     }
 
-    public function edituser($name)
+    public function edituser($id_user)
     {
         $db = m_module::all();
-        $data_user = Users::where('username', $name)->first();
+        $data_user = Users::where('id', $id_user)->first();
         if ($data_user) {
             return view('edit_user_management', ['showdata' => $db, 'data' => $data_user]);
         }
@@ -35,12 +35,17 @@ class UserController extends Controller
         ]);
 
         if ($validatedData) {
-            Users::where('username', $validatedData['username'])->update([
-                'username' => $validatedData['username'],
-                'email' => $validatedData['email'],
-                'role' => $validatedData['role'],
-                'phone' => $validatedData['phone'],
-            ]);
+            $id_user = $request->input('id');
+            $username = $request->input('username');
+            $role = $request->input('role');
+            $email = $request->input('email');
+            $phone = $request->input('phone');
+            $data = [
+                'username' => $username,
+                'email' => $email,
+                'role' => $role,
+                'phone' => $phone,
+            ];
 
             if ($request->filled('password')) {
                 $validate = $request->validate([
@@ -65,7 +70,7 @@ class UserController extends Controller
                     ]);
                 }
             }
-
+            Users::where('id', $id_user)->update($data);
             return redirect()->route('user_management');
         } else {
             return redirect()->route('user_management');

@@ -26,6 +26,7 @@
                                     <label>Username</label>
                                     <input type="text" class="form-control" name="username"
                                         value="{{ $data->username }}">
+                                    <input type="hidden" class="form-control" name="id" value="{{ $data->id }}">
                                 </div>
                                 <div class="form-group col-md-6" style="width:400px">
                                     <label>Email</label>

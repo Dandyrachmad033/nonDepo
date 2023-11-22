@@ -5,7 +5,7 @@
     @extends('layouts.sidebarcopy')
     @section('content')
         <section class="home-section">
-            <form action="{{ url('/form_receiving') }}" method="POST" id="submit_cfs">
+            <form method="POST" id="submit_cfs">
                 @csrf
                 <div class="text" style="font-size: 40px">Cargo Receiving</div>
                 <div class="container-fluid justify-content-center" style="margin-bottom:10px">
@@ -189,7 +189,11 @@
                         Form</button>
 
                     <button type="submit" class="btn btn-success position-sticky bottom-0 end mb-3" id="send_cfs"
-                        data-bs-toggle="modal" data-bs-target="#submit_receiving">Submit</button>
+                        data-bs-toggle="modal" data-bs-target="#pending_worksheet"
+                        formaction="{{ url('/form_receiving') }}">Pending</button>
+
+                    <button type="submit" class="btn btn-success position-sticky bottom-0 end mb-3" id="send_cfs"
+                        formaction="{{ url('/finish_form_receiving') }}">submit</button>
                 </div>
             </form>
         </section>

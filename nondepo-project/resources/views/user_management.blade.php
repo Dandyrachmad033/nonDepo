@@ -55,7 +55,7 @@
                                 <td class="text-center">{{ $user->role }}</td>
                                 <td class="text-center">{{ $user->status_user }}</td>
                                 <td class="text-center"><a
-                                        href="{{ route('edit_user_management', ['name' => $user->username]) }}"><button
+                                        href="{{ route('edit_user_management', ['id_user' => $user->id]) }}"><button
                                             type="button" class="btn btn-warning btn-sm">
                                             Edit User
                                         </button>

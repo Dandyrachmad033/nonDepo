@@ -23,7 +23,7 @@
                         <div class="justify-content-between "
                             style="display: flex; align-items:center; margin-top:-20px; padding-right:50px">
                             <div class="text fw-bold" style="font-size: 30px">
-                                Pending Order
+                                Finished Order
                             </div>
                             <div>
                                 <img src="{{ asset('images/flag-samudera.png') }}" alt="samudera" class="img-fluid"
@@ -36,7 +36,7 @@
 
                     <div class="row w-100 justify-content-center">
                         @foreach ($cfs as $data)
-                            @if ($data->form_type == 'CFS Worksheet' and $data->finish_status != 'Finished')
+                            @if ($data->form_type == 'CFS Worksheet' and $data->finish_status == 'Finished')
                                 <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
                                     <a href="{{ route('details', ['id' => $data->id_job_order]) }}"
                                         class="btn btn-block w-100" style=" cursor: pointer;">
@@ -103,6 +103,13 @@
                                                     <p class="card-text">{{ $data->remark }}</p>
                                                     </p>
                                                 </div>
+                                                <div class="d-flex">
+                                                    <p class="card-text fw-bold"
+                                                        style="text-align: left; margin-right:10px">
+                                                        STATUS ORDER:
+                                                    <p class="card-text">{{ $data->finish_status }}</p>
+                                                    </p>
+                                                </div>
                                             </div>
                                             <div class="card-footer bg-dark border-warning " style="color: white">See
                                                 Details>
@@ -111,7 +118,7 @@
                                     </a>
                                 </div>
                             @endif
-                            @if ($data->form_type == 'CFS Tally' and $data->finish_status != 'Finished')
+                            @if ($data->form_type == 'CFS Tally' and $data->finish_status == 'Finished')
                                 <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
                                     <a href="{{ route('details_tally', ['id' => $data->id_job_order]) }}"
                                         class="btn btn-block w-100" style=" cursor: pointer;">
@@ -178,6 +185,13 @@
                                                     <p class="card-text">{{ $data->quantity }}</p>
                                                     </p>
                                                 </div>
+                                                <div class="d-flex">
+                                                    <p class="card-text fw-bold"
+                                                        style="text-align: left; margin-right:10px">
+                                                        STATUS ORDER:
+                                                    <p class="card-text">{{ $data->finish_status }}</p>
+                                                    </p>
+                                                </div>
                                             </div>
                                             <div class="card-footer bg-dark border-warning " style="color: white">See
                                                 Details>
@@ -186,7 +200,7 @@
                                     </a>
                                 </div>
                             @endif
-                            @if ($data->form_type == 'Cargo Release' and $data->finish_status != 'Finished')
+                            @if ($data->form_type == 'Cargo Release' and $data->finish_status == 'Finished')
                                 <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
                                     <a href="{{ route('details_release', ['id' => $data->id_job_order]) }}"
                                         class="btn btn-block w-100" style=" cursor: pointer;">
@@ -246,6 +260,13 @@
                                                     <p class="card-text">{{ $data->activity_date }}</p>
                                                     </p>
                                                 </div>
+                                                <div class="d-flex">
+                                                    <p class="card-text fw-bold"
+                                                        style="text-align: left; margin-right:10px">
+                                                        STATUS ORDER:
+                                                    <p class="card-text">{{ $data->finish_status }}</p>
+                                                    </p>
+                                                </div>
 
                                             </div>
                                             <div class="card-footer bg-dark border-warning " style="color: white">See
@@ -255,7 +276,7 @@
                                     </a>
                                 </div>
                             @endif
-                            @if ($data->form_type == 'Cargo Receiving')
+                            @if ($data->form_type == 'Cargo Receiving' and $data->finish_status == 'Finished')
                                 <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
                                     <a href="{{ route('details_receiving', ['id' => $data->id_job_order]) }}"
                                         class="btn btn-block w-100" style=" cursor: pointer;">
@@ -320,6 +341,13 @@
                                                         style="text-align: left; margin-right:10px">
                                                         Activity Date:
                                                     <p class="card-text">{{ $data->activity_date }}</p>
+                                                    </p>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <p class="card-text fw-bold"
+                                                        style="text-align: left; margin-right:10px">
+                                                        STATUS ORDER:
+                                                    <p class="card-text">{{ $data->finish_status }}</p>
                                                     </p>
                                                 </div>
 

@@ -40,6 +40,8 @@ Route::middleware(['auth'])->group(function () {
 
     //Route to Controller menu stuffing stripping
     Route::get('/stuffing-stripping', [staffingstrippingController::class, 'index'])->name('stuffing-stripping');
+    Route::get('/form_cfs', [staffingstrippingController::class, 'index_form'])->name('form_cfs');
+    Route::get('/finish_stufstrip', [staffingstrippingController::class, 'index_finish'])->name('finish_stufstrip');
     Route::get('/details/{id}', [staffingstrippingController::class, 'detail'])->name('details');
     Route::get('/details_tally/{id}', [staffingstrippingController::class, 'detail_tally'])->name('details_tally');
     Route::get('/details_release/{id}', [staffingstrippingController::class, 'detail_release'])->name('details_release');
@@ -60,6 +62,16 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/resume_tally', [staffingstrippingController::class, 'resume_tally'])->name('resume_tally');
     Route::post('/resume_release', [staffingstrippingController::class, 'resume_release'])->name('resume_release');
     Route::post('/resume_receiving', [staffingstrippingController::class, 'resume_receiving'])->name('resume_receiving');
+    Route::post('/finish_form_worksheet', [staffingstrippingController::class, 'finish_form_worksheet'])->name('finish_form_worksheet');
+    Route::post('/finish_form_tally', [staffingstrippingController::class, 'finish_form_tally'])->name('finish_form_tallyt');
+    Route::post('/finish_form_release', [staffingstrippingController::class, 'finish_form_release'])->name('finish_form_release');
+    Route::post('/finish_form_receiving', [staffingstrippingController::class, 'finish_form_receiving'])->name('finish_form_receiving');
+    Route::post('/finish_resume_worksheet', [staffingstrippingController::class, 'finish_resume_worksheet'])->name('finish_resume_worksheet');
+    Route::post('/finish_resume_tally', [staffingstrippingController::class, 'finish_resume_tally'])->name('finish_resume_tally');
+    Route::post('/finish_resume_release', [staffingstrippingController::class, 'finish_resume_release'])->name('finish_resume_release');
+    Route::post('/finish_resume_receiving', [staffingstrippingController::class, 'finish_resume_receiving'])->name('finish_resume_receiving');
+
+
     //Route To Analisis Data
     Route::get('/analisis', [AnalisisController::class, 'index'])->name('analisis');
 
@@ -94,8 +106,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/enable', [AccessController::class, 'enable_access'])->name('enable');
 
     // Route to Controller User management
-    Route::get('/user_management', [userController::class, 'index'])->name('user_management')->name('user_management');
-    Route::get('/edit_user_management/{name}', [userController::class, 'edituser'])->name('edit_user_management');
+    Route::get('/user_management', [userController::class, 'index'])->name('user_management');
+    Route::get('/edit_user_management/{id_user}', [userController::class, 'edituser'])->name('edit_user_management');
     Route::post('/change_password', [userController::class, 'change_password']);
     Route::post('/disable_user', [userController::class, 'disable_user'])->name('disable_user');
     Route::post('/enable_user', [userController::class, 'enable_user'])->name('enable_user');

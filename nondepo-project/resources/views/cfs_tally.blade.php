@@ -5,7 +5,7 @@
     @extends('layouts.sidebarcopy')
     @section('content')
         <section class="home-section">
-            <form action="{{ url('/form_tally') }}" method="POST" id="submit_cfs">
+            <form method="POST" id="submit_cfs">
                 @csrf
                 <div class="text" style="font-size: 40px">CFS Tally</div>
                 <div class="container-fluid justify-content-center" style="margin-bottom:10px">
@@ -150,17 +150,21 @@
                         Form</button>
 
                     <button type="submit" class="btn btn-success position-sticky bottom-0 end mb-3" id="send_cfs"
-                        data-bs-toggle="modal" data-bs-target="#submit_tally">Submit</button>
+                        data-bs-toggle="modal" data-bs-target="#pending_worksheet"
+                        formaction="{{ url('/form_tally') }}">Pending</button>
+
+                    <button type="submit" class="btn btn-success position-sticky bottom-0 end mb-3" id="send_cfs"
+                        formaction="{{ url('/finish_form_tally') }}">submit</button>
                 </div>
             </form>
         </section>
 
-        <div class="modal fade" id="submit_tally" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="pending_tally" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body bg-warning text-center" style="color:black">
-                        Data Berhasil Didapatkan
+                        Data Berhasil Dipending
                     </div>
 
                 </div>

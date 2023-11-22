@@ -155,8 +155,13 @@
                         onclick="cloneForm()">Add
                         Form</button>
 
-                    <button type="submit" class="btn btn-success position-sticky bottom-0 end mb-3"
-                        id="send_cfs">Submit</button>
+                    <button type="submit" class="btn btn-success position-sticky bottom-0 end mb-3" id="send_cfs"
+                        data-bs-toggle="modal" data-bs-target="#pending_worksheet"
+                        formaction="{{ url('/resume_worksheet') }}">Pending</button>
+
+                    <button type="submit" class="btn btn-success position-sticky bottom-0 end mb-3" id="send_cfs"
+                        data-bs-toggle="modal" data-bs-target="#submit_worksheet"
+                        formaction="{{ url('/finish_resume_worksheet') }}">submit</button>
                 </div>
             </form>
         </section>

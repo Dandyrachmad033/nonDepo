@@ -29,7 +29,8 @@ class cfs extends Model
         'veh_type',
         'veh_id',
         'con_act',
-        'strip_type'
+        'strip_type',
+        'finish_status'
     ];
     public $timestamps = true;
 }

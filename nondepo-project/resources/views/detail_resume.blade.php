@@ -210,11 +210,13 @@
                                 @endphp
                             @endforeach
 
-                            <div class="d-flex justify-content-end position-sticky">
-                                <button type="submit" class="btn btn-warning position-sticky bottom-0 end mb-3">
-                                    Resume Pending
-                                </button>
-                            </div>
+                            @if ($data_cfs->finish_status == 'Pending')
+                                <div class="d-flex justify-content-end position-sticky">
+                                    <button type="submit" class="btn btn-warning position-sticky bottom-0 end mb-3">
+                                        Resume Pending
+                                    </button>
+                                </div>
+                            @endif
                         </form>
                     </div>
 

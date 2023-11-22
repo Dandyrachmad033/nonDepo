@@ -5,7 +5,7 @@
     @extends('layouts.sidebarcopy')
     @section('content')
         <section class="home-section">
-            <form action="{{ url('/cfs_form') }}" method="POST" id="submit_cfs">
+            <form method="POST" id="submit_cfs">
                 @csrf
                 <div class="text" style="font-size: 40px">CFS Worksheet</div>
                 <div class="container-fluid justify-content-center" style="margin-bottom:10px">
@@ -105,10 +105,24 @@
                         </div>
                     </div>
 
-
                     <div class="clone-in-here">
                         <div class="row shadow bg-white clone-this" style="margin-bottom: 30px">
-                            <div class="fw-bold count"></div>
+                            <div class="col text-center col-lg-12 col-md-12 col-sm-12 col-12 mb-2 ">
+                                <div class="card text-dark border-dark">
+                                    <div class="card-header bg-dark fw-bold d-flex justify-content-between align-items-center number-clone"
+                                        style="color: white">
+                                        <div class="col-6 text-end">
+                                            <span>1</span>
+
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <button type="button" class="btn btn-danger remove-button clone-button"
+                                                onclick="removeClone(this)">X</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col text-center  col-lg-6 col-md-6 col-sm-12 col-12 mb-0 ">
                                 <div class="card text-dark bg-warning border-dark">
                                     <div class="card-header bg-dark" style="color: white">Stripping</div>
@@ -145,18 +159,23 @@
                         Form</button>
 
                     <button type="submit" class="btn btn-success position-sticky bottom-0 end mb-3" id="send_cfs"
-                        data-bs-toggle="modal" data-bs-target="#submit_worksheet">Submit</button>
+                        data-bs-toggle="modal" data-bs-target="#pending_worksheet"
+                        formaction="{{ url('/cfs_form') }}">Pending</button>
+
+                    <button type="submit" class="btn btn-success position-sticky bottom-0 end mb-3" id="send_cfs"
+                        data-bs-toggle="modal" data-bs-target="#submit_worksheet"
+                        formaction="{{ url('/finish_form_worksheet') }}">submit</button>
                 </div>
             </form>
         </section>
 
         {{-- modal confirm submit --}}
-        <div class="modal fade" id="submit_worksheet" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="pending_worksheet" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body bg-warning text-center" style="color:black">
-                        Data Berhasil Didapatkan
+                        Data Berhasil Dipending
                     </div>
 
                 </div>
@@ -171,7 +190,7 @@
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script>
-            let cloneCounter = 0;
+            let cloneCounter = 1;
 
             function cloneForm() {
                 cloneCounter++;
@@ -189,7 +208,25 @@
                     input.value = ""; // Clear input values in the new form
                 });
 
+                const removeButton = clone.querySelector(".remove-button");
+                removeButton.addEventListener("click", function() {
+                    removeClone(clone);
+                });
+
+                const cloneButton = clone.querySelector(".clone-button");
+                cloneButton.addEventListener("click", function() {
+                    cloneForm();
+                });
+
+                const cardHeader = clone.querySelector(".number-clone");
+                cardHeader.textContent = cloneCounter;
+
                 document.querySelector('.clone-in-here').appendChild(clone);
+            }
+
+            function removeClone(button) {
+                // Menghapus elemen yang di-clone saat tombol close ditekan
+                button.closest('.clone-this').remove();
             }
         </script>
 
