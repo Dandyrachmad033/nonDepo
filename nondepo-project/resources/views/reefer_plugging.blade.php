@@ -24,21 +24,26 @@
                 <div class="table-container shadow p-3 mb-5 bg-white rounded" style="max-width: 98%">
 
                     <div class="justify-content-between " style="display: flex; align-items:center;">
-                        <div>
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">
-                                Start Plugging
-                            </button>
 
-                        </div>
-                        <div>
+                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal" onclick="openModal()">
+                            Start Plugging
+                        </button>
+
+
+                        <div class="images-logos">
                             <img src="{{ asset('images/flag-samudera.png') }}" alt="samudera" class="img-fluid"
                                 style="border: 0px; height:50px; width:250px;">
                         </div>
+                        <form class="d-flex align-items-center" id="searchForm">
+                            <input id="searchInput" class="form-control me-2 border border-warning border-2" type="search"
+                                placeholder="Search" aria-label="Search">
+                            <button class="btn btn-warning" type="submit" onclick="searchTable(event)">Search</button>
+                        </form>
                     </div>
 
 
-                    <table class="table table-striped border-warning" style="width: 100%">
+                    <table class="table table-striped border-warning border border-2" style="width: 100%" id="dataTable">
                         <thead>
                             <tr class="bg-warning text-center">
                                 <th>No</th>
@@ -54,33 +59,35 @@
                         </thead>
                         <tbody>
                             @php
-                                $counter = 1;
+                                $counter = ($data->currentPage() - 1) * $data->perPage() + 1;
                             @endphp
                             @foreach ($data as $index => $item)
-                                @if ($item->status == 'Plugging')
-                                    <tr class="text-center">
-                                        <td>{{ $counter }}</td>
-                                        <td>{{ $item->no_container }}</td>
-                                        <td>{{ $item->set_temp }}</td>
-                                        <td>{{ $item->sup_temp }}</td>
-                                        <td>{{ $item->ret_temp }}</td>
-                                        <td>{{ $item->remark }}</td>
-                                        <td class="text-center">{{ $item->time }}</td>
-                                        <td class="text-center"> <button type="button" class="btn btn-danger btn-sm"
-                                                data-bs-toggle="modal" data-bs-target="#end_plugging"
-                                                data-no-container="{{ $item->no_container }}"
-                                                data-set-temp="{{ $item->set_temp }}" data-remark="{{ $item->remark }}">
-                                                End Plugging
-                                            </button></td>
-                                        <td class="text-center">{{ $item->status }}</td>
-                                    </tr>
-                                    @php
-                                        $counter++;
-                                    @endphp
-                                @endif
+                                <tr class="text-center">
+                                    <td>{{ $counter }}</td>
+                                    <td>{{ $item['no_container'] }}</td>
+                                    <td>{{ $item['set_temp'] }}</td>
+                                    <td>{{ $item['sup_temp'] }}</td>
+                                    <td>{{ $item['ret_temp'] }}</td>
+                                    <td>{{ $item['remark'] }}</td>
+                                    <td class="text-center">{{ date('d-m-Y h:i:s', strtotime($item->time)) }}</td>
+                                    <td class="text-center"> <button onclick="openModalEnd(this)" type="button"
+                                            class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#end_plugging" data-no-container="{{ $item->no_container }}"
+                                            data-set-temp="{{ $item->set_temp }}" data-remark="{{ $item->remark }}">
+                                            End Plugging
+                                        </button></td>
+                                    <td class="text-center">{{ $item->status }}</td>
+                                </tr>
+                                @php
+                                    $counter++;
+                                @endphp
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $data->links() }}
+                    <div>
+
+                    </div>
                 </div>
 
 
@@ -96,7 +103,8 @@
             <div class="modal-content border border-warning">
                 <div class="modal-header bg-warning">
                     <h5 class="modal-title" id="exampleModalLabel">Plugging</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        onclick="closeModal()"></button>
                 </div>
                 <div class="modal-body">
                     <form action="{{ url('/start_plugging') }}" method="POST" id="start_plug"
@@ -212,6 +220,10 @@
                             <input class="form-control border border-1 border-dark" type="file" id="photo"
                                 name="photo[]" multiple>
                         </div>
+                        <div>
+                            {{ session('error') }}
+                        </div>
+
                         <img id="snapshot" height="100"
                             style="display: none; border-radius: 0; width: 150px; max-width: 100%; margin: 20px auto;" />
 
@@ -220,7 +232,8 @@
                 </div>
                 <div class="modal-footer bg-dark d-flex justify-content-between">
 
-                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal"
+                        onclick="closeModal()">Close</button>
                     <button id="camera-button" class="btn btn-warning btn-sm " data-bs-target="#opencamera"
                         data-bs-toggle="modal" data-bs-dismiss="modal">
                         <i class='bx bxs-camera bg-warning' style="font-size: 30px; margin-bottom:0"></i>
@@ -264,8 +277,9 @@
         <div class="modal-dialog">
             <div class="modal-content border border-warning">
                 <div class="modal-header bg-warning">
-                    <h5 class="modal-title" id="exampleModalLabel">Plugging</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="exampleModalLabel">End Plugging</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        onclick="closeModalEnd()"></button>
                 </div>
                 <div class="modal-body">
                     <form action="{{ url('/end_plugging') }}" method="POST" id="end_plug_end"
@@ -354,7 +368,8 @@
                     </form>
                 </div>
                 <div class="modal-footer bg-dark d-flex justify-content-between">
-                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal"
+                        onclick="closeModalEnd()">Close</button>
                     <button id="camera-button2" class="btn btn-warning btn-sm" data-bs-target="#opencamera"
                         data-bs-toggle="modal" data-bs-dismiss="modal">
                         <i class='bx bxs-camera bg-warning' style="font-size: 30px; margin-bottom:0"></i>
@@ -364,9 +379,6 @@
             </div>
         </div>
     </div>
-
-
-
 
     {{-- Modal Success Input Data --}}
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -379,39 +391,36 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        // Fungsi untuk membuka modal dan menyimpan status ke dalam localStorage
+    </script>
 
-
+    <!-- Masukkan di bagian head atau sebelum tag penutup body -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
     </script>
-    <script>
-        document.getElementById("send_data").addEventListener("click", function() {
-            var form1 = document.getElementById("start_plug");
-            var successModal = new bootstrap.Modal(document.getElementById("successModal"));
-            successModal.show();
-            form1.submit();
-
-        });
-    </script>
-    <script>
-        document.getElementById("send_data_end").addEventListener("click", function() {
-            var form2 = document.getElementById("end_plug_end");
-            form2.submit();
-            var successModal = new bootstrap.Modal(document.getElementById("successModal"));
-            successModal.show();
-        });
-    </script>
-    <script>
-        // Jika terdapat pesan kesalahan validasi, tampilkan kembali modal
-        @if ($errors->any())
-            $(document).ready(function() {
-                $('#exampleModal').modal('show');
+    <script src="{{ asset('js/plugging/button_submit.js') }}"></script>
+    <script src="{{ asset('js/plugging/modal.js') }}"></script>
+    <script src="{{ asset('js/plugging/search_button.js') }}"></script>
+    @if (session('error'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var modal = document.getElementById('exampleModal');
+                if (modal) {
+                    modal.classList.add('show');
+                    modal.style.display = 'block';
+                }
             });
-        @endif
-    </script>
+        </script>
+    @endif
+
+
+
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 

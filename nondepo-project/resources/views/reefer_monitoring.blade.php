@@ -21,25 +21,30 @@
             <div class="text" style="font-size: 30px">Monitoring Reefer</div>
             <div data-aos="fade-left" data-aos-duration="300">
                 <div class="table-container shadow p-3 mb-5 bg-white " style="max-width: 98%">
-                    @if (auth()->user()->role == 'admin')
-                        <div class="justify-content-between " style="display: flex; align-items:center;">
-                            <div>
-                                <a href="{{ route('not_monitoring') }}">
-                                    <button type="button" class="btn btn-danger btn-sm">
-                                        Not Monitoring
-                                    </button>
-                                </a>
+                    <div class="justify-content-between " style="display: flex; align-items:center;">
 
-                            </div>
-                            <div>
-                                <img src="{{ asset('images/flag-samudera.png') }}" alt="samudera" class="img-fluid"
-                                    style="border: 0px; height:50px; width:250px;">
-                            </div>
+                        @if (auth()->user()->role == 'admin')
+                            <a href="{{ route('not_monitoring') }}">
+                                <button type="button" class="btn btn-danger btn-sm">
+                                    Not Monitoring
+                                </button>
+                            </a>
+                        @endif
+
+
+                        <div class="images-logos">
+                            <img src="{{ asset('images/flag-samudera.png') }}" alt="samudera" class="img-fluid"
+                                style="border: 0px; height:50px; width:250px;">
                         </div>
-                    @endif
+                        <form class="d-flex align-items-center" id="searchForm">
+                            <input id="searchInput" class="form-control me-2 border border-warning border-2" type="search"
+                                placeholder="Search" aria-label="Search">
+                            <button class="btn btn-warning" type="submit" onclick="searchTable(event)">Search</button>
+                        </form>
+                    </div>
 
                     {{-- table Data Monitoring --}}
-                    <table class="table table-striped  border-warning " style="width: 100%">
+                    <table class="table table-striped  border-warning border border-2 " style="width: 100%" id="dataTable">
                         <thead>
                             <tr class="bg-warning text-center">
                                 <th>No</th>
@@ -71,7 +76,7 @@
                                         $currentShift = 'shift 3';
                                     }
                                 @endphp
-                                @if ($item->status == 'plugging' and $item->monitor == 'not' and $item->shift == $currentShift)
+                                @if ($item->status == 'plugging' and $item->shift == $currentShift)
                                     @php
                                         // Memeriksa apakah tanggal pada waktu pemantauan sama dengan tanggal hari ini (25-09-2023)
                                         $monitoringDate = Carbon\Carbon::parse($item->time_monitoring)->format('Y-m-d');
@@ -86,10 +91,12 @@
                                             <td>{{ $item->sup_temp }}</td>
                                             <td>{{ $item->ret_temp }}</td>
                                             <td>{{ $item->remark }}</td>
-                                            <td class="text-center">{{ $item->time_monitoring }}</td>
+                                            <td class="text-center">
+                                                {{ date('d-m-Y h:i:s', strtotime($item->time_monitoring)) }}</td>
 
-                                            <td class="text-center"><button type="button" class="btn btn-success btn-sm"
-                                                    data-bs-toggle="modal" data-bs-target="#monitoring_plug"
+                                            <td class="text-center"><button onclick="openModalMonitor(this)" type="button"
+                                                    class="btn btn-success btn-sm" data-bs-toggle="modal"
+                                                    data-bs-target="#monitoring_plug"
                                                     data-no-container="{{ $item->no_container }}"
                                                     data-set-temp="{{ $item->set_temp }}"
                                                     data-last-monitor="{{ $item->time_monitoring }}">
@@ -116,7 +123,8 @@
             <div class="modal-content border border-warning">
                 <div class="modal-header bg-warning">
                     <h5 class="modal-title" id="exampleModalLabel">Monitoring</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        onclick="closeModalMonitor()"></button>
                 </div>
                 <div class="modal-body">
                     <form action="{{ url('/monitorings') }}" method="POST" id="start_monitor"
@@ -211,7 +219,8 @@
                     </form>
                 </div>
                 <div class="modal-footer bg-dark d-flex justify-content-between">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        onclick="closeModalMonitor()">Close</button>
                     <button id="camera-button" class="btn btn-warning btn-sm " data-bs-target="#opencamera"
                         data-bs-toggle="modal" data-bs-dismiss="modal">
                         <i class='bx bxs-camera bg-warning' style="font-size: 30px; margin-bottom:0"></i>
@@ -265,32 +274,11 @@
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     // Jika terdapat pesan kesalahan validasi, tampilkan kembali modal
 </script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="{{ asset('js/monitoring/button_submit.js') }}"></script>
+<script src="{{ asset('js/monitoring/modal_monitor.js') }}"></script>
+<script src="{{ asset('js/monitoring/search_monitor.js') }}"></script>
 
-<script>
-    document.getElementById("send_data").addEventListener("click", function() {
-        var form1 = document.getElementById("start_monitor");
-        form1.submit();
-        var successModal = new bootstrap.Modal(document.getElementById("successModal"));
-        successModal.show();
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        $('#monitoring_plug').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget);
-            var no_container = button.data('no-container');
-            var set_temp = button.data('set-temp');
-            var last_monitor = button.data('last-monitor');
-
-            var modal = $(this);
-            modal.find('#modal_no_container').val(no_container);
-            modal.find('#modal_set_temp').val(set_temp);
-            modal.find('#modal_last_monitor').val(last_monitor);
-
-        });
-    });
-</script>
 <script>
     @if ($errors->any())
         $(document).ready(function() {

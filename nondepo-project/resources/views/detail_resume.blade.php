@@ -9,6 +9,11 @@
         <section class="home-section">
             <div class="text" style="font-size: 40px">Details Staffing-Stripping</div>
             <div class="shadow p-3 mb-5 bg-white " style="max-width: 98%">
+
+                <button type="button" class="btn btn-secondary btn-sm mb-2" onclick="goBack()">
+                    back
+                </button>
+
                 <div class="border border-dark border-2">
                     <div class="border-bottom border-dark border-2 text text-center text-center d-flex justify-content-center align-items-center bg-warning"
                         style="height: 50px">
@@ -17,28 +22,27 @@
                     <div class="container-fluid m-0 mt-2">
                         <form action="{{ route('resume_cfs', ['id' => $data_cfs->id_job_order]) }}" method="get">
                             @csrf
-
                             <div class="row justify-content-center align-items-center h-100">
                                 <div class="col col-lg-6 col-md-6 col-sm-12 p-0 m-0 text-center">
-                                    <h4>CFS WORKSHEET</h4>
+                                    <h4 class="fw-bold">CFS WORKSHEET</h4>
                                 </div>
                                 <div class="col col-lg-6 col-md-6 col-sm-12 h-100">
 
                                     <div class="row">
                                         <div class="col col-lg-6 col-md-6 col-sm-12">
-                                            <div class="card mb-4 border border-dark">
+                                            <div class="card mb-4 border border-dark border-2">
                                                 <div class="card-header bg-dark text-center">
-                                                    <p class="text-white m-0">ACTIVITY DATE:</p>
+                                                    <p class="text-white m-0 fw-bold">ACTIVITY DATE:</p>
                                                 </div>
                                                 <div class="card-body text-center my-auto p-2">
-                                                    <p class="fs-5 m-0">{{ $data_cfs->activity_date }}</p>
+                                                    <p class="fs-5 m-0 text-center">{{ $data_cfs->activity_date }}</p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col col-lg-6 col-md-6 col-sm-12">
-                                            <div class="card mb-4 border border-dark">
+                                            <div class="card mb-4 border border-dark border-2">
                                                 <div class="card-header bg-dark text-center">
-                                                    <p class="text-white m-0">JO/ORDER NO:</p>
+                                                    <p class="text-white m-0 fw-bold">JO/ORDER NO:</p>
                                                 </div>
                                                 <div class="card-body text-center my-auto p-2">
                                                     <p class="fs-5 m-0">{{ $data_cfs->no_order }}</p>
@@ -50,9 +54,9 @@
                             </div>
                             <div class="row">
                                 <div class="col col-lg-3 col-md-6 col-sm-12 col-12">
-                                    <div class="card mb-4 border border-dark">
+                                    <div class="card mb-4 border border-dark border-2">
                                         <div class="card-header bg-dark text-center">
-                                            <p class="text-white m-0">PRINCIPAL:</p>
+                                            <p class="text-white m-0 fw-bold">PRINCIPAL:</p>
                                         </div>
                                         <div class="card-body text-center my-auto p-2">
                                             <p class="fs-5 m-0">{{ $data_cfs->principal }}</p>
@@ -60,9 +64,9 @@
                                     </div>
                                 </div>
                                 <div class="col col-lg-3 col-md-6 col-sm-12 col-12">
-                                    <div class="card mb-4 border border-dark">
+                                    <div class="card mb-4 border border-dark border-2">
                                         <div class="card-header bg-dark text-center">
-                                            <p class="text-white m-0">FORWARDER:</p>
+                                            <p class="text-white m-0 fw-bold">FORWARDER:</p>
                                         </div>
                                         <div class="card-body text-center my-auto p-2">
                                             <p class="fs-5 m-0">{{ $data_cfs->forwarder }}</p>
@@ -70,9 +74,9 @@
                                     </div>
                                 </div>
                                 <div class="col col-lg-3 col-md-6 col-sm-12 col-12">
-                                    <div class="card mb-4 border border-dark">
+                                    <div class="card mb-4 border border-dark border-2">
                                         <div class="card-header bg-dark text-center">
-                                            <p class="text-white m-0">SHIPPER:</p>
+                                            <p class="text-white m-0 fw-bold">SHIPPER:</p>
                                         </div>
                                         <div class="card-body text-center my-auto p-2">
                                             <p class="fs-5 m-0">{{ $data_cfs->shipper }}</p>
@@ -80,9 +84,9 @@
                                     </div>
                                 </div>
                                 <div class="col col-lg-3 col-md-6 col-sm-12 col-12">
-                                    <div class="card mb-4 border border-dark">
+                                    <div class="card mb-4 border border-dark border-2">
                                         <div class="card-header bg-dark text-center">
-                                            <p class="text-white m-0">CARGO:</p>
+                                            <p class="text-white m-0 fw-bold">CARGO:</p>
                                         </div>
                                         <div class="card-body text-center my-auto p-2">
                                             <p class="fs-5 m-0">{{ $data_cfs->cargo }}</p>
@@ -92,9 +96,9 @@
                             </div>
                             <div class="row">
                                 <div class="col col-lg-3 col-md-4 col-sm-12 col-12">
-                                    <div class="card mb-4 border border-dark">
+                                    <div class="card mb-4 border border-dark border-2">
                                         <div class="card-header bg-dark text-center">
-                                            <p class="text-white m-0">PARTY:</p>
+                                            <p class="text-white m-0 fw-bold">PARTY:</p>
                                         </div>
                                         <div class="card-body text-center my-auto p-2">
                                             <p class="fs-5 m-0">{{ $data_cfs->party }}</p>
@@ -102,9 +106,9 @@
                                     </div>
                                 </div>
                                 <div class="col col-lg-3 col-md-4 col-sm-12 col-12">
-                                    <div class="card mb-4 border border-dark">
+                                    <div class="card mb-4 border border-dark border-2">
                                         <div class="card-header bg-dark text-center">
-                                            <p class="text-white m-0">CLOSSING DATE:</p>
+                                            <p class="text-white m-0 fw-bold">CLOSSING DATE:</p>
                                         </div>
                                         <div class="card-body text-center my-auto p-2">
                                             <p class="fs-5 m-0">{{ $data_cfs->clossing_date }}</p>
@@ -112,9 +116,9 @@
                                     </div>
                                 </div>
                                 <div class="col col-lg-6 col-md-4 col-sm-12 col-12">
-                                    <div class="card mb-4 border border-dark">
+                                    <div class="card mb-4 border border-dark border-2">
                                         <div class="card-header bg-dark text-center">
-                                            <p class="text-white m-0">REMARK:</p>
+                                            <p class="text-white m-0 fw-bold">REMARK:</p>
                                         </div>
                                         <div class="card-body text-center my-auto p-2">
                                             <p class="fs-5 m-0">{{ $data_cfs->remark }}</p>
@@ -151,16 +155,17 @@
                                                             <div class="card-body border border-dark">
                                                                 <div class="row p-0 mb-3">
                                                                     <div class="col">
-                                                                        <p class="m-0">CONTAINER NO:</p>
+                                                                        <p class="m-0 fw-bold">CONTAINER NO:</p>
                                                                     </div>
                                                                     <div class="col">
                                                                         <p class="m-0">{{ $data->strip_container_no }}
                                                                         </p>
                                                                     </div>
                                                                 </div>
-                                                                <div class="row p-0 mb-0">
+                                                                <div class="row border-bottom border-dark border-2"></div>
+                                                                <div class="row p-0 mt-3">
                                                                     <div class="col">
-                                                                        <p class="m-0">SEAL NO:</p>
+                                                                        <p class="m-0 fw-bold">SEAL NO:</p>
                                                                     </div>
                                                                     <div class="col">
                                                                         <p class="m-0">{{ $data->strip_seal_no }}</p>
@@ -182,16 +187,17 @@
                                                             <div class="card-body border border-dark">
                                                                 <div class="row p-0 mb-3">
                                                                     <div class="col">
-                                                                        <p class="m-0">CONTAINER NO:</p>
+                                                                        <p class="m-0 fw-bold">CONTAINER NO:</p>
                                                                     </div>
                                                                     <div class="col">
                                                                         <p class="m-0">{{ $data->stuf_container_no }}
                                                                         </p>
                                                                     </div>
                                                                 </div>
-                                                                <div class="row p-0 mb-0">
+                                                                <div class="row border-bottom border-dark border-2"></div>
+                                                                <div class="row p-0 mt-3">
                                                                     <div class="col">
-                                                                        <p class="m-0">SEAL NO:</p>
+                                                                        <p class="m-0 fw-bold">SEAL NO:</p>
                                                                     </div>
                                                                     <div class="col">
                                                                         <p class="m-0">{{ $data->stuf_seal_no }}</p>
@@ -224,6 +230,11 @@
 
             </div>
         </section>
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
     @endsection
 </body>
 

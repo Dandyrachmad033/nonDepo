@@ -35,52 +35,59 @@
                         </div>
                     </div>
                     {{-- table Data Monitoring --}}
-                    <table class="table table-striped  border-warning " style="width: 100%">
-                        <thead>
-                            <tr class="bg-warning text-center">
-                                <th>No</th>
-                                <th>Container No</th>
-                                <th>Set Point</th>
-                                <th>Supply</th>
-                                <th>Return</th>
-                                <th>Remark</th>
-                                <th>Last Monitor</th>
+                    @foreach ($date as $dates)
+                        <div class="text fw-bold" style="font-size: 15">Tanggal: {{ $dates->date }}</div>
 
-                                <td> </td>
-                            </tr>
-                        </thead>
+                        <table class="table table-striped border border-2 border-warning " style="width: 100%">
+                            <thead>
+                                <tr class="bg-warning text-center">
+                                    <th>No</th>
+                                    <th>Container No</th>
+                                    <th>Set Point</th>
+                                    <th>Supply</th>
+                                    <th>Return</th>
+                                    <th>Remark</th>
+                                    <th>Last Monitor</th>
+
+                                    <td> </td>
+                                </tr>
+                            </thead>
 
 
-                        <tbody>
-                            @php
-                                $counter = 1;
-                            @endphp
-                            @foreach ($data_monitor as $index => $item)
-                                @if ($item->status == 'plugging' and $item->monitor == 'not')
-                                    <tr class="text-center">
-                                        <td>{{ $counter }}</td>
-                                        <td>{{ $item->no_container }}</td>
-                                        <td>{{ $item->set_temp }}</td>
-                                        <td>{{ $item->sup_temp }}</td>
-                                        <td>{{ $item->ret_temp }}</td>
-                                        <td>{{ $item->remark }}</td>
-                                        <td class="text-center">{{ $item->time_monitoring }}</td>
+                            <tbody>
+                                @php
+                                    $counter = 1;
+                                @endphp
+                                @foreach ($data_monitor as $item)
+                                    @if ($item->status == 'plugging' and $item->formatted_date == $dates->date)
+                                        <tr class="text-center">
+                                            <td>{{ $counter }}</td>
+                                            <td>{{ $item->no_container }}</td>
+                                            <td>{{ $item->set_temp }}</td>
+                                            <td>{{ $item->sup_temp }}</td>
+                                            <td>{{ $item->ret_temp }}</td>
+                                            <td>{{ $item->remark }}</td>
 
-                                        <td class="text-center"><button type="button" class="btn btn-success btn-sm"
-                                                data-bs-toggle="modal" data-bs-target="#monitoring_plug"
-                                                data-no-container="{{ $item->no_container }}"
-                                                data-set-temp="{{ $item->set_temp }}"
-                                                data-last-monitor="{{ $item->time_monitoring }}">
-                                                Monitoring
-                                            </button></td>
-                                    </tr>
-                                    @php
-                                        $counter++; // Increment nomor urut setelah setiap baris
-                                    @endphp
-                                @endif
-                            @endforeach
-                        </tbody>
-                    </table>
+
+                                            <td class="text-center">{{ $item->time_monitoring }}</td>
+
+                                            <td class="text-center"><button type="button" class="btn btn-success btn-sm"
+                                                    data-bs-toggle="modal" data-bs-target="#monitoring_plug"
+                                                    data-no-container="{{ $item->no_container }}"
+                                                    data-set-temp="{{ $item->set_temp }}"
+                                                    data-last-monitor="{{ $item->time_monitoring }}">
+                                                    Monitoring
+                                                </button></td>
+                                        </tr>
+                                        @php
+                                            $counter++; // Increment nomor urut setelah setiap baris
+                                        @endphp
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endforeach
+
                 </div>
             </div>
 

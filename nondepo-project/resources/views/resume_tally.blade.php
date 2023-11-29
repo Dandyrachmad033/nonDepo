@@ -20,7 +20,7 @@
                                             DATE</label></div>
                                     <div class="card-body">
                                         <input type="hidden" value="{{ $data_cfs->id_job_order }}" name="id">
-                                        <input type="Date" class="form-control border border-dark mb-3 mb-3"
+                                        <input type="Date" class="form-control border border-dark mb-3 mb-3 text-center"
                                             name="activity_date" value="{{ $tgl_activity }}">
                                     </div>
                                 </div>
@@ -32,8 +32,8 @@
                                             JO/ORDER
                                             NO</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="no_order"
-                                            value="{{ $data_cfs->no_order }}">
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
+                                            name="no_order" value="{{ $data_cfs->no_order }}">
                                     </div>
                                 </div>
                             </div>
@@ -42,8 +42,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">PRINCIPAL</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="principal"
-                                            value="{{ $data_cfs->principal }}">
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
+                                            name="principal" value="{{ $data_cfs->principal }}">
                                     </div>
                                 </div>
                             </div>
@@ -52,8 +52,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">FORWARDER</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="forwarder"
-                                            value="{{ $data_cfs->forwarder }}">
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
+                                            name="forwarder" value="{{ $data_cfs->forwarder }}">
                                     </div>
                                 </div>
                             </div>
@@ -63,8 +63,8 @@
                                             style="color:white">CARGO</label>
                                     </div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="cargo"
-                                            value="{{ $data_cfs->cargo }}">
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
+                                            name="cargo" value="{{ $data_cfs->cargo }}">
                                     </div>
                                 </div>
                             </div>
@@ -73,8 +73,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">PARTY</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="party"
-                                            value="{{ $data_cfs->party }}">
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
+                                            name="party" value="{{ $data_cfs->party }}">
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">CONTAINER NO(STRIPPING)</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3"
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
                                             name="container_strip" value="{{ $data_cfs->strip_container }}">
                                     </div>
                                 </div>
@@ -93,8 +93,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">QUANTITY</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="quantity"
-                                            value="{{ $data_cfs->quantity }}">
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
+                                            name="quantity" value="{{ $data_cfs->quantity }}">
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
                                     <div class="card-header bg-dark"> <label class="form-label" style="color:white">STUFFING
                                             CONTAINER NO</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3"
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
                                             name="container_stuf" value="{{ $data_cfs->stuf_container }}">
                                     </div>
                                 </div>
@@ -123,14 +123,15 @@
                                     <div class="card-header bg-dark" style="color: white">Stripping</div>
                                     <div class="card-body">
                                         <label class="form-label">DESCRIPTION OF GOODS</label>
-                                        <textarea class="form-control border border-dark" id="exampleFormControlTextarea1" rows="3" name="desc[]">{{ $item->desc }}</textarea>
+                                        <textarea class="form-control border border-dark  text-center" id="exampleFormControlTextarea1" rows="3"
+                                            name="desc[]">{{ $item->desc }}</textarea>
                                         <label class="form-label">DIMENSION</label>
                                         <input type="hidden" name="group_id[]" value="{{ $item->group_id }}">
-                                        <input type="text" class="form-control border border-dark"
+                                        <input type="text" class="form-control border border-dark  text-center"
                                             style="margin-bottom: 10px" name="dimension[]"
                                             value="{{ $item->dimension }}" id="dimension_{{ $id_input }}">
                                         <label class="form-label">UNIT</label>
-                                        <input type="text" class="form-control border border-dark"
+                                        <input type="text" class="form-control border border-dark  text-center"
                                             style="margin-bottom: 10px" name="unit[]" value="{{ $item->unit }}"
                                             id="unit_{{ $id_input }}">
                                         <div class="d-flex justify-content-between align-items-center">

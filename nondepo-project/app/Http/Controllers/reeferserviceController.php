@@ -15,7 +15,7 @@ class reeferserviceController extends Controller
     public function monitoring()
     {
         $menu = m_module::with('sub_m_module')->get();
-        $data_monitor = monitoring::orderBy('id', 'desc')->get();
+        $data_monitor = monitoring::orderBy('id', 'desc')->where('monitor', 'not')->get();
         return view(
             'reefer_monitoring',
             [
@@ -27,13 +27,27 @@ class reeferserviceController extends Controller
 
     public function not_monitoring()
     {
+        // Misalnya, Anda memiliki model bernama YourModel
+        $uniqueDates = monitoring::selectRaw('DATE_FORMAT(time_monitoring, "%d-%m-%Y") as date')
+            ->distinct()
+            ->orderBy('date', 'asc')
+            ->get();
+
+
+        // $uniqueDates sekarang berisi koleksi dari tanggal unik
         $menu = m_module::with('sub_m_module')->get();
-        $data_monitor = monitoring::orderBy('time_monitoring', 'desc')->get();
+        $data_monitor = monitoring::selectRaw('*, DATE_FORMAT(time_monitoring, "%d-%m-%Y") as formatted_date')
+            ->orderBy('time_monitoring', 'asc')
+            ->where('monitor', 'not')
+            ->get();
+
+
         return view(
             'not_monitoring',
             [
                 'showdata' => $menu,
-                'data_monitor' => $data_monitor
+                'data_monitor' => $data_monitor,
+                'date' => $uniqueDates
             ]
         );
     }
@@ -47,7 +61,7 @@ class reeferserviceController extends Controller
 
     public function plugging()
     {
-        $view_data = plugging::orderBy('plug_id', 'desc')->get();
+        $view_data = plugging::orderBy('plug_id', 'desc')->where('status', 'Plugging')->paginate(50);
         $menu = m_module::with('sub_m_module')->get();
         return view('reefer_plugging', ['showdata' => $menu, 'data' => $view_data]);
     }
@@ -65,6 +79,7 @@ class reeferserviceController extends Controller
             'cel_tree' => 'required|string',
             'remark' => 'string|nullable',
             'alarm' => 'string|nullable',
+            'photo.*' => 'required|image|mimes:jpeg,png,jpg',
             // Contoh validasi file gambar
         ]);
 
@@ -90,7 +105,7 @@ class reeferserviceController extends Controller
             }
             $compact_photo_start = implode(',', $photoNames);
             $time = now();
-            $timeString = $time->format('d-m-Y H:i:s');
+            $timeString = $time->format('Y-m-d H:i:s');
             $set_point = $cel_one . $set_temp;
             $supply_temp = $cel_two . $sup_temp;
             $return_temp = $cel_tree . $ret_temp;
@@ -123,7 +138,7 @@ class reeferserviceController extends Controller
             monitoring::create($dataForMonitoring);
             return redirect()->route('reefer_plugging');
         } else {
-            return redirect()->route('reefer_plugging');
+            return redirect()->route('reefer_plugging')->with('error', 'Pesan Kesalahan di Sini');
         }
     }
 
@@ -146,7 +161,7 @@ class reeferserviceController extends Controller
             $cel_tree_end = $request->input('cel_tree_end');
             $remark_end = $request->input('remark_end');
             $time = now();
-            $time_end = $time->format('d-m-Y H:i:s');
+            $time_end = $time->format('Y-m-d H:i:s');
             $supply_temp_end = $cel_two_end . $sup_temp_end;
             $return_temp_end = $cel_tree_end . $ret_temp_end;
             $photoNames_end = [];
@@ -196,7 +211,7 @@ class reeferserviceController extends Controller
             $cel_tree = $request->input('cel_tree');
             $remark = $request->input('remark');
             $alarm = $request->input('alarm');
-            $time_monitor = now()->format('d-m-Y H:i:s');
+            $time_monitor = now()->format('Y-m-d H:i:s');
             $supply_temp = $cel_two . $sup_temp;
             $return_temp = $cel_tree . $ret_temp;
             $photo_monitor_array = [];
@@ -255,7 +270,7 @@ class reeferserviceController extends Controller
             $cel_tree = $request->input('cel_tree');
             $remark = $request->input('remark');
             $alarm = $request->input('alarm');
-            $time_monitor = now()->format('d-m-Y H:i:s');
+            $time_monitor = now()->format('Y-m-d H:i:s');
             $supply_temp = $cel_two . $sup_temp;
             $return_temp = $cel_tree . $ret_temp;
             $photo_monitor_array = [];
@@ -312,5 +327,24 @@ class reeferserviceController extends Controller
         } else {
             return 'shift 3';
         }
+    }
+
+    public function history()
+    {
+        $data_endplug = plugging::where('status', 'End-plugging')->orderBy('time', 'desc')->get();
+
+        $menu = m_module::with('sub_m_module')->get();
+        return view('endplug_history', ['showdata' => $menu, 'data' => $data_endplug]);
+    }
+
+    public function view_history($plug_id)
+    {
+        $menu = m_module::with('sub_m_module')->get();
+        $data_plug = plugging::where('plug_id', $plug_id)->first();
+        $data_monitor = plugging::leftJoin('monitorings', 'pluggings.plug_id', '=', 'monitorings.monitor_id')->where('monitorings.monitor_id', $plug_id)
+            ->select('monitorings.no_container', 'monitorings.set_temp', 'monitorings.sup_temp', 'monitorings.ret_temp', 'monitorings.remark', 'monitorings.time_monitoring')->get();
+
+
+        return view('view_plug_history', ['data_plug' => $data_plug, 'showdata' => $menu, 'data_monitor' => $data_monitor]);
     }
 }

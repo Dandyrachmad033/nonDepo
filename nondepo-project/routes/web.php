@@ -10,6 +10,7 @@ use App\Http\Controllers\reeferserviceController;
 use App\Http\Controllers\staffingstrippingController;
 use App\Http\Controllers\AnalisisController;
 use App\Http\Controllers\Bongkar;
+use App\Http\Controllers\jobOrderController;
 use Illuminate\Support\Facades\Route;
 
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -33,9 +34,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reefer_pti', [reeferserviceController::class, 'pti'])->name('pti');
     Route::get('/reefer_monitoring', [reeferserviceController::class, 'monitoring'])->name('monitoring');
     Route::get('/reefer_plugging', [reeferserviceController::class, 'plugging'])->name('reefer_plugging');
-    Route::post('/start_plugging', [reeferserviceController::class, 'start_plugging']);
+    Route::post('/start_plugging', [reeferserviceController::class, 'start_plugging'])->name('start_plugging');
     Route::put('/end_plugging', [reeferserviceController::class, 'end_plugging']);
     Route::put('/monitorings', [reeferserviceController::class, 'monitoring_plug']);
+    Route::get('/history', [reeferserviceController::class, 'history'])->name('history');
+    Route::get('/view_history/{id_plug}', [reeferserviceController::class, 'view_history'])->name('view_history');
+
 
 
     //Route to Controller menu stuffing stripping
@@ -80,6 +84,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/bongkar_principal', [Bongkar::class, 'bongkar_principal'])->name('bongkar_principal');
     Route::get('/bongkar_data', [Bongkar::class, 'bongkar_data'])->name('bongkar_data');
     Route::post('/bongkar_update', [Bongkar::class, 'bongkar_update'])->name('bongkar_update');
+
+    //Route to Create JO
+    Route::get('/create_jo', [jobOrderController::class, 'index'])->name('create_jo');
 });
 
 // Route to Controller User access Applications

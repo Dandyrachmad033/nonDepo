@@ -57,9 +57,8 @@
                         <input class="form-control" type="file" id="formFile">
                     </div>
                 </div> --}}
-                <div class="btn">
-                    <div class="inner"></div>
-                    <button type="submit">Registrasi</button>
+                <div class="col text-center" style="margin-top: 20px">
+                    <button type="submit" class="btn btn-dark align-self-center">Registrasi</button>
                 </div>
                 <div class="signup-link">
                     Have account? <a href="{{ url('/') }}">Login</a>

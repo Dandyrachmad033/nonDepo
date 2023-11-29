@@ -32,22 +32,22 @@
                                 aria-expanded="false" id="valuelink" style="font-size: 25px;color:black">
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" onclick="updateButton('HAPAG')">HAPAG</a>
+                                <li><a class="dropdown-item" onclick="updateButton('KMTC')">KMTC</a>
                                 </li>
-                                <li><a class="dropdown-item" onclick="updateButton('KMTC')"">KMTC</a></li>
-                                <li><a class="dropdown-item" onclick="updateButton('SSL')">SSL</a></li>
+                                <li><a class="dropdown-item" onclick="updateButton('SSL')"">SSL</a></li>
+                                <li><a class="dropdown-item" onclick="updateButton('HAPAG')">HAPAG</a></li>
+                                <li><a class="dropdown-item" onclick="updateButton('WANHAI')">WANHAI</a></li>
                                 <li><a class="dropdown-item" onclick="updateButton('ONE')">ONE</a></li>
-                                <li><a class="dropdown-item">Action</a></li>
-                                <li><a class="dropdown-item">Action</a></li>
-                                <li><a class="dropdown-item">Action</a></li>
-                                <li><a class="dropdown-item">Action</a></li>
-                                <li><a class="dropdown-item">Action</a></li>
-                                <li><a class="dropdown-item">Action</a></li>
-                                <li><a class="dropdown-item">Action</a></li>
-                                <li><a class="dropdown-item">Action</a></li>
-                                <li><a class="dropdown-item">Action</a></li>
-                                <li><a class="dropdown-item">Action</a></li>
-                                <li><a class="dropdown-item">Action</a></li>
+                                <li><a class="dropdown-item" onclick="updateButton('TRANSHUB')">TRANSHUB</a></li>
+                                <li><a class="dropdown-item" onclick="updateButton('MAXICON')">MAXICON</a></li>
+                                <li><a class="dropdown-item" onclick="updateButton('TCL')">TCL</a></li>
+                                <li><a class="dropdown-item" onclick="updateButton('OCEANUS')">OCEANUS</a></li>
+                                <li><a class="dropdown-item" onclick="updateButton('CEEKAY')">CEEKAY</a></li>
+                                <li><a class="dropdown-item" onclick="updateButton('GREEN GLOBAL')">GREEN GLOBAL</a>
+                                </li>
+                                <li><a class="dropdown-item" onclick="updateButton('METRO')">METRO</a></li>
+                                <li><a class="dropdown-item" onclick="updateButton('LKA')">LKA</a></li>
+                                <li><a class="dropdown-item" onclick="updateButton('CCIS')">CCIS</a></li>
                             </ul>
                         </div>
 
@@ -77,53 +77,13 @@
         </div>
     </div>
 
-    {{-- <div>
-                @foreach ($data as $data)
-                    {{ $data->data }}
-                @endforeach
-            </div> --}}
-    {{-- <form action="{{ url('/bongkar_data') }}" id="submit_data" method="POST">
-                @csrf
-                <select class="form-select form-select-lg mb-3 border border-dark border-2"
-                    style="overflow-y: scroll, height:50x">
-                    <option selected>Open this select menu</option>
-                    <option value="Hapag">Hapag</option>
-                    <option value="Lloyd">Lloyd</option>
-                    <option value="KMTC">KMTC</option>
-                </select>
-                <button type="button" class="btn btn-success" id="send_data" style="width:100px">Next</button>
-            </form> --}}
-    {{-- <form action="{{ url('/logout_bongkar') }}" method="post" id="submit_logout">
-                <button type="button" class="btn btn-danger" id="send_logout"
-                    style="width:100px; margin-top:10px">Logout</button>
-            </form> --}}
-
-    <script>
-        function updateButton(value) {
-            // Update the button text with the selected value
-            document.getElementById('valuelink').innerText = value;
-            document.getElementById('dropdownMenuLink').value = value;
-        }
-    </script>
-    <script>
-        document.getElementById("send_data").addEventListener("click", function() {
-            var form1 = document.getElementById("submit_data");
-            form1.submit();
-        });
-    </script>
-
-    <script>
-        document.getElementById("send_logout").addEventListener("click", function() {
-            var form2 = document.getElementById("submit_logout");
-            form2.submit();
-        });
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
     </script>
+    <script src="{{ asset('js/bongkar/button_submit.js') }}"></script>
 </body>
 
 </html>

@@ -31,7 +31,7 @@
                         style="color: #ffffff" id="enable_user">Enable</button>
                     <br>
                     <br>
-                    <table class="table table-striped  border-warning" style="max-width: 100%">
+                    <table class="table table-striped border border-2 border-warning" style="max-width: 100%">
                         <tr class="bg-warning text-center">
                             <th> </th>
                             <th>No</th>
@@ -42,6 +42,7 @@
                             <th>Status User</th>
                             <th> </th>
                         </tr>
+
                         @php
                             $counter = 1;
                         @endphp
@@ -71,94 +72,8 @@
             </div>
         </section>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                // Ketika tombol Nonaktifkan diklik
-                document.getElementById("disable_user").addEventListener("click", function() {
-                    // Temukan semua kotak centang yang dicentang
-                    var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-
-                    checkboxes.forEach(function(checkbox) {
-                        // Dapatkan nama modul yang sesuai
-                        var moduleName = checkbox.closest("tr").querySelector(".nameUsername")
-                            .textContent;
-                        $.ajax({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            url: '{{ route('disable_user') }}',
-                            method: 'POST',
-                            data: {
-                                'user': moduleName,
-
-                            },
-                            dataType: 'json',
-                            success: function(response) {
-                                console.log('Nilai berhasil diperbarui ke database');
-                                console.log(response);
-                                window.location.reload();
-
-                            },
-                            error: function(error) {
-                                console.error('Gagal memperbarui nilai ke database: ' +
-                                    error);
-
-                            }
-
-                        });
-
-
-                        // Me-refresh halaman setelah tindakan selesai
-
-                    });
-
-                });
-            });
-        </script>
-
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                // Ketika tombol Nonaktifkan diklik
-                document.getElementById("enable_user").addEventListener("click", function() {
-                    // Temukan semua kotak centang yang dicentang
-                    var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-
-                    checkboxes.forEach(function(checkbox) {
-                        // Dapatkan nama modul yang sesuai
-                        var moduleName = checkbox.closest("tr").querySelector(".nameUsername")
-                            .textContent;
-                        $.ajax({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            url: '{{ route('enable_user') }}',
-                            method: 'POST',
-                            data: {
-                                'user': moduleName,
-
-                            },
-                            dataType: 'json',
-                            success: function(response) {
-                                console.log('Nilai berhasil diperbarui ke database');
-                                console.log(response);
-                                window.location.reload();
-
-                            },
-                            error: function(error) {
-                                console.error('Gagal memperbarui nilai ke database: ' +
-                                    error);
-
-                            }
-                        });
-
-                        // Me-refresh halaman setelah tindakan selesai
-
-
-                    });
-
-                });
-            });
-        </script>
+        <script src="{{ asset('js/user-management/disable_button.js') }}"></script>
+        <script src="{{ asset('js/user-management/enable_button.js') }}"></script>
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     @endsection
 </body>

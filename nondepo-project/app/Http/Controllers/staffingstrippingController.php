@@ -19,7 +19,7 @@ class staffingstrippingController extends Controller
 {
     public function index()
     {
-        $db_cfs = cfs::orderBy('activity_date', 'asc')->get();
+        $db_cfs = cfs::where('finish_status', 'Pending')->orderBy('activity_date', 'asc')->paginate(9);
 
         $menu = m_module::with('sub_m_module')->get();
         return view('staf-strip', ['showdata' => $menu, 'cfs' => $db_cfs]);
@@ -27,15 +27,13 @@ class staffingstrippingController extends Controller
 
     public function index_form()
     {
-
-
         $menu = m_module::with('sub_m_module')->get();
         return view('form_cfs', ['showdata' => $menu]);
     }
 
     public function index_finish()
     {
-        $db_cfs = cfs::orderBy('activity_date', 'asc')->get();
+        $db_cfs = cfs::orderBy('activity_date', 'asc')->where('finish_status', 'Finished')->get();
 
         $menu = m_module::with('sub_m_module')->get();
         return view('stufstrip_finish', ['showdata' => $menu, 'cfs' => $db_cfs]);
@@ -186,9 +184,11 @@ class staffingstrippingController extends Controller
         $party = $request->input('party');
         $closing_date = $request->input('closing_date');
         $remark = $request->input('remark');
-
+        $time = now();
+        $timeWorksheet = $time->format('H:i:s');
+        $combinedDateTime = $activity_date . ' ' . $timeWorksheet;
         $cfs_data = [
-            'activity_date' => $activity_date,
+            'activity_date' => $combinedDateTime,
             'principal' => $principal,
             'no_order' => $no_order,
             'forwarder' => $forwarder,
@@ -319,9 +319,12 @@ class staffingstrippingController extends Controller
         $container_strip = $request->input('container_strip');
         $quantity = intval($request->input('quantity'));
         $container_stuf = $request->input('container_stuf');
+        $time = now();
+        $timeTally = $time->format('H:i:s');
+        $combinedDateTime_tally = $activity_date . ' ' . $timeTally;
 
         $data_tally = [
-            'activity_date' => $activity_date,
+            'activity_date' => $combinedDateTime_tally,
             'no_order' => $no_order,
             'principal' => $principal,
             'forwarder' => $forwarder,
@@ -446,6 +449,9 @@ class staffingstrippingController extends Controller
         $veh_id = $request->input('veh_id');
         $grounded = $request->input('grounded');
         $remark = $request->input('remark');
+        $time = now();
+        $timeRelease = $time->format('H:i:s');
+        $combinedDateTime_release = $activity_date . ' ' . $timeRelease;
         $con_act = '';
         if ($grounded == null) {
             $con_act = 'ON CHASIS';
@@ -454,7 +460,7 @@ class staffingstrippingController extends Controller
         }
 
         $data_release = [
-            'activity_date' => $activity_date,
+            'activity_date' => $combinedDateTime_release,
             'no_order' => $no_order,
             'principal' => $principal,
             'con_size' => $con_size,
@@ -580,6 +586,9 @@ class staffingstrippingController extends Controller
         $warehouse = $request->input('warehouse');
         $yard = $request->input('yard');
         $remark = $request->input('remark');
+        $time = now();
+        $timeReceiving = $time->format('H:i:s');
+        $combinedDateTime_receiving = $activity_date . ' ' . $timeReceiving;
         $strip_type = '';
         $con_act = '';
 
@@ -599,7 +608,7 @@ class staffingstrippingController extends Controller
 
 
         $data_receiving = [
-            'activity_date' => $activity_date,
+            'activity_date' => $combinedDateTime_receiving,
             'no_order' => $no_order,
             'principal' => $principal,
             'con_size' => $con_size,
@@ -929,7 +938,6 @@ class staffingstrippingController extends Controller
             $con_act = 'GROUNDED';
         }
 
-
         $data_receiving = [
             'activity_date' => $activity_date,
             'no_order' => $no_order,
@@ -990,6 +998,7 @@ class staffingstrippingController extends Controller
         $party = $request->input('party');
         $closing_date = $request->input('closing_date');
         $remark = $request->input('remark');
+        $time_finish_worksheet = now();
         $cfs_data = [
             'activity_date' => $activity_date,
             'principal' => $principal,
@@ -1000,7 +1009,8 @@ class staffingstrippingController extends Controller
             'party' => $party,
             'clossing_date' => $closing_date,
             'remark' => $remark,
-            'finish_status' => 'Finished'
+            'finish_status' => 'Finished',
+            'finish_time' => $time_finish_worksheet
         ];
 
 
@@ -1056,7 +1066,7 @@ class staffingstrippingController extends Controller
         $container_strip = $request->input('container_strip');
         $quantity = intval($request->input('quantity'));
         $container_stuf = $request->input('container_stuf');
-
+        $time_finish_tally = now();
         $cfs_tally = [
             'activity_date' => $activity_date,
             'no_order' => $no_order,
@@ -1067,7 +1077,8 @@ class staffingstrippingController extends Controller
             'strip_container' => $container_strip,
             'stuf_container' => $container_stuf,
             'quantity' => $quantity,
-            'finish_status' => 'Finished'
+            'finish_status' => 'Finished',
+            'finish_time' => $time_finish_tally
 
         ];
 
@@ -1121,9 +1132,7 @@ class staffingstrippingController extends Controller
         $con_size = $request->input('con_size');
         $con_act = $request->input('con_act');
         $remark = $request->input('remark');
-
-
-
+        $time_finish_release = now();
         $cfs_release = [
             'activity_date' => $activity_date,
             'no_order' => $no_order,
@@ -1133,7 +1142,8 @@ class staffingstrippingController extends Controller
             'con_size' => $con_size,
             'con_act' => $con_act,
             'remark' => $remark,
-            'finish_status' => 'Finished'
+            'finish_status' => 'Finished',
+            'finish_time' => $time_finish_release
 
         ];
 
@@ -1187,7 +1197,7 @@ class staffingstrippingController extends Controller
         $con_size = $request->input('con_size');
         $con_act = $request->input('con_act');
         $remark = $request->input('remark');
-
+        $time_finish_receiving = now();
 
 
         $cfs_receiving = [
@@ -1199,9 +1209,8 @@ class staffingstrippingController extends Controller
             'con_size' => $con_size,
             'con_act' => $con_act,
             'remark' => $remark,
-            'finish_status' => 'Finished'
-
-
+            'finish_status' => 'Finished',
+            'finish-time' => $time_finish_receiving
         ];
 
         cfs::where('id_job_order', $id_receiving)->update($cfs_receiving);

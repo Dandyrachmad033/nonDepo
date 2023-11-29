@@ -155,15 +155,7 @@
         }
     </script> --}}
     <script src="{{ asset('js/script.js') }}"></script>
-    <script>
-        const sidebar = document.querySelector(".sidebar");
-        const content = document.querySelector(".content");
 
-        content.addEventListener("scroll", () => {
-            const scrollTop = content.scrollTop;
-            sidebar.style.top = `${scrollTop}px`;
-        });
-    </script>
 </body>
 
 </html>

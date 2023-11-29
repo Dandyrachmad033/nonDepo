@@ -40,6 +40,10 @@ body{
     min-height: 100vh;
     width: 100%;
 }
+.sidebar {
+    margin-left: 0px;
+    overflow-y: auto;
+}
 .sidebar li.active{
     background: #eee;
     border-radius: 8px;
@@ -233,6 +237,9 @@ color: white;
     .images-profile {
             padding-top: 0px;
     }
+    .images-logos{
+        display: none;
+    }
 }
 
 @media screen and (max-width: 460px) {
@@ -262,4 +269,7 @@ color: white;
         .images-profile {
             padding-top: 0px;
         }
+                .images-logos {
+                    display: none;
+                }
 }

@@ -17,290 +17,286 @@
     @section('content')
         <section class="home-section w-100">
             <div class="text w-100" style="font-size: 30px">Staffing & Stripping</div>
-            <div class="container-fluid">
-                <div class="row shadow p-3 mb-5 bg-white justify-content-between w-100">
-                    <div class="row w-100 text-center">
+            <div data-aos="fade-left" data-aos-duration="300">
+                <div class="container-fluid">
+                    <div class="row shadow p-3 mb-5 bg-white justify-content-between w-100">
+                        <div class="row w-100 text-center">
+                            <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
+                                <a href="{{ route('cfs') }}" class="btn btn-block w-100" style=" cursor: pointer;">
+                                    <div class="card border-dark border-2 w-100">
+                                        <div class="card-header bg-warning border-dark border-bottom border-2 text-center"
+                                            style="">
+                                            Form CFS worksheet
+                                        </div>
+                                        <div class="card-body text-dark">
+                                            <h5 class="card-title fw-bold"></h5>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold"
+                                                    style="text-align: left; margin-right:10px;margin-right:10px">
+                                                    Jo/Order:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold"
+                                                    style="text-align: left; margin-right:10px;margin-right:10px">
+                                                    Fowarder:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Shipper:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    cargo:
+                                                <p class="card-text $data->cargo">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Party:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Start Time:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Finish Time:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Remark
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer bg-dark border-warning " style="color: white"> Isi
+                                            Form...>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
 
-                        <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
-                            <a href="{{ route('cfs') }}" class="btn btn-block w-100" style=" cursor: pointer;">
-                                <div class="card border-dark w-100">
-                                    <div class="card-header bg-warning border-dark border-bottom text-center"
-                                        style="">
-                                        Form CFS worksheet
+                            <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
+                                <a href="{{ route('cfs_tally') }}" class="btn btn-block w-100" style=" cursor: pointer;">
+                                    <div class="card border-dark border-2 w-100">
+                                        <div class="card-header bg-warning border-dark border- border-2 text-center"
+                                            style="">
+                                            Form CFS Tally
+                                        </div>
+                                        <div class="card-body text-dark">
+                                            <h5 class="card-title fw-bold"></h5>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold"
+                                                    style="text-align: left; margin-right:10px;margin-right:10px">
+                                                    Jo/Order:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold"
+                                                    style="text-align: left; margin-right:10px;margin-right:10px">
+                                                    Fowarder:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Shipper:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    cargo:
+                                                <p class="card-text $data->cargo">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Party:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Start Time:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Finish Time:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Remark
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer bg-dark border-warning " style="color: white"> Isi
+                                            Form...>
+                                        </div>
                                     </div>
-                                    <div class="card-body text-dark">
-                                        <h5 class="card-title fw-bold"></h5>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold"
-                                                style="text-align: left; margin-right:10px;margin-right:10px">
-                                                Jo/Order:
-                                            <p class="card-text">...</p>
-                                            </p>
+                                </a>
+                            </div>
+
+                            <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
+                                <a href="{{ route('cargo_release') }}" class="btn btn-block w-100"
+                                    style=" cursor: pointer;">
+                                    <div class="card border-dark border-2 w-100">
+                                        <div class="card-header bg-warning border-dark border-bottom border-2 text-center"
+                                            style="">
+                                            Form Cargo Release
                                         </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold"
-                                                style="text-align: left; margin-right:10px;margin-right:10px">
-                                                Fowarder:
-                                            <p class="card-text">...</p>
-                                            </p>
+                                        <div class="card-body text-dark">
+                                            <h5 class="card-title fw-bold"></h5>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold"
+                                                    style="text-align: left; margin-right:10px;margin-right:10px">
+                                                    Jo/Order:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold"
+                                                    style="text-align: left; margin-right:10px;margin-right:10px">
+                                                    Fowarder:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Shipper:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    cargo:
+                                                <p class="card-text $data->cargo">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Party:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Start Time:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Finish Time:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Remark
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Shipper:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                cargo:
-                                            <p class="card-text $data->cargo">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Party:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Start Time:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Finish Time:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Remark
-                                            <p class="card-text">...</p>
-                                            </p>
+                                        <div class="card-footer bg-dark border-warning " style="color: white"> Isi
+                                            Form...>
                                         </div>
                                     </div>
-                                    <div class="card-footer bg-dark border-warning " style="color: white"> Isi Form...>
+                                </a>
+                            </div>
+
+
+                            <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
+                                <a href="{{ route('cargo_receiving') }}" class="btn btn-block w-100"
+                                    style=" cursor: pointer;">
+                                    <div class="card border-dark border-2 w-100">
+                                        <div class="card-header bg-warning border-dark border-bottom border-2 text-center"
+                                            style="">
+                                            Form Cargo Receiving
+                                        </div>
+                                        <div class="card-body text-dark">
+                                            <h5 class="card-title fw-bold"></h5>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold"
+                                                    style="text-align: left; margin-right:10px;margin-right:10px">
+                                                    Jo/Order:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold"
+                                                    style="text-align: left; margin-right:10px;margin-right:10px">
+                                                    Fowarder:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Shipper:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    cargo:
+                                                <p class="card-text $data->cargo">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Party:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Start Time:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Finish Time:
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
+                                                    Remark
+                                                <p class="card-text">..................................</p>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer bg-dark border-warning " style="color: white">Isi
+                                            Form....>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
-
-                        <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
-                            <a href="{{ route('cfs_tally') }}" class="btn btn-block w-100" style=" cursor: pointer;">
-                                <div class="card border-dark w-100">
-                                    <div class="card-header bg-warning border-dark border-bottom text-center"
-                                        style="">
-                                        Form CFS Tally
-                                    </div>
-                                    <div class="card-body text-dark">
-                                        <h5 class="card-title fw-bold"></h5>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold"
-                                                style="text-align: left; margin-right:10px;margin-right:10px">
-                                                Jo/Order:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold"
-                                                style="text-align: left; margin-right:10px;margin-right:10px">
-                                                Fowarder:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Shipper:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                cargo:
-                                            <p class="card-text $data->cargo">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Party:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Start Time:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Finish Time:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Remark
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer bg-dark border-warning " style="color: white"> Isi Form...>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
-                            <a href="{{ route('cargo_release') }}" class="btn btn-block w-100" style=" cursor: pointer;">
-                                <div class="card border-dark w-100">
-                                    <div class="card-header bg-warning border-dark border-bottom text-center"
-                                        style="">
-                                        Form Cargo Release
-                                    </div>
-                                    <div class="card-body text-dark">
-                                        <h5 class="card-title fw-bold"></h5>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold"
-                                                style="text-align: left; margin-right:10px;margin-right:10px">
-                                                Jo/Order:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold"
-                                                style="text-align: left; margin-right:10px;margin-right:10px">
-                                                Fowarder:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Shipper:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                cargo:
-                                            <p class="card-text $data->cargo">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Party:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Start Time:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Finish Time:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Remark
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer bg-dark border-warning " style="color: white"> Isi Form...>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-
-                        <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
-                            <a href="{{ route('cargo_receiving') }}" class="btn btn-block w-100"
-                                style=" cursor: pointer;">
-                                <div class="card border-dark w-100">
-                                    <div class="card-header bg-warning border-dark border-bottom text-center"
-                                        style="">
-                                        Form Cargo Receiving
-                                    </div>
-                                    <div class="card-body text-dark">
-                                        <h5 class="card-title fw-bold"></h5>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold"
-                                                style="text-align: left; margin-right:10px;margin-right:10px">
-                                                Jo/Order:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold"
-                                                style="text-align: left; margin-right:10px;margin-right:10px">
-                                                Fowarder:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Shipper:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                cargo:
-                                            <p class="card-text $data->cargo">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Party:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Start Time:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Finish Time:
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                        <div class="d-flex">
-                                            <p class="card-text fw-bold" style="text-align: left; margin-right:10px">
-                                                Remark
-                                            <p class="card-text">...</p>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer bg-dark border-warning " style="color: white">Isi Form....>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-
-
-
-
                     </div>
-
-
-
-
-
-
                 </div>
             </div>
         </section>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     @endsection
 </body>
 

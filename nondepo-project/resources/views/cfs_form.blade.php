@@ -21,7 +21,7 @@
                                             ACTIVITY
                                             DATE</label></div>
                                     <div class="card-body">
-                                        <input type="Date" class="form-control border border-dark mb-3 mb-3"
+                                        <input type="Date" class="form-control border border-dark mb-3 mb-3 text-center"
                                             name="activity_date">
                                     </div>
                                 </div>
@@ -33,7 +33,8 @@
                                             JO/ORDER
                                             NO</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="no_order">
+                                        <input type="text" class="form-control border border-dark mb-3 text-center"
+                                            name="no_order">
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +43,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">PRINCIPAL</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="principal">
+                                        <input type="text" class="form-control border border-dark mb-3 text-center"
+                                            name="principal">
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +53,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">FORWARDER</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="forwarder">
+                                        <input type="text" class="form-control border border-dark mb-3 text-center"
+                                            name="forwarder">
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +63,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">SHIPPER</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="shipper">
+                                        <input type="text" class="form-control border border-dark mb-3 text-center"
+                                            name="shipper">
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +74,8 @@
                                             style="color:white">CARGO</label>
                                     </div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="cargo">
+                                        <input type="text" class="form-control border border-dark mb-3 text-center"
+                                            name="cargo">
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +84,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">party</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="party">
+                                        <input type="text" class="form-control border border-dark mb-3 text-center"
+                                            name="party">
                                     </div>
                                 </div>
                             </div>
@@ -88,7 +94,7 @@
                                     <div class="card-header bg-dark"> <label class="form-label" style="color:white">Closing
                                             date</label></div>
                                     <div class="card-body">
-                                        <input type="date" class="form-control border border-dark mb-3"
+                                        <input type="date" class="form-control border border-dark mb-3 text-center"
                                             name="closing_date">
                                     </div>
                                 </div>
@@ -98,7 +104,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">Remark</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="remark">
+                                        <input type="text" class="form-control border border-dark mb-3 text-center"
+                                            name="remark">
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +120,6 @@
                                         style="color: white">
                                         <div class="col-6 text-end">
                                             <span>1</span>
-
                                         </div>
                                         <div class="col-6 text-end">
                                             <button type="button" class="btn btn-danger remove-button clone-button"
@@ -122,17 +128,17 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col text-center  col-lg-6 col-md-6 col-sm-12 col-12 mb-0 ">
                                 <div class="card text-dark bg-warning border-dark">
                                     <div class="card-header bg-dark" style="color: white">Stripping</div>
                                     <div class="card-body">
                                         <label class="form-label">No Container</label>
-                                        <input type="text" class="form-control border border-dark"
-                                            style="margin-bottom: 10px" name="strip_container_no[]">
+                                        <input type="text" class="form-control border border-dark text-center"
+                                            style="margin-bottom: 10px" name="strip_container_no[]"
+                                            id="strip_container_no">
                                         <label class="form-label">No Seal</label>
-                                        <input type="text" class="form-control border border-dark"
-                                            style="margin-bottom: 10px" name="strip_seal_no[]">
+                                        <input type="text" class="form-control border border-dark text-center"
+                                            style="margin-bottom: 10px" name="strip_seal_no[]" id="strip_seal_no">
                                     </div>
                                 </div>
                             </div>
@@ -141,10 +147,10 @@
                                     <div class="card-header bg-dark " style="color: white">Stripping</div>
                                     <div class="card-body">
                                         <label class="form-label">No Container</label>
-                                        <input type="text" class="form-control border border-dark"
+                                        <input type="text" class="form-control border border-dark text-center"
                                             style="margin-bottom: 10px" name="stuf_container_no[]">
                                         <label class="form-label">No Seal</label>
-                                        <input type="text" class="form-control border border-dark"
+                                        <input type="text" class="form-control border border-dark text-center"
                                             style="margin-bottom: 10px" name="stuf_seal_no[]">
                                     </div>
                                 </div>
@@ -182,110 +188,33 @@
             </div>
         </div>
 
+        <script>
+            // Mendapatkan nilai dari local storage jika ada
+            document.getElementById('strip_container_no').value = localStorage.getItem('strip_container_no') || '';
+            document.getElementById('strip_seal_no').value = localStorage.getItem('strip_seal_no') || '';
 
+            // Menyimpan nilai ke local storage saat input berubah
+            document.getElementById('strip_container_no').addEventListener('input', function() {
+                localStorage.setItem('strip_container_no', this.value);
+            });
+
+            document.getElementById('strip_seal_no').addEventListener('input', function() {
+                localStorage.setItem('strip_seal_no', this.value);
+            });
+        </script>
+        <script>
+            // Mendapatkan elemen input
+            var userId = {{ auth()->user()->id }};
+            // Fungsi untuk mendapatkan ID pengguna atau nama pengguna (sesuaikan dengan implementasi otentikasi Anda)
+        </script>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
         </script>
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script>
-            let cloneCounter = 1;
-
-            function cloneForm() {
-                cloneCounter++;
-                const originalForm = document.querySelector(".clone-this");
-
-                const clone = originalForm.cloneNode(true);
-                clone.classList.remove("clone-this");
-                clone.classList.add(`clone-${cloneCounter}`);
-                // Change labels and input IDs if needed
-                clone.querySelectorAll("label").forEach(label => {
-                    label.setAttribute("for", label.getAttribute("for") + cloneCounter);
-                });
-                clone.querySelectorAll("input").forEach(input => {
-                    input.setAttribute("id", input.getAttribute("id") + cloneCounter);
-                    input.value = ""; // Clear input values in the new form
-                });
-
-                const removeButton = clone.querySelector(".remove-button");
-                removeButton.addEventListener("click", function() {
-                    removeClone(clone);
-                });
-
-                const cloneButton = clone.querySelector(".clone-button");
-                cloneButton.addEventListener("click", function() {
-                    cloneForm();
-                });
-
-                const cardHeader = clone.querySelector(".number-clone");
-                cardHeader.textContent = cloneCounter;
-
-                document.querySelector('.clone-in-here').appendChild(clone);
-            }
-
-            function removeClone(button) {
-                // Menghapus elemen yang di-clone saat tombol close ditekan
-                button.closest('.clone-this').remove();
-            }
-        </script>
-
-
-
-
-
-
-
-
-        {{-- <script>
-            $(document).ready(function() {
-                let previousClone = null;
-                $('.button-clone-form').click(function() {
-                    // Clone the HTML
-                    let clone = $('.second-clone').html();
-                    // Append the clone to the container
-                    $('.awal-clone').append(clone);
-                    // Get the values from input fields in the previous clone
-                    if (previousClone !== null) {
-                        let noContainerValue = previousClone.find('input[name="no_container_strip[]"]').val();
-                        let sealValue = previousClone.find('input[name="seal_strip[]"]').val();
-
-                        console.log('No Container Value from the previous clone: ' + noContainerValue);
-                        console.log('Seal Value from the previous clone: ' + sealValue);
-                    }
-
-                    // Update the reference to the previous clone
-                    previousClone = $('.awal-clone .second-clone').last();
-                });
-            });
-        </script> --}}
-
-        {{-- <script>
-            let previousClone = null;
-            $(document).ready(function() {
-                $('.button-clone-form').click(function() {
-
-
-                    // Get the values from input fields
-                    $('.awal-clone').append($('.second-clone').html())
-
-                    let noContainerValue = newlyAddedClone.find('input[name="no_container_strip[]"]').val();
-                    let sealValue = newlyAddedClone.find('input[name="seal_strip[]"]').val();
-                    let newlyAddedClone = $('.awal-clone .second-clone').last();
-
-                    // Now you can use the values as needed
-                    console.log('No Container Value: ' + noContainerValue);
-                    console.log('Seal Value: ' + sealValue);
-                })
-            })
-        </s> --}}
-        {{-- <script>
-            document.getElementById("send_cfs").addEventListener("click", function() {
-                var form1 = document.getElementById("submit_cfs");
-                form1.submit();
-
-            });
-        </script> --}}
+        <script src="{{ asset('js/stufstrip_form/worksheet/clone_worksheet.js') }}"></script>
+        <script src="{{ asset('js/stufstrip_form/worksheet/worksheet_form.js') }}"></script>
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     @endsection
 </body>

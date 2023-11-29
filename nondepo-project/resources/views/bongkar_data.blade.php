@@ -59,10 +59,10 @@
                             </h5>
                             <div>
                                 @if (auth()->user()->role == 'admin')
-                                    <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
+                                    <button type="button" class="btn btn-danger" style="margin-right: 40px"
                                         onclick="kurangiNilaib20()">Kurang</button>
                                 @endif
-                                <button type="button" class="btn btn-outline-success"
+                                <button type="button" class="btn btn-success"
                                     onclick="tambahNilaib20()">Tambah</button>
                             </div>
                         </div>
@@ -84,11 +84,11 @@
                             </h5>
                             <div>
                                 @if (auth()->user()->role == 'admin')
-                                    <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
+                                    <button type="button" class="btn btn-danger" style="margin-right: 40px"
                                         onclick="kurangiNilaib40()">Kurang
                                     </button>
                                 @endif
-                                <button type="button" class="btn btn-outline-success"
+                                <button type="button" class="btn btn-success"
                                     onclick="tambahNilaib40()">Tambah</button>
                             </div>
                         </div>
@@ -110,11 +110,11 @@
                             </h5>
                             <div>
                                 @if (auth()->user()->role == 'admin')
-                                    <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
+                                    <button type="button" class="btn btn-danger" style="margin-right: 40px"
                                         onclick="kurangiNilaim20()">Kurang
                                     </button>
                                 @endif
-                                <button type="button" class="btn btn-outline-success"
+                                <button type="button" class="btn btn-success"
                                     onclick="tambahNilaim20()">Tambah</button>
                             </div>
                         </div>
@@ -138,11 +138,11 @@
                             </h5>
                             <div>
                                 @if (auth()->user()->role == 'admin')
-                                    <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
+                                    <button type="button" class="btn btn-danger" style="margin-right: 40px"
                                         onclick="kurangiNilaim40()">Kurang
                                     </button>
                                 @endif
-                                <button type="button" class="btn btn-outline-success"
+                                <button type="button" class="btn btn-success"
                                     onclick="tambahNilaim40()">Tambah</button>
                             </div>
                         </div>
@@ -168,11 +168,11 @@
                             </h5>
                             <div>
                                 @if (auth()->user()->role == 'admin')
-                                    <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
+                                    <button type="button" class="btn btn-danger" style="margin-right: 40px"
                                         onclick="kurangiNilais20()">Kurang
                                     </button>
                                 @endif
-                                <button type="button" class="btn btn-outline-success"
+                                <button type="button" class="btn btn-success"
                                     onclick="tambahNilais20()">Tambah</button>
                             </div>
                         </div>
@@ -195,11 +195,11 @@
                             </h5>
                             <div>
                                 @if (auth()->user()->role == 'admin')
-                                    <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
+                                    <button type="button" class="btn btn-danger" style="margin-right: 40px"
                                         onclick="kurangiNilais40()">Kurang
                                     </button>
                                 @endif
-                                <button type="button" class="btn btn-outline-success"
+                                <button type="button" class="btn btn-success"
                                     onclick="tambahNilais40()">Tambah</button>
                             </div>
                         </div>
@@ -221,11 +221,11 @@
                             </h5>
                             <div>
                                 @if (auth()->user()->role == 'admin')
-                                    <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
+                                    <button type="button" class="btn btn-danger" style="margin-right: 40px"
                                         onclick="kurangiNilair20()">Kurang
                                     </button>
                                 @endif
-                                <button type="button" class="btn btn-outline-success"
+                                <button type="button" class="btn btn-success"
                                     onclick="tambahNilair20()">Tambah</button>
                             </div>
                         </div>
@@ -248,11 +248,11 @@
                             </h5>
                             <div>
                                 @if (auth()->user()->role == 'admin')
-                                    <button type="button" class="btn btn-outline-danger" style="margin-right: 40px"
+                                    <button type="button" class="btn btn-danger" style="margin-right: 40px"
                                         onclick="kurangiNilair40()">Kurang
                                     </button>
                                 @endif
-                                <button type="button" class="btn btn-outline-success"
+                                <button type="button" class="btn btn-success"
                                     onclick="tambahNilair40()">Tambah</button>
                             </div>
                         </div>
@@ -274,7 +274,7 @@
             document.getElementById('b20Value').textContent = b20Value;
             b20Ori = b20Value - {{ $dataB20 }};
             datasementara['B20'] = b20Ori;
-            console.log(datasementara);
+
             //simpanKeDatabase(datasementara, 'B20');
         }
 
@@ -425,7 +425,6 @@
             //simpanKeDatabase(r40Value, 'R40');
         }
 
-
         function kurangiNilair40() {
             var r40Value = parseInt(document.getElementById('r40Value').textContent);
             if (r40Value > 0) {
@@ -436,32 +435,9 @@
             }
         }
 
-        var datasementara = {
-
-        };
-
-        function simpanKeDatabase() {
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: '{{ route('bongkar_update') }}',
-                method: 'POST',
-                data: datasementara,
-                dataType: 'json',
-                success: function(response) {
-                    console.log('Nilai berhasil diperbarui ke database');
-                    console.log(response);
-
-
-                },
-                error: function(error) {
-                    console.error('Gagal memperbarui nilai ke database: ' + error);
-
-                }
-            });
-        }
+        var datasementara = {};
     </script>
+    <script src="{{ asset('js/bongkar/bongkar.js') }}"></script>
 
 
 

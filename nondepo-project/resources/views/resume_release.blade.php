@@ -20,7 +20,7 @@
                                             DATE</label></div>
                                     <div class="card-body">
                                         <input type="hidden" value="{{ $data_cfs->id_job_order }}" name="id">
-                                        <input type="Date" class="form-control border border-dark mb-3 mb-3"
+                                        <input type="Date" class="form-control border border-dark mb-3 mb-3  text-center"
                                             name="activity_date" value="{{ $tgl_activity }}">
                                     </div>
                                 </div>
@@ -32,8 +32,8 @@
                                             JO/ORDER
                                             NO</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="no_order"
-                                            value="{{ $data_cfs->no_order }}">
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
+                                            name="no_order" value="{{ $data_cfs->no_order }}">
                                     </div>
                                 </div>
                             </div>
@@ -42,8 +42,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">PRINCIPAL</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="principal"
-                                            value="{{ $data_cfs->principal }}">
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
+                                            name="principal" value="{{ $data_cfs->principal }}">
                                     </div>
                                 </div>
                             </div>
@@ -52,8 +52,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label" style="color:white">VEHICLE
                                             TYPE:</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="veh_type"
-                                            value="{{ $data_cfs->veh_type }}">
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
+                                            name="veh_type" value="{{ $data_cfs->veh_type }}">
                                     </div>
                                 </div>
                             </div>
@@ -63,8 +63,8 @@
                                             ID</label>
                                     </div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="veh_id"
-                                            value="{{ $data_cfs->veh_id }}">
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
+                                            name="veh_id" value="{{ $data_cfs->veh_id }}">
                                     </div>
                                 </div>
                             </div>
@@ -73,8 +73,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">CONTAINER NO/SIZE</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="con_size"
-                                            value="{{ $data_cfs->con_size }}">
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
+                                            name="con_size" value="{{ $data_cfs->con_size }}">
                                     </div>
                                 </div>
                             </div>
@@ -83,8 +83,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">CONTAINER ACTIVITY TYPE</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="con_act"
-                                            value="{{ $data_cfs->con_act }}">
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
+                                            name="con_act" value="{{ $data_cfs->con_act }}">
                                     </div>
                                 </div>
                             </div>
@@ -93,8 +93,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">REMARK</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="remark"
-                                            value="{{ $data_cfs->remark }}">
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
+                                            name="remark" value="{{ $data_cfs->remark }}">
                                     </div>
                                 </div>
                             </div>
@@ -114,14 +114,15 @@
                                     <div class="card-header bg-dark" style="color: white">Stripping</div>
                                     <div class="card-body">
                                         <label class="form-label">DESCRIPTION OF GOODS</label>
-                                        <textarea class="form-control border border-dark" id="exampleFormControlTextarea1" rows="3" name="desc[]">{{ $item->desc }}</textarea>
+                                        <textarea class="form-control border border-dark  text-center" id="exampleFormControlTextarea1" rows="3"
+                                            name="desc[]">{{ $item->desc }}</textarea>
                                         <label class="form-label">DIMENSION</label>
                                         <input type="hidden" name="group_id[]" value="{{ $item->group_id }}">
-                                        <input type="text" class="form-control border border-dark"
+                                        <input type="text" class="form-control border border-dark  text-center"
                                             style="margin-bottom: 10px" name="dimension[]"
                                             value="{{ $item->dimension }}" id="dimension_{{ $id_input }}">
                                         <label class="form-label">UNIT</label>
-                                        <input type="text" class="form-control border border-dark"
+                                        <input type="text" class="form-control border border-dark  text-center"
                                             style="margin-bottom: 10px" name="unit[]" value="{{ $item->unit }}"
                                             id="unit_{{ $id_input }}">
                                         <div class="d-flex justify-content-between align-items-center">

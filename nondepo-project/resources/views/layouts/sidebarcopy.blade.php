@@ -25,7 +25,6 @@
         </div>
         <div id="side_nav" class="sidebar">
             <div class="header-box px-2 pt-3 pb-4 d-flex justify-content-between">
-
                 <header style="height: 170px; margin-top:-20px;margin-left:-8px; padding-right:8px;">
                     <button type="button" class="btn btn-warning btn-sm text-right close-btn-rn d-md-none d-block "
                         style="margin-left: 15em; margin-top:20px;">
@@ -41,32 +40,31 @@
                 </header>
             </div>
 
-            <div class="scrollbar-sidebar" style="; max-height:500px;margin-top:-20px">
+            <div class="scrollbar-sidebar" style="max-height:500px;scrollbar-width: thin; margin-top:-20px">
                 <div class="menu">
                     <div class="item">
                         <a class="sub-btn" href="{{ url('/dashboard') }}"><i
                                 class="fas fa-tachometer-alt"></i>Dashboard<i></i></a>
                     </div>
                     @foreach ($showdata as $menuItem)
-                        @if ($menuItem['module_status'] != '0')
-                            <div class="item">
-                                <a href="{{ $menuItem['module_link'] }}" class="sub-btn"
-                                    data-index="{{ $menuItem['module_id'] }}"><i
+                        <div class="item">
+                            @if ($menuItem['module_status'] != '0')
+                                <a href="{{ $menuItem['module_link'] }}" class="sub-btn"><i
                                         class="{{ $menuItem['module_icon'] }}"></i>{{ $menuItem['module_name'] }}
                                     @if (count($menuItem->sub_m_module) > 0)
                                         <i class="fas fa-angle-right dropdown"></i>
                                     @endif
                                 </a>
-                                <div class="sub-menu" data-index="{{ $menuItem['module_id'] }}">
-                                    @foreach ($menuItem->sub_m_module as $subItem)
-                                        @if ($subItem['module_status'] != '0')
-                                            <a href="{{ url($subItem['module_link']) }}"
-                                                class="sub-item">{{ $subItem['module_name'] }}</a>
-                                        @endif
-                                    @endforeach
-                                </div>
+                            @endif
+                            <div class="sub-menu">
+                                @foreach ($menuItem->sub_m_module as $subItem)
+                                    @if ($subItem['module_status'] != '0')
+                                        <a href="{{ url($subItem['module_link']) }}"
+                                            class="sub-item">{{ $subItem['module_name'] }}</a>
+                                    @endif
+                                @endforeach
                             </div>
-                        @endif
+                        </div>
                     @endforeach
 
                     @if (auth()->user()->role == 'admin')
@@ -104,7 +102,14 @@
     </div>
 
 
-
+    <script defer src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
+    </script>
+    <script src="{{ asset('assets/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="https://kit.fontawesome.com/6b61509af7.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
             $('.close-btn-rn').click(function() {
@@ -117,6 +122,15 @@
         $('.open-btn').on('click', function() {
             $('.sidebar').addClass('active');
 
+        });
+    </script>
+    <script>
+        const sidebar = document.querySelector(".sidebar");
+        const content = document.querySelector(".content");
+
+        content.addEventListener("scroll", () => {
+            const scrollTop = content.scrollTop;
+            sidebar.style.top = `${scrollTop}px`;
         });
     </script>
     <script>

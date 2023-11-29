@@ -31,7 +31,7 @@
                     <!-- On tables -->
                     <br>
                     <br>
-                    <table class="table table-striped  border-warning" style="max-width: 100%">
+                    <table class="table table-striped border border-2  border-warning" style="max-width: 100%">
                         <tr class="bg-warning text-center">
                             <th field="module_id" sortable="true">No</th>
                             <th field="module_id" sortable="true">Module Name</th>

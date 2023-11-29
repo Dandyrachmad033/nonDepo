@@ -1128,6 +1128,8 @@
                                         <h3 id="loloTotalOrder" class="h3 mb-0 text-primary">123</h3>
                                     </div>
                                 </div>
+
+
                                 <div
                                     class="mini-item card px-3 d-flex flex-row justify-content-between align-items-center border-0 shadow rounded-3">
                                     <svg width="45" height="45" viewBox="0 0 70 71" fill="none"
@@ -1137,11 +1139,16 @@
                                             d="M35 18.375C25.6111 18.375 18 25.9861 18 35.375C18 44.7639 25.6111 52.375 35 52.375C44.3889 52.375 52 44.7639 52 35.375C52 25.9861 44.3889 18.375 35 18.375ZM35 21.6653C42.5768 21.6653 48.7097 27.797 48.7097 35.375C48.7097 42.9518 42.578 49.0847 35 49.0847C27.4232 49.0847 21.2903 42.953 21.2903 35.375C21.2903 27.7982 27.422 21.6653 35 21.6653ZM44.6108 30.5949L43.066 29.0376C42.746 28.7151 42.2252 28.713 41.9027 29.033L32.2132 38.6446L28.1146 34.5127C27.7947 34.1901 27.2738 34.188 26.9513 34.5079L25.394 36.0527C25.0715 36.3727 25.0693 36.8935 25.3893 37.2161L31.6122 43.4893C31.9321 43.8119 32.4529 43.814 32.7755 43.494L44.6062 31.7583C44.9286 31.4383 44.9307 30.9174 44.6108 30.5949Z"
                                             fill="#43A047" />
                                     </svg>
+
                                     <div class="card-body ps-1 pe-0">
                                         <p class="card-text m-0 fs-7">Finish Order</p>
                                         <h3 id="loloFinishOrder" class="h3 mb-0 text-success">123</h3>
                                     </div>
+
                                 </div>
+
+
+
                                 <div
                                     class="mini-item card px-3 d-flex flex-row justify-content-between align-items-center border-0 shadow rounded-3">
                                     <svg width="45" height="45" viewBox="0 0 70 71" fill="none"
@@ -1160,6 +1167,7 @@
                                         <h3 id="loloPendingOrder" class="h3 mb-0 text-danger">123</h3>
                                     </div>
                                 </div>
+
                                 <div
                                     class="mini-item card px-3 d-flex flex-row justify-content-between align-items-center border-0 shadow rounded-3">
                                     <svg width="45" height="45" viewBox="0 0 70 71" fill="none"

@@ -19,7 +19,7 @@
                                             DATE</label></div>
                                     <div class="card-body">
                                         <input type="hidden" value="{{ $data_cfs->id_job_order }}" name="id">
-                                        <input type="Date" class="form-control border border-dark mb-3 mb-3"
+                                        <input type="Date" class="form-control border border-dark mb-3 mb-3 text-center"
                                             name="activity_date" value="{{ $tgl_activity }}">
                                     </div>
                                 </div>
@@ -31,8 +31,8 @@
                                             JO/ORDER
                                             NO</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="no_order"
-                                            value="{{ $data_cfs->no_order }}">
+                                        <input type="text" class="form-control border border-dark mb-3 text-center"
+                                            name="no_order" value="{{ $data_cfs->no_order }}">
                                     </div>
                                 </div>
                             </div>
@@ -41,8 +41,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">PRINCIPAL</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="principal"
-                                            value="{{ $data_cfs->principal }}">
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
+                                            name="principal" value="{{ $data_cfs->principal }}">
                                     </div>
                                 </div>
                             </div>
@@ -51,8 +51,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">FORWARDER</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="forwarder"
-                                            value="{{ $data_cfs->forwarder }}">
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
+                                            name="forwarder" value="{{ $data_cfs->forwarder }}">
                                     </div>
                                 </div>
                             </div>
@@ -61,8 +61,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">SHIPPER</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="shipper"
-                                            value="{{ $data_cfs->shipper }}">
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
+                                            name="shipper" value="{{ $data_cfs->shipper }}">
                                     </div>
                                 </div>
                             </div>
@@ -72,8 +72,8 @@
                                             style="color:white">CARGO</label>
                                     </div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="cargo"
-                                            value="{{ $data_cfs->cargo }}">
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
+                                            name="cargo" value="{{ $data_cfs->cargo }}">
                                     </div>
                                 </div>
                             </div>
@@ -82,8 +82,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">party</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="party"
-                                            value="{{ $data_cfs->party }}">
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
+                                            name="party" value="{{ $data_cfs->party }}">
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +92,7 @@
                                     <div class="card-header bg-dark"> <label class="form-label" style="color:white">Closing
                                             date</label></div>
                                     <div class="card-body">
-                                        <input type="date" class="form-control border border-dark mb-3"
+                                        <input type="date" class="form-control border border-dark mb-3  text-center"
                                             name="closing_date" value="{{ $tgl_clossing }}">
                                     </div>
                                 </div>
@@ -102,8 +102,8 @@
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">Remark</label></div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control border border-dark mb-3" name="remark"
-                                            value="{{ $data_cfs->remark }}">
+                                        <input type="text" class="form-control border border-dark mb-3  text-center"
+                                            name="remark" value="{{ $data_cfs->remark }}">
                                     </div>
                                 </div>
                             </div>
@@ -118,11 +118,11 @@
                                     <div class="card-body">
                                         <input type="hidden" name="group_id[]" value="{{ $item->group_id }}">
                                         <label class="form-label">No Container</label>
-                                        <input type="text" class="form-control border border-dark"
+                                        <input type="text" class="form-control border border-dark  text-center"
                                             style="margin-bottom: 10px" name="strip_container_no[]"
                                             value="{{ $item->strip_container_no }}" placeholder="no container">
                                         <label class="form-label">No Seal</label>
-                                        <input type="text" class="form-control border border-dark"
+                                        <input type="text" class="form-control border border-dark  text-center"
                                             style="margin-bottom: 10px" name="strip_seal_no[]"
                                             value="{{ $item->strip_seal_no }}" placeholder="no seal">
                                     </div>
@@ -133,11 +133,11 @@
                                     <div class="card-header bg-dark " style="color: white">Stripping</div>
                                     <div class="card-body">
                                         <label class="form-label">No Container</label>
-                                        <input type="text" class="form-control border border-dark"
+                                        <input type="text" class="form-control border border-dark  text-center"
                                             style="margin-bottom: 10px" name="stuf_container_no[]"
                                             value="{{ $item->stuf_container_no }}" placeholder="no container">
                                         <label class="form-label">No Seal</label>
-                                        <input type="text" class="form-control border border-dark"
+                                        <input type="text" class="form-control border border-dark  text-center"
                                             style="margin-bottom: 10px" name="stuf_seal_no[]"
                                             value="{{ $item->stuf_seal_no }}" placeholder="no seal">
                                     </div>

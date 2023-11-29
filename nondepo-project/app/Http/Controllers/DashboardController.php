@@ -13,6 +13,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
+
         $currentTime = Carbon::now();
         $get_shift = $this->getshift($currentTime);
         $today = Carbon::now()->format('d-m-Y');

@@ -13,10 +13,32 @@
 </head>
 
 <body>
-    @include('sidebar')
-    <section class="home-section">
+    @extends('layouts.sidebarcopy')
+    @section('content')
+        <section class="home-section w-100">
+            <div class="text w-100" style="font-size: 30px">Reefer PTI</div>
+            <div class="container-fluid">
+                <div class="row shadow p-3 mb-5 bg-white justify-content-between w-100">
+                    <div class="row w-100 ">
+                        <div class="justify-content-between "
+                            style="display: flex; align-items:center; margin-top:-20px; padding-right:50px">
 
-    </section>
+                            <div>
+                                <img src="{{ asset('images/flag-samudera.png') }}" alt="samudera" class="img-fluid"
+                                    style="border: none; height:50px; width:250px;">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row w-100 justify-content-center">
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endsection
 </body>
 
 </html>
