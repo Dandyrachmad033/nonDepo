@@ -16,7 +16,7 @@
                         <div class="row shadow bg-white pt-3">
 
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
+                                <div class="card text-dark bg-light border-dark mb-3 shadow">
                                     <div class="card-header bg-dark"><label class="form-label" style="color: white">
                                             ACTIVITY
                                             DATE</label></div>
@@ -25,10 +25,12 @@
                                             name="activity_date">
                                     </div>
                                 </div>
-
+                                @error('activity_date')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
+                                <div class="card text-dark bg-light border-dark mb-3 shadow">
                                     <div class="card-header bg-dark"><label class="form-label" style="color:white">
                                             JO/ORDER
                                             NO</label></div>
@@ -37,9 +39,12 @@
                                             name="no_order">
                                     </div>
                                 </div>
+                                @error('no_order')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
+                                <div class="card text-dark bg-light border-dark mb-3 shadow">
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">PRINCIPAL</label></div>
                                     <div class="card-body">
@@ -47,9 +52,12 @@
                                             name="principal">
                                     </div>
                                 </div>
+                                @error('principal')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
+                                <div class="card text-dark bg-light border-dark mb-3 shadow">
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">FORWARDER</label></div>
                                     <div class="card-body">
@@ -57,9 +65,12 @@
                                             name="forwarder">
                                     </div>
                                 </div>
+                                @error('forwarder')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
+                                <div class="card text-dark bg-light border-dark mb-3 shadow">
                                     <div class="card-header bg-dark"><label class="form-label"
                                             style="color:white">CARGO</label>
                                     </div>
@@ -68,9 +79,12 @@
                                             name="cargo">
                                     </div>
                                 </div>
+                                @error('cargo')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
+                                <div class="card text-dark bg-light border-dark mb-3 shadow">
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">PARTY</label></div>
                                     <div class="card-body">
@@ -78,9 +92,12 @@
                                             name="party">
                                     </div>
                                 </div>
+                                @error('party')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
+                                <div class="card text-dark bg-light border-dark mb-3 shadow">
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">CONTAINER NO(STRIPPING)</label></div>
                                     <div class="card-body">
@@ -88,9 +105,12 @@
                                             name="container_strip">
                                     </div>
                                 </div>
+                                @error('container_strip')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
+                                <div class="card text-dark bg-light border-dark mb-3 shadow">
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">QUANTITY</label></div>
                                     <div class="card-body">
@@ -98,9 +118,12 @@
                                             name="quantity">
                                     </div>
                                 </div>
+                                @error('quantity')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
+                                <div class="card text-dark bg-light border-dark mb-3 shadow">
                                     <div class="card-header bg-dark"> <label class="form-label" style="color:white">STUFFING
                                             CONTAINER NO</label></div>
                                     <div class="card-body">
@@ -108,6 +131,9 @@
                                             name="container_stuf">
                                     </div>
                                 </div>
+                                @error('container_stuf')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -117,7 +143,7 @@
                         <div class="row shadow pb-3 bg-white clone-this" style="margin-bottom: 30px">
                             <div class="fw-bold count"></div>
                             <div class="col text-center col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
-                                <div class="card text-dark bg-warning border-dark">
+                                <div class="card text-dark bg-warning border-dark shadow">
                                     <div class="card-header bg-dark" style="color: white">Stripping</div>
                                     <div class="card-body">
                                         <label class="form-label">DESCRIPTION OF GOODS</label>

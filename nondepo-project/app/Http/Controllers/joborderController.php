@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+
 use App\Models\m_module;
-use App\Models\Users;
+
 
 class joborderController extends Controller
 {

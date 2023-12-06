@@ -7,8 +7,7 @@ use App\Models\m_module;
 use App\Models\monitoring;
 use App\Models\plugging;
 use Carbon\Carbon;
-use PhpParser\Node\Expr\FuncCall;
-use Illuminate\Support\Facades\DB;
+
 
 class reeferserviceController extends Controller
 {
@@ -69,6 +68,7 @@ class reeferserviceController extends Controller
     public function start_plugging(Request $request)
     {
 
+
         $validatedData = $request->validate([
             'no_container' => 'required|string|size:11',
             'set_temp' => 'required|integer|regex:/^[0-9]+$/',
@@ -84,6 +84,7 @@ class reeferserviceController extends Controller
         ]);
 
         if ($validatedData) {
+
             $currentTime = Carbon::now();
             $currentShift = $this->startshift($currentTime);
             $nextshift = $this->getShift($currentTime);
@@ -121,6 +122,9 @@ class reeferserviceController extends Controller
                 'shift' => $currentShift,
                 'monitor' => 'done'
             ];
+            plugging::create($data);
+
+
             $dataForMonitoring = [
                 'no_container' => $no_container,
                 'set_temp' => $set_point,
@@ -134,7 +138,7 @@ class reeferserviceController extends Controller
                 'status' => 'not'
             ];
 
-            plugging::create($data);
+
             monitoring::create($dataForMonitoring);
             return redirect()->route('reefer_plugging');
         } else {
@@ -144,16 +148,18 @@ class reeferserviceController extends Controller
 
     public function end_plugging(Request $request)
     {
+
         $validatedData = $request->validate([
             'sup_temp_end' => 'required|integer|regex:/^[0-9]+$/', // Menambahkan validasi integer
             'ret_temp_end' => 'required|integer|regex:/^[0-9]+$/', // Menambahkan validasi integer
             'cel_two_end' => 'required|string',
             'cel_tree_end' => 'required|string',
             'remark_end' => 'string|nullable',
-
+            'photo.*' => 'required|image|mimes:jpeg,png,jpg',
         ]);
 
         if ($validatedData) {
+            $id = $request->input('id');
             $no_container = $request->input('no_container');
             $sup_temp_end = $request->input('sup_temp_end');
             $cel_two_end = $request->input('cel_two_end');
@@ -181,7 +187,8 @@ class reeferserviceController extends Controller
                 'status' => 'End-plugging',
                 'photo' => $compact_photo_end
             ];
-            plugging::where('no_container', $no_container)->update($data);
+            plugging::where('no_container', $no_container)->where('plug_id', $id)->update($data);
+
             return redirect()->route('reefer_plugging');
         } else {
             return redirect()->route('reefer_plugging');
@@ -197,6 +204,7 @@ class reeferserviceController extends Controller
             'cel_two' => 'required|string',
             'cel_tree' => 'required|string',
             'remark' => 'string|nullable',
+            'photo.*' => 'required|image|mimes:jpeg,png,jpg',
         ]);
 
         if ($validatedData) {
@@ -342,7 +350,7 @@ class reeferserviceController extends Controller
         $menu = m_module::with('sub_m_module')->get();
         $data_plug = plugging::where('plug_id', $plug_id)->first();
         $data_monitor = plugging::leftJoin('monitorings', 'pluggings.plug_id', '=', 'monitorings.monitor_id')->where('monitorings.monitor_id', $plug_id)
-            ->select('monitorings.no_container', 'monitorings.set_temp', 'monitorings.sup_temp', 'monitorings.ret_temp', 'monitorings.remark', 'monitorings.time_monitoring')->get();
+            ->select('monitorings.no_container', 'monitorings.set_temp', 'monitorings.sup_temp', 'monitorings.ret_temp', 'monitorings.remark', 'monitorings.time_monitoring', 'monitorings.monitor')->get();
 
 
         return view('view_plug_history', ['data_plug' => $data_plug, 'showdata' => $menu, 'data_monitor' => $data_monitor]);

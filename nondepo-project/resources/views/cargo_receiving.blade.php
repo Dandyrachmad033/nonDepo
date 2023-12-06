@@ -16,7 +16,7 @@
                         <div class="row shadow bg-white pt-3">
 
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
+                                <div class="card text-dark bg-light border-dark mb-3 shadow">
                                     <div class="card-header bg-dark"><label class="form-label" style="color: white">
                                             RECEIVING
                                             DATE</label></div>
@@ -25,10 +25,12 @@
                                             name="activity_date">
                                     </div>
                                 </div>
-
+                                @error('activity_date')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
+                                <div class="card text-dark bg-light border-dark mb-3 shadow">
                                     <div class="card-header bg-dark"><label class="form-label" style="color:white">
                                             JO/ORDER
                                             NO</label></div>
@@ -37,9 +39,12 @@
                                             name="no_order">
                                     </div>
                                 </div>
+                                @error('no_order')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
+                                <div class="card text-dark bg-light border-dark mb-3 shadow">
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">PRINCIPAL/CUSTOMER</label></div>
                                     <div class="card-body">
@@ -47,9 +52,12 @@
                                             name="principal">
                                     </div>
                                 </div>
+                                @error('principal')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
+                                <div class="card text-dark bg-light border-dark mb-3 shadow">
                                     <div class="card-header bg-dark"><label class="form-label" style="color:white">CONTAINER
                                             NO/SIZE</label>
                                     </div>
@@ -58,9 +66,12 @@
                                             name="con_size">
                                     </div>
                                 </div>
+                                @error('con_size')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
+                                <div class="card text-dark bg-light border-dark mb-3 shadow">
                                     <div class="card-header bg-dark"> <label class="form-label" style="color:white">VEHICLE
                                             TYPE</label></div>
                                     <div class="card-body">
@@ -68,9 +79,12 @@
                                             name="veh_type">
                                     </div>
                                 </div>
+                                @error('veh_type')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
+                                <div class="card text-dark bg-light border-dark mb-3 shadow">
                                     <div class="card-header bg-dark"> <label class="form-label" style="color:white">VEHICLE
                                             ID</label></div>
                                     <div class="card-body">
@@ -78,62 +92,76 @@
                                             name="veh_id">
                                     </div>
                                 </div>
+                                @error('veh_id')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
+                                <div class="card text-dark bg-light border-dark mb-3 shadow">
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">STRIPPING TYPE</label></div>
                                     <div class="card-body">
                                         <div class="form-check">
                                             <input class="form-check-input border border-dark" type="checkbox"
-                                                value="TO WAREHOUSE" id="flexCheckDefault1" name="warehouse">
+                                                value="TO WAREHOUSE" id="flexCheckDefault1" name="warehouse"
+                                                {{ old('warehouse') ? 'checked' : '' }}>
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 TO WAREHOUSE
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input border border-dark" type="checkbox"
-                                                value="TO YARD" id="flexCheckDefault2" name="yard">
+                                                value="TO YARD" id="flexCheckDefault2" name="yard"
+                                                {{ old('yard') ? 'checked' : '' }}>
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 TO YARD
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input border border-dark" type="checkbox"
-                                                value="TO CONTAINER" id="flexCheckDefault3" name="to_con">
+                                                value="TO CONTAINER" id="flexCheckDefault3" name="to_con"
+                                                {{ old('to_con') ? 'checked' : '' }}>
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 TO CONTAINER
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+                                @error('warehouse')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
+                                <div class="card text-dark bg-light border-dark mb-3 shadow">
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">CONTAINER ACTIVITY TYPE (if using container)</label></div>
                                     <div class="card-body">
                                         <div class="form-check">
                                             <input class="form-check-input border border-dark" type="checkbox"
-                                                value="GROUNDED" id="flexCheckDefault4" name="grounded">
+                                                value="GROUNDED" id="flexCheckDefault4" name="grounded"
+                                                {{ old('grounded') ? 'checked' : '' }}>
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 GROUNDED
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input border border-dark" type="checkbox"
-                                                value=" ON CHASIS" id="flexCheckDefault5" name="on_chasis">
+                                                value=" ON CHASIS" id="flexCheckDefault5" name="on_chasis"
+                                                {{ old('on_chasis') ? 'checked' : '' }}>
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 ON CHASIS
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+                                @error('on_chasis')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="col col-lg-3 col-md-3 col-sm-12 col-12 text-center">
-                                <div class="card text-dark bg-light border-dark mb-3">
+                                <div class="card text-dark bg-light border-dark mb-3 shadow">
                                     <div class="card-header bg-dark"> <label class="form-label"
                                             style="color:white">REMARK</label></div>
                                     <div class="card-body">
@@ -141,6 +169,9 @@
                                             name="remark">
                                     </div>
                                 </div>
+                                @error('remark')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -149,8 +180,8 @@
                     <div class="clone-in-here">
                         <div class="row shadow pb-3 bg-white clone-this" style="margin-bottom: 30px">
                             <div class="fw-bold count"></div>
-                            <div class="col text-center  col-lg-12 col-md-12 col-sm-12 col-12 mb-0 ">
-                                <div class="card text-dark bg-warning border-dark">
+                            <div class="col text-center  col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
+                                <div class="card text-dark bg-warning border-dark shadow">
                                     <div class="card-header bg-dark" style="color: white">Stripping</div>
                                     <div class="card-body">
                                         <label class="form-label">DESCRIPTION OF GOODS</label>

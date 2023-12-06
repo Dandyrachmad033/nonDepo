@@ -19,9 +19,9 @@
             <div class="text w-100" style="font-size: 30px">Staffing & Stripping</div>
             <div data-aos="fade-left" data-aos-duration="300">
                 <div class="container-fluid">
-                    <div class="row shadow p-3 mb-5 bg-white justify-content-between w-100">
+                    <div class="d-flex row shadow p-3 mb-5 bg-white justify-content-center w-100">
                         <div class="row w-100 ">
-                            <div class="justify-content-between "
+                            <div class="justify-content-between"
                                 style="display: flex; align-items:center; margin-top:-20px; padding-right:50px">
                                 <div class="text fw-bold" style="font-size: 30px">
                                     Finished Order
@@ -39,7 +39,7 @@
                                     <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
                                         <a href="{{ route('details', ['id' => $data->id_job_order]) }}"
                                             class="btn btn-block w-100" style=" cursor: pointer;">
-                                            <div class="card border-dark border-2 w-100">
+                                            <div class="card border-dark border-2 w-100 shadow">
                                                 <div class="card-header bg-warning border-dark border-bottom border-2 text-center"
                                                     style="">
                                                     {{ $data->form_type }}
@@ -169,7 +169,7 @@
                                     <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
                                         <a href="{{ route('details_tally', ['id' => $data->id_job_order]) }}"
                                             class="btn btn-block w-100" style=" cursor: pointer;">
-                                            <div class="card border-dark w-100 border-2">
+                                            <div class="card border-dark w-100 border-2 shadow">
                                                 <div class="card-header bg-warning border-dark border-bottom border-2 text-center"
                                                     style="">
                                                     {{ $data->form_type }}
@@ -303,7 +303,7 @@
                                     <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
                                         <a href="{{ route('details_release', ['id' => $data->id_job_order]) }}"
                                             class="btn btn-block w-100" style=" cursor: pointer;">
-                                            <div class="card border-dark border-2 w-100">
+                                            <div class="card border-dark border-2 w-100 shadow">
                                                 <div class="card-header bg-warning border-dark border-bottom border-2 text-center"
                                                     style="">
                                                     {{ $data->form_type }}
@@ -425,12 +425,12 @@
                                     <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
                                         <a href="{{ route('details_receiving', ['id' => $data->id_job_order]) }}"
                                             class="btn btn-block w-100" style=" cursor: pointer;">
-                                            <div class="card border-dark w-100">
+                                            <div class="card border-dark w-100 shadow">
                                                 <div class="card-header bg-warning border-dark border-bottom border-2 text-center"
                                                     style="">
                                                     {{ $data->form_type }}
                                                 </div>
-                                                <div class="card-body text-dark border-2">
+                                                <div class="card-body text-dark border-2 ">
                                                     <h5 class="card-title fw-bold">{{ $data->principal }}</h5>
                                                     <div class="row border-bottom border-dark mb-2">
                                                         <div class="col-12 col-sm-12 col-lg-6 col-md-6 ">

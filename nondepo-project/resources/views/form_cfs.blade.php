@@ -19,11 +19,11 @@
             <div class="text w-100" style="font-size: 30px">Staffing & Stripping</div>
             <div data-aos="fade-left" data-aos-duration="300">
                 <div class="container-fluid">
-                    <div class="row shadow p-3 mb-5 bg-white justify-content-between w-100">
+                    <div class="d-flex row shadow p-3 mb-5 bg-white justify-content-center w-100">
                         <div class="row w-100 text-center">
                             <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
                                 <a href="{{ route('cfs') }}" class="btn btn-block w-100" style=" cursor: pointer;">
-                                    <div class="card border-dark border-2 w-100">
+                                    <div class="card border-dark border-2 w-100 shadow">
                                         <div class="card-header bg-warning border-dark border-bottom border-2 text-center"
                                             style="">
                                             Form CFS worksheet
@@ -90,7 +90,7 @@
 
                             <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
                                 <a href="{{ route('cfs_tally') }}" class="btn btn-block w-100" style=" cursor: pointer;">
-                                    <div class="card border-dark border-2 w-100">
+                                    <div class="card border-dark border-2 w-100 shadow">
                                         <div class="card-header bg-warning border-dark border- border-2 text-center"
                                             style="">
                                             Form CFS Tally
@@ -158,7 +158,7 @@
                             <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
                                 <a href="{{ route('cargo_release') }}" class="btn btn-block w-100"
                                     style=" cursor: pointer;">
-                                    <div class="card border-dark border-2 w-100">
+                                    <div class="card border-dark border-2 w-100 shadow">
                                         <div class="card-header bg-warning border-dark border-bottom border-2 text-center"
                                             style="">
                                             Form Cargo Release
@@ -227,7 +227,7 @@
                             <div class=" col-4 col-lg-4 col-md-6 col-sm-12 col-12 p-3">
                                 <a href="{{ route('cargo_receiving') }}" class="btn btn-block w-100"
                                     style=" cursor: pointer;">
-                                    <div class="card border-dark border-2 w-100">
+                                    <div class="card border-dark border-2 w-100 shadow">
                                         <div class="card-header bg-warning border-dark border-bottom border-2 text-center"
                                             style="">
                                             Form Cargo Receiving

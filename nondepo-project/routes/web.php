@@ -11,6 +11,7 @@ use App\Http\Controllers\staffingstrippingController;
 use App\Http\Controllers\AnalisisController;
 use App\Http\Controllers\Bongkar;
 use App\Http\Controllers\jobOrderController;
+use App\Http\Controllers\ExportController;
 use Illuminate\Support\Facades\Route;
 
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -39,6 +40,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/monitorings', [reeferserviceController::class, 'monitoring_plug']);
     Route::get('/history', [reeferserviceController::class, 'history'])->name('history');
     Route::get('/view_history/{id_plug}', [reeferserviceController::class, 'view_history'])->name('view_history');
+
+    //Route to Controller Export Excel Data
+    Route::post('/Export_plug_history', [ExportController::class, 'Export_plug']);
 
 
 
@@ -74,7 +78,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/finish_resume_tally', [staffingstrippingController::class, 'finish_resume_tally'])->name('finish_resume_tally');
     Route::post('/finish_resume_release', [staffingstrippingController::class, 'finish_resume_release'])->name('finish_resume_release');
     Route::post('/finish_resume_receiving', [staffingstrippingController::class, 'finish_resume_receiving'])->name('finish_resume_receiving');
-
+    Route::post('/create_job_order', [staffingstrippingController::class, 'create_job_order'])->name('create_job_order');
 
     //Route To Analisis Data
     Route::get('/analisis', [AnalisisController::class, 'index'])->name('analisis');

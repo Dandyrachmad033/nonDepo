@@ -73,7 +73,8 @@
                                     <td class="text-center"> <button onclick="openModalEnd(this)" type="button"
                                             class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                             data-bs-target="#end_plugging" data-no-container="{{ $item->no_container }}"
-                                            data-set-temp="{{ $item->set_temp }}" data-remark="{{ $item->remark }}">
+                                            data-set-temp="{{ $item->set_temp }}" data-id-plug="{{ $item->plug_id }}"
+                                            data-time-plug="{{ $item->time }}">
                                             End Plugging
                                         </button></td>
                                     <td class="text-center">{{ $item->status }}</td>
@@ -111,7 +112,7 @@
                         enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
-                            <label for="no_container" class="col-form-label">Nomor Container</label>
+                            <label class="col-form-label">Nomor Container</label>
                             <input type="text"
                                 class="form-control border border-1 border-dark  @error('no_container')
                                 is-invalid
@@ -127,7 +128,7 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="mb-3">
-                                    <label for="message-text" class="col-form-label">Celcius</label>
+                                    <label class="col-form-label">Celcius</label>
                                     <select class="form-select border border-1 border-dark"
                                         aria-label="Default select example" id="cel_one" name="cel_one">
                                         <option value="-">-</option>
@@ -137,7 +138,7 @@
                             </div>
                             <div class="col-md-10">
                                 <div class="mb-3">
-                                    <label for="message-text" class="col-form-label">Set Point Temperature</label>
+                                    <label class="col-form-label">Set Point Temperature</label>
                                     <input type="text"
                                         class="form-control border border-1 border-dark @error('set_temp')
                                         is-invalid
@@ -154,7 +155,7 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="mb-3">
-                                    <label for="message-text" class="col-form-label">Celcius</label>
+                                    <label class="col-form-label">Celcius</label>
                                     <select class="form-select border border-1 border-dark"
                                         aria-label="Default select example" id="cel_two" name="cel_two">
                                         <option value="-">-</option>
@@ -164,7 +165,7 @@
                             </div>
                             <div class="col-md-10">
                                 <div class="mb-3">
-                                    <label for="message-text" class="col-form-label">Supply Temperature</label>
+                                    <label class="col-form-label">Supply Temperature</label>
                                     <input type="text"
                                         class="form-control border border-1 border-dark @error('sup_temp')
                                         is-invalid
@@ -181,7 +182,7 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="mb-3">
-                                    <label for="message-text" class="col-form-label">Celcius</label>
+                                    <label class="col-form-label">Celcius</label>
                                     <select class="form-select border border-1 border-dark"
                                         aria-label="Default select example" id="cel_tree" name="cel_tree">
                                         <option value="-">-</option>
@@ -191,7 +192,7 @@
                             </div>
                             <div class="col-md-10">
                                 <div class="mb-3">
-                                    <label for="message-text" class="col-form-label">Return Temperature</label>
+                                    <label class="col-form-label">Return Temperature</label>
                                     <input type="text"
                                         class="form-control border border-1 border-dark @error('ret_temp')
                                         is-invalid
@@ -245,31 +246,7 @@
     </div>
 
     {{-- Camera Open --}}
-    <div class="modal fade" id="opencamera" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
-        tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-warning">
-                    <h5 class="modal-title" id="exampleModalToggleLabel2">Photo Camera</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        id="x-button"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <video width="320" height="240" id="video">
-                    </video>
-                </div>
 
-                <div class="modal-footer bg-dark  d-flex justify-content-between">
-                    <button id="cancel-button" class="btn btn-warning" data-bs-target="#exampleModal"
-                        data-bs-toggle="modal" data-bs-dismiss="modal">Cancel</button>
-
-                    <button id="camera-capture" class="btn btn-warning btn-sm ">
-                        <i class='bx bxs-camera bg-warning' style="font-size: 30px; margin-bottom:0"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     {{-- Modal end plugging --}}
     <div class="modal fade" id="end_plugging" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -287,15 +264,16 @@
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
-                            <label for="no_container" class="col-form-label">Nomor Container</label>
+                            <label class="col-form-label">Nomor Container</label>
                             <input type="text" class="form-control  border border-1 border-dark"
                                 id="modal_no_container" name="no_container" readonly>
-
+                            <input type="hidden" name="id" id="modal_id">
+                            <input type="hidden" id="modal_time" name="time">
                         </div>
                         <div class="row">
 
                             <div class="mb-3">
-                                <label for="message-text" class="col-form-label">Set Point Temperature</label>
+                                <label class="col-form-label">Set Point Temperature</label>
                                 <input type="text" class="form-control  border border-1 border-dark"
                                     id="modal_set_temp" name="set_temp" readonly>
                             </div>
@@ -305,7 +283,7 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="mb-3">
-                                    <label for="message-text" class="col-form-label">Celcius</label>
+                                    <label class="col-form-label">Celcius</label>
                                     <select class="form-select  border border-1 border-dark"
                                         aria-label="Default select example" id="cel_two_end" name="cel_two_end">
                                         <option value="-">-</option>
@@ -315,7 +293,7 @@
                             </div>
                             <div class="col-md-10">
                                 <div class="mb-3">
-                                    <label for="message-text" class="col-form-label">Supply Temperature</label>
+                                    <label class="col-form-label">Supply Temperature</label>
                                     <input type="text"
                                         class="form-control  border border-1 border-dark @error('sup_temp_end')
                                         is-invalid
@@ -332,7 +310,7 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="mb-3">
-                                    <label for="message-text" class="col-form-label">Celcius</label>
+                                    <label class="col-form-label">Celcius</label>
                                     <select class="form-select  border border-1 border-dark"
                                         aria-label="Default select example" id="cel_tree_end" name="cel_tree_end">
                                         <option value="-">-</option>
@@ -342,7 +320,7 @@
                             </div>
                             <div class="col-md-10">
                                 <div class="mb-3 ">
-                                    <label for="message-text" class="col-form-label">Return Temperature</label>
+                                    <label class="col-form-label">Return Temperature</label>
                                     <input type="text"
                                         class="form-control  border border-1 border-dark @error('ret_temp_end')
                                         is-invalid

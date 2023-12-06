@@ -5,12 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
-
-use App\Models\actions;
 use App\Models\Users;
-use App\Models\users_actions;
-use App\Models\type;
-use Illuminate\Support\Testing\Fakes\Fake;
+
 
 class UsersController extends Controller
 {
@@ -23,6 +19,7 @@ class UsersController extends Controller
 
     public function authenticatelogin(Request $request): RedirectResponse
     {
+
         $credentials = $request->validate([
             'username' =>  'required|min:6',
             'password' =>  'required|min:8',
@@ -33,6 +30,7 @@ class UsersController extends Controller
             'password.required' => 'Password Tidak Boleh Kosong.',
             'password.min' => 'Password Minimal :min karakter.',
         ]);
+
 
         $action_data = $request->input('actions');
         if (Auth::attempt($credentials)) {
@@ -63,7 +61,7 @@ class UsersController extends Controller
                             ->withInput($request->only('username'));
                     }
                 }
-
+                session(['username' => $credentials['username']]);
                 $request->session()->regenerate();
                 return redirect()->intended('/dashboard');
             }
@@ -72,9 +70,9 @@ class UsersController extends Controller
                 ->withInput($request->only('username'));
         }
 
-        return redirect()->intended('/')
-            ->with('error', 'Username Atau Password salah')
-            ->withInput($request->only('username'));
+        // return redirect()->intended('/')
+        //     ->with('error', 'Username Atau Password salah')
+        //     ->withInput($request->only('username', 'password'));
     }
 
     public function authenticatelogout(Request $request): RedirectResponse

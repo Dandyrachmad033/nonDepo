@@ -4,6 +4,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MTKIcon | Samudera</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -22,7 +23,7 @@
     <div class="center">
         <div class="flipcard-inner">
             <div class="flipcard-front">
-                <div class="container bg-warning border border-5">
+                <div class="container bg-warning border border-5 shadow">
                     <div class="text bg-warning">
                         <div>
                             <img src="{{ asset('images/samudera.png') }}" alt=""
@@ -47,7 +48,7 @@
                         @enderror
                         <div class="data" style="margin: 25px 0px">
                             <label>Password</label>
-                            <input type="password" name="password" id="password">
+                            <input type="password" name="password" id="password" value="{{ old('password') }}">
                         </div>
                         @error('password')
                             <div class="alert alert-warning d-flex align-items-center justify-content-center" role="alert"

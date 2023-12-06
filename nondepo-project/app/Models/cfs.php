@@ -31,7 +31,8 @@ class cfs extends Model
         'con_act',
         'strip_type',
         'finish_status',
-        'finish_time'
+        'finish_time',
+        'user_name'
     ];
     public $timestamps = true;
 }

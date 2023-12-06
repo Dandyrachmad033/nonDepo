@@ -8,18 +8,16 @@ use App\Models\tally_stufstrip;
 use App\Models\release_stufstrip;
 use App\Models\receiving_stufstrip;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
-use App\Models\users;
-use Illuminate\Support\Testing\Fakes\Fake;
 use App\Models\m_module;
-use Termwind\Components\Dd;
+
 
 class staffingstrippingController extends Controller
 {
     public function index()
     {
-        $db_cfs = cfs::where('finish_status', 'Pending')->orderBy('activity_date', 'asc')->paginate(9);
+        $db_cfs = cfs::where('finish_status', 'Pending')->orderBy('activity_date', 'asc')->paginate(15);
 
         $menu = m_module::with('sub_m_module')->get();
         return view('staf-strip', ['showdata' => $menu, 'cfs' => $db_cfs]);
@@ -33,8 +31,9 @@ class staffingstrippingController extends Controller
 
     public function index_finish()
     {
-        $db_cfs = cfs::orderBy('activity_date', 'asc')->where('finish_status', 'Finished')->get();
 
+
+        $db_cfs = cfs::orderBy('activity_date', 'asc')->where('finish_status', 'Finished')->get();
         $menu = m_module::with('sub_m_module')->get();
         return view('stufstrip_finish', ['showdata' => $menu, 'cfs' => $db_cfs]);
     }
@@ -172,9 +171,35 @@ class staffingstrippingController extends Controller
         return view('resume_receiving', ['data_cfs' => $resume_id, 'receiving' => $data_column_receiving, 'showdata' => $menu, 'tgl_activity' => $format_activity]);
     }
 
-    public function cfs_form(Request $request)
+    public function cfs_form(Request $request): RedirectResponse
     {
-        // CFS form
+
+        $this->validate($request, [
+            'activity_date' => 'required|date',
+            'no_order' => 'required',
+            'principal' => 'required',
+            'forwarder' => 'required',
+            'shipper' => 'required',
+            'cargo' => 'required',
+            'party' => 'required',
+            'closing_date' => 'required|date',
+            'remark' => 'nullable',
+        ], [
+            'activity_date.required' => 'Tanggal kegiatan harus diisi.',
+            'activity_date.date' => 'Format tanggal kegiatan tidak valid.',
+            'no_order.required' => 'Nomor pesanan harus diisi.',
+            'principal.required' => 'Principal harus diisi.',
+            'forwarder.required' => 'Forwarder harus diisi.',
+            'shipper.required' => 'Shipper harus diisi.',
+            'cargo.required' => 'Kargo harus diisi.',
+            'party.required' => 'Pihak harus diisi.',
+            'closing_date.required' => 'Tanggal penutupan harus diisi.',
+            'closing_date.date' => 'Format tanggal penutupan tidak valid.',
+        ]);
+
+
+
+        $username = session('username');
         $activity_date = $request->input('activity_date');
         $no_order = $request->input('no_order');
         $principal = $request->input('principal');
@@ -198,11 +223,13 @@ class staffingstrippingController extends Controller
             'clossing_date' => $closing_date,
             'remark' => $remark,
             'form_type' => 'CFS Worksheet',
-            'finish_status' => 'Pending'
+            'finish_status' => 'Pending',
+            'user_name' => $username,
+
         ];
 
         cfs::create($cfs_data);
-        $last_id = cfs::latest()->first()->id_job_order;
+        $cfs_id = cfs::latest()->where('user_name', $username)->first()->id_job_order;
 
         $optionalColumns = [
             'strip_container_no',
@@ -230,14 +257,12 @@ class staffingstrippingController extends Controller
                     $optionalData[$column] = $fix_temp;
                 }
             }
-            stufstrip::create(array_merge($optionalData, ['Cfs_id_job_order' => $last_id]));
+            stufstrip::create(array_merge($optionalData, ['Cfs_id_job_order' => $cfs_id]));
             $group_id = stufstrip::where('strip_container_no', $optionalData['strip_container_no'])->value('idstuffingStripping');
             stufstrip::where('idstuffingStripping', $group_id)->update(['group_id' => $group_id]);
         }
 
-
-
-        return redirect()->route('stuffing-stripping');
+        return redirect()->route('stuffing-stripping')->with('status', 'Data Berhasil Masuk');
     }
 
     public function resume_worksheet(Request $request)
@@ -309,66 +334,96 @@ class staffingstrippingController extends Controller
 
     public function form_tally(Request $request)
     {
+        $validate_tally = $request->validate([
+            'activity_date' => 'required|date',
+            'no_order' => 'required',
+            'principal' => 'required',
+            'forwarder' => 'required',
+            'cargo' => 'required',
+            'party' => 'required',
+            'container_strip' => 'required',
+            'quantity' => 'required|integer',
+            'container_stuf' => 'required',
 
-        $activity_date = $request->input('activity_date');
-        $no_order = $request->input('no_order');
-        $principal = $request->input('principal');
-        $forwarder  = $request->input('forwarder');
-        $cargo = $request->input('cargo');
-        $party = $request->input('party');
-        $container_strip = $request->input('container_strip');
-        $quantity = intval($request->input('quantity'));
-        $container_stuf = $request->input('container_stuf');
-        $time = now();
-        $timeTally = $time->format('H:i:s');
-        $combinedDateTime_tally = $activity_date . ' ' . $timeTally;
+        ], [
+            'activity_date.required' => 'Tanggal kegiatan harus diisi.',
+            'activity_date.date' => 'Format tanggal kegiatan tidak valid.',
+            'no_order.required' => 'Nomor pesanan harus diisi.',
+            'principal.required' => 'Principal harus diisi.',
+            'forwarder.required' => 'Forwarder harus diisi.',
+            'cargo.required' => 'Kargo harus diisi.',
+            'party.required' => 'Pihak harus diisi.',
+            'container_strip.required' => 'Container strip harus diisi.',
+            'quantity.required' => 'Quantity harus diisi.',
+            'quantity.integer' => 'Quantity harus berupa angka.',
+            'container_stuf.required' => 'Container stuf harus diisi.',
+        ]);
 
-        $data_tally = [
-            'activity_date' => $combinedDateTime_tally,
-            'no_order' => $no_order,
-            'principal' => $principal,
-            'forwarder' => $forwarder,
-            'cargo' => $cargo,
-            'party' => $party,
-            'strip_container' => $container_strip,
-            'stuf_container' => $container_stuf,
-            'quantity' => $quantity,
-            'form_type' => 'CFS Tally',
-            'finish_status' => 'Pending'
-        ];
+        if ($validate_tally) {
 
-        cfs::create($data_tally);
-        $last_id = cfs::latest()->first()->id_job_order;
+            $username = session('username');
+            $activity_date = $request->input('activity_date');
+            $no_order = $request->input('no_order');
+            $principal = $request->input('principal');
+            $forwarder  = $request->input('forwarder');
+            $cargo = $request->input('cargo');
+            $party = $request->input('party');
+            $container_strip = $request->input('container_strip');
+            $quantity = intval($request->input('quantity'));
+            $container_stuf = $request->input('container_stuf');
+            $time = now();
+            $timeTally = $time->format('H:i:s');
+            $combinedDateTime_tally = $activity_date . ' ' . $timeTally;
 
-        $columnTally = [
-            'desc',
-            'dimension',
-            'unit',
-            'value',
-            'is_complete'
-        ];
-        $total_tally = count($request->input('desc'));
-        $index_tally = 0;
-        for ($index_tally; $index_tally < $total_tally; $index_tally++) {
-            $Data_tally = [];
-            $fix_temp = '1';
-            foreach ($columnTally as $column) {
-                if ($request->has($column)) {
-                    $values = $request->input($column);
-                    $valueToStore = isset($values[$index_tally]) ? $values[$index_tally] : null;
-                    if ($valueToStore == null) {
-                        $fix_temp = '0';
+            $data_tally = [
+                'activity_date' => $combinedDateTime_tally,
+                'no_order' => $no_order,
+                'principal' => $principal,
+                'forwarder' => $forwarder,
+                'cargo' => $cargo,
+                'party' => $party,
+                'strip_container' => $container_strip,
+                'stuf_container' => $container_stuf,
+                'quantity' => $quantity,
+                'form_type' => 'CFS Tally',
+                'finish_status' => 'Pending'
+            ];
+
+            cfs::create($data_tally);
+            $cfs_id = cfs::latest()->where('user_name', $username)->first()->id_job_order;
+
+
+            $columnTally = [
+                'desc',
+                'dimension',
+                'unit',
+                'value',
+                'is_complete'
+            ];
+            $total_tally = count($request->input('desc'));
+            $index_tally = 0;
+            for ($index_tally; $index_tally < $total_tally; $index_tally++) {
+                $Data_tally = [];
+                $fix_temp = '1';
+                foreach ($columnTally as $column) {
+                    if ($request->has($column)) {
+                        $values = $request->input($column);
+                        $valueToStore = isset($values[$index_tally]) ? $values[$index_tally] : null;
+                        if ($valueToStore == null) {
+                            $fix_temp = '0';
+                        }
+                        $Data_tally[$column] = $valueToStore;
+                    } else {
+                        $Data_tally[$column] = $fix_temp;
                     }
-                    $Data_tally[$column] = $valueToStore;
-                } else {
-                    $Data_tally[$column] = $fix_temp;
                 }
+                tally_stufstrip::create(array_merge($Data_tally, ['id_job_order_tally' => $cfs_id]));
+                $group_id = tally_stufstrip::where('desc', $Data_tally['desc'])->value('idstufstrip_tally');
+                tally_stufstrip::where('idstufstrip_tally', $group_id)->update(['group_id' => $group_id]);
             }
-            tally_stufstrip::create(array_merge($Data_tally, ['id_job_order_tally' => $last_id]));
-            $group_id = tally_stufstrip::where('desc', $Data_tally['desc'])->value('idstufstrip_tally');
-            tally_stufstrip::where('idstufstrip_tally', $group_id)->update(['group_id' => $group_id]);
+            return redirect()->route('stuffing-stripping');
         }
-        return redirect()->route('stuffing-stripping');
+        return redirect()->back()->withErrors($validate_tally)->withInput();
     }
 
     public function resume_tally(Request $request)
@@ -440,71 +495,97 @@ class staffingstrippingController extends Controller
 
     public function form_release(Request $request)
     {
+        $validate_release = $request->validate([
+            'activity_date' => 'required|date',
+            'no_order' => 'required',
+            'principal' => 'required',
+            'con_size' => 'required',
+            'veh_type' => 'required',
+            'veh_id' => 'required',
+            'grounded' => 'required_without_all:on_chasis',
+            'on_chasis' => 'required_without_all:grounded', // Assuming grounded is a boolean value
+            'remark' => 'nullable',
+        ], [
+            'activity_date.required' => 'Tanggal kegiatan harus diisi.',
+            'activity_date.date' => 'Format tanggal kegiatan tidak valid.',
+            'no_order.required' => 'Nomor pesanan harus diisi.',
+            'principal.required' => 'Principal harus diisi.',
+            'con_size.required' => 'Ukuran container harus diisi.',
+            'veh_type.required' => 'Tipe kendaraan harus diisi.',
+            'veh_id.required' => 'ID kendaraan harus diisi.',
+            'grounded.required_without_all' => 'Pilih salah satu tipe kegiatan.',
 
-        $activity_date = $request->input('activity_date');
-        $no_order = $request->input('no_order');
-        $principal = $request->input('principal');
-        $con_size = $request->input('con_size');
-        $veh_type = $request->input('veh_type');
-        $veh_id = $request->input('veh_id');
-        $grounded = $request->input('grounded');
-        $remark = $request->input('remark');
-        $time = now();
-        $timeRelease = $time->format('H:i:s');
-        $combinedDateTime_release = $activity_date . ' ' . $timeRelease;
-        $con_act = '';
-        if ($grounded == null) {
-            $con_act = 'ON CHASIS';
-        } else {
-            $con_act = 'GROUNDED';
-        }
+            'on_chasis.required_without_all' => 'Pilih salah satu tipe kegiatan.',
+        ]);
+        if ($validate_release) {
 
-        $data_release = [
-            'activity_date' => $combinedDateTime_release,
-            'no_order' => $no_order,
-            'principal' => $principal,
-            'con_size' => $con_size,
-            'veh_type' => $veh_type,
-            'veh_id' => $veh_id,
-            'con_act' => $con_act,
-            'remark' => $remark,
-            'form_type' => 'Cargo Release',
-            'finish_status' => 'Pending'
-        ];
-
-        cfs::create($data_release);
-        $last_id = cfs::latest()->first()->id_job_order;
-        $columnRelease = [
-            'desc',
-            'dimension',
-            'unit',
-            'value',
-            'is_complete'
-        ];
-
-        $total_release = count($request->input('desc'));
-        $index_release = 0;
-        for ($index_release; $index_release < $total_release; $index_release++) {
-            $Data_release = [];
-            $fix_temp = '1';
-            foreach ($columnRelease as $column) {
-                if ($request->has($column)) {
-                    $values = $request->input($column);
-                    $valueToStore = isset($values[$index_release]) ? $values[$index_release] : null;
-                    if ($valueToStore == null) {
-                        $fix_temp = '0';
-                    }
-                    $Data_release[$column] = $valueToStore;
-                } else {
-                    $Data_release[$column] = $fix_temp;
-                }
+            $username = session('username');
+            $activity_date = $request->input('activity_date');
+            $no_order = $request->input('no_order');
+            $principal = $request->input('principal');
+            $con_size = $request->input('con_size');
+            $veh_type = $request->input('veh_type');
+            $veh_id = $request->input('veh_id');
+            $grounded = $request->input('grounded');
+            $remark = $request->input('remark');
+            $time = now();
+            $timeRelease = $time->format('H:i:s');
+            $combinedDateTime_release = $activity_date . ' ' . $timeRelease;
+            $con_act = '';
+            if ($grounded == null) {
+                $con_act = 'ON CHASIS';
+            } else {
+                $con_act = 'GROUNDED';
             }
 
-            release_stufstrip::create(array_merge($Data_release, ['id_job_order_release' => $last_id]));
-            $group_id = release_stufstrip::where('desc', $Data_release['desc'])->value('idstufstrip_release');
-            release_stufstrip::where('idstufstrip_release', $group_id)->update(['group_id' => $group_id]);
+            $data_release = [
+                'activity_date' => $combinedDateTime_release,
+                'no_order' => $no_order,
+                'principal' => $principal,
+                'con_size' => $con_size,
+                'veh_type' => $veh_type,
+                'veh_id' => $veh_id,
+                'con_act' => $con_act,
+                'remark' => $remark,
+                'form_type' => 'Cargo Release',
+                'finish_status' => 'Pending'
+            ];
+
+            cfs::create($data_release);
+            $cfs_id = cfs::latest()->where('user_name', $username)->first()->id_job_order;
+            $columnRelease = [
+                'desc',
+                'dimension',
+                'unit',
+                'value',
+                'is_complete'
+            ];
+
+            $total_release = count($request->input('desc'));
+            $index_release = 0;
+            for ($index_release; $index_release < $total_release; $index_release++) {
+                $Data_release = [];
+                $fix_temp = '1';
+                foreach ($columnRelease as $column) {
+                    if ($request->has($column)) {
+                        $values = $request->input($column);
+                        $valueToStore = isset($values[$index_release]) ? $values[$index_release] : null;
+                        if ($valueToStore == null) {
+                            $fix_temp = '0';
+                        }
+                        $Data_release[$column] = $valueToStore;
+                    } else {
+                        $Data_release[$column] = $fix_temp;
+                    }
+                }
+
+                release_stufstrip::create(array_merge($Data_release, ['id_job_order_release' => $cfs_id]));
+                $group_id = release_stufstrip::where('desc', $Data_release['desc'])->value('idstufstrip_release');
+                release_stufstrip::where('idstufstrip_release', $group_id)->update(['group_id' => $group_id]);
+            }
+            return redirect()->route('stuffing-stripping');
         }
-        return redirect()->route('stuffing-stripping');
+        return redirect()->back()->withErrors($validate_release)->withInput();
     }
 
     public function resume_release(Request $request)
@@ -575,84 +656,119 @@ class staffingstrippingController extends Controller
 
     public function form_receiving(Request $request)
     {
+        $validate_receiving = $request->validate([
+            'activity_date' => 'required|date',
+            'no_order' => 'required',
+            'principal' => 'required',
+            'con_size' => 'required',
+            'veh_type' => 'required',
+            'veh_id' => 'required',
+            'grounded' => 'required_without_all:on_chasis',
+            'on_chasis' => 'required_without_all:grounded', // Nullable string
+            'remark' => 'nullable',
+            'warehouse' => 'required_without_all:yard,to_con',
+            'yard' => 'required_without_all:warehouse,to_con',
+            'to_con' => 'required_without_all:warehouse,yard',
+        ], [
+            'activity_date.required' => 'Tanggal kegiatan harus diisi.',
+            'activity_date.date' => 'Format tanggal kegiatan tidak valid.',
+            'no_order.required' => 'Nomor pesanan harus diisi.',
+            'principal.required' => 'Principal harus diisi.',
+            'con_size.required' => 'Ukuran container harus diisi.',
+            'veh_type.required' => 'Tipe kendaraan harus diisi.',
+            'veh_id.required' => 'ID kendaraan harus diisi.',
+            'grounded.required_without_all' => 'Pilih salah satu tipe kegiatan.',
 
-        $activity_date = $request->input('activity_date');
-        $no_order = $request->input('no_order');
-        $principal = $request->input('principal');
-        $con_size = $request->input('con_size');
-        $veh_type = $request->input('veh_type');
-        $veh_id = $request->input('veh_id');
-        $grounded = $request->input('grounded');
-        $warehouse = $request->input('warehouse');
-        $yard = $request->input('yard');
-        $remark = $request->input('remark');
-        $time = now();
-        $timeReceiving = $time->format('H:i:s');
-        $combinedDateTime_receiving = $activity_date . ' ' . $timeReceiving;
-        $strip_type = '';
-        $con_act = '';
+            'on_chasis.required_without_all' => 'Pilih salah satu tipe kegiatan.',
 
-        if ($warehouse == null and $yard == null) {
-            $strip_type = 'TO CONTAINER';
-        } elseif ($warehouse != null) {
-            $strip_type = 'TO WAREHOUSE';
-        } else {
-            $strip_type = 'TO YARD';
-        }
+            'warehouse.nullable' => 'Warehouse harus berupa string.',
+            'warehouse.required_without_all' => 'Pilih setidaknya satu tipe stripping.',
+            'yard.required_without_all' => 'Pilih setidaknya satu tipe stripping.',
+            'to_con.required_without_all' => 'Pilih setidaknya satu tipe stripping.',
+        ]);
 
-        if ($grounded == null) {
-            $con_act = 'ON CHASIS';
-        } else {
-            $con_act = 'GROUNDED';
-        }
+        if ($validate_receiving) {
 
+            $username = session('username');
+            $activity_date = $request->input('activity_date');
+            $no_order = $request->input('no_order');
+            $principal = $request->input('principal');
+            $con_size = $request->input('con_size');
+            $veh_type = $request->input('veh_type');
+            $veh_id = $request->input('veh_id');
+            $grounded = $request->input('grounded');
+            $warehouse = $request->input('warehouse');
+            $yard = $request->input('yard');
+            $remark = $request->input('remark');
+            $time = now();
+            $timeReceiving = $time->format('H:i:s');
+            $combinedDateTime_receiving = $activity_date . ' ' . $timeReceiving;
+            $strip_type = '';
+            $con_act = '';
 
-        $data_receiving = [
-            'activity_date' => $combinedDateTime_receiving,
-            'no_order' => $no_order,
-            'principal' => $principal,
-            'con_size' => $con_size,
-            'veh_type' => $veh_type,
-            'veh_id' => $veh_id,
-            'con_act' => $con_act,
-            'remark' => $remark,
-            'strip_type' => $strip_type,
-            'form_type' => 'Cargo Receiving',
-            'finish_status' => 'Pending'
-        ];
-        cfs::create($data_receiving);
-        $last_id = cfs::latest()->first()->id_job_order;
-        $columnReceiving = [
-            'desc',
-            'dimension',
-            'unit',
-            'value',
-            'is_complete'
-        ];
-
-        $total_receiving = count($request->input('desc'));
-        $index_receiving = 0;
-        for ($index_receiving; $index_receiving < $total_receiving; $index_receiving++) {
-            $Data_receiving = [];
-            $fix_temp = '1';
-            foreach ($columnReceiving as $column) {
-                if ($request->has($column)) {
-                    $values = $request->input($column);
-                    $valueToStore = isset($values[$index_receiving]) ? $values[$index_receiving] : null;
-                    if ($valueToStore == null) {
-                        $fix_temp = '0';
-                    }
-                    $Data_receiving[$column] = $valueToStore;
-                } else {
-                    $Data_receiving[$column] = $fix_temp;
-                }
+            if ($warehouse == null and $yard == null) {
+                $strip_type = 'TO CONTAINER';
+            } elseif ($warehouse != null) {
+                $strip_type = 'TO WAREHOUSE';
+            } else {
+                $strip_type = 'TO YARD';
             }
 
-            receiving_stufstrip::create(array_merge($Data_receiving, ['id_job_order_receiving' => $last_id]));
-            $group_id = receiving_stufstrip::where('desc', $Data_receiving['desc'])->value('idstufstrip_receiving');
-            receiving_stufstrip::where('idstufstrip_receiving', $group_id)->update(['group_id' => $group_id]);
+            if ($grounded == null) {
+                $con_act = 'ON CHASIS';
+            } else {
+                $con_act = 'GROUNDED';
+            }
+
+
+            $data_receiving = [
+                'activity_date' => $combinedDateTime_receiving,
+                'no_order' => $no_order,
+                'principal' => $principal,
+                'con_size' => $con_size,
+                'veh_type' => $veh_type,
+                'veh_id' => $veh_id,
+                'con_act' => $con_act,
+                'remark' => $remark,
+                'strip_type' => $strip_type,
+                'form_type' => 'Cargo Receiving',
+                'finish_status' => 'Pending'
+            ];
+            cfs::create($data_receiving);
+            $cfs_id = cfs::latest()->where('user_name', $username)->first()->id_job_order;
+            $columnReceiving = [
+                'desc',
+                'dimension',
+                'unit',
+                'value',
+                'is_complete'
+            ];
+
+            $total_receiving = count($request->input('desc'));
+            $index_receiving = 0;
+            for ($index_receiving; $index_receiving < $total_receiving; $index_receiving++) {
+                $Data_receiving = [];
+                $fix_temp = '1';
+                foreach ($columnReceiving as $column) {
+                    if ($request->has($column)) {
+                        $values = $request->input($column);
+                        $valueToStore = isset($values[$index_receiving]) ? $values[$index_receiving] : null;
+                        if ($valueToStore == null) {
+                            $fix_temp = '0';
+                        }
+                        $Data_receiving[$column] = $valueToStore;
+                    } else {
+                        $Data_receiving[$column] = $fix_temp;
+                    }
+                }
+
+                receiving_stufstrip::create(array_merge($Data_receiving, ['id_job_order_receiving' => $cfs_id]));
+                $group_id = receiving_stufstrip::where('desc', $Data_receiving['desc'])->value('idstufstrip_receiving');
+                receiving_stufstrip::where('idstufstrip_receiving', $group_id)->update(['group_id' => $group_id]);
+            }
+            return redirect()->route('stuffing-stripping');
         }
-        return redirect()->route('stuffing-stripping');
+        return redirect()->back()->withErrors($validate_receiving)->withInput();
     }
 
     public function resume_receiving(Request $request)
@@ -724,270 +840,393 @@ class staffingstrippingController extends Controller
 
     public function finish_form_worksheet(Request $request)
     {
-        $activity_date = $request->input('activity_date');
-        $no_order = $request->input('no_order');
-        $principal = $request->input('principal');
-        $forwarder  = $request->input('forwarder');
-        $shipper = $request->input('shipper');
-        $cargo = $request->input('cargo');
-        $party = $request->input('party');
-        $closing_date = $request->input('closing_date');
-        $remark = $request->input('remark');
+        $validate_worksheet_finish = $request->validate([
+            'activity_date' => 'required|date',
+            'no_order' => 'required',
+            'principal' => 'required',
+            'forwarder' => 'required',
+            'shipper' => 'required',
+            'cargo' => 'required',
+            'party' => 'required',
+            'closing_date' => 'required|date',
+            'remark' => 'nullable',
+        ], [
+            'activity_date.required' => 'Tanggal kegiatan harus diisi.',
+            'activity_date.date' => 'Format tanggal kegiatan tidak valid.',
+            'no_order.required' => 'Nomor pesanan harus diisi.',
+            'principal.required' => 'Principal harus diisi.',
+            'forwarder.required' => 'Forwarder harus diisi.',
+            'shipper.required' => 'Shipper harus diisi.',
+            'cargo.required' => 'Kargo harus diisi.',
+            'party.required' => 'Pihak harus diisi.',
+            'closing_date.required' => 'Tanggal penutupan harus diisi.',
+            'closing_date.date' => 'Format tanggal penutupan tidak valid.',
+        ]);
 
-        $cfs_data = [
-            'activity_date' => $activity_date,
-            'principal' => $principal,
-            'no_order' => $no_order,
-            'forwarder' => $forwarder,
-            'shipper' => $shipper,
-            'cargo' => $cargo,
-            'party' => $party,
-            'clossing_date' => $closing_date,
-            'remark' => $remark,
-            'form_type' => 'CFS Worksheet',
-            'finish_status' => 'Finished'
-        ];
+        if ($validate_worksheet_finish) {
 
-        cfs::create($cfs_data);
-        $last_id = cfs::latest()->first()->id_job_order;
+            $username = session('username');
+            $activity_date = $request->input('activity_date');
+            $no_order = $request->input('no_order');
+            $principal = $request->input('principal');
+            $forwarder  = $request->input('forwarder');
+            $shipper = $request->input('shipper');
+            $cargo = $request->input('cargo');
+            $party = $request->input('party');
+            $closing_date = $request->input('closing_date');
+            $remark = $request->input('remark');
 
-        $optionalColumns = [
-            'strip_container_no',
-            'strip_seal_no',
-            'stuf_container_no',
-            'stuf_seal_no',
-            'is_complete',
-        ];
+            $cfs_data = [
+                'activity_date' => $activity_date,
+                'principal' => $principal,
+                'no_order' => $no_order,
+                'forwarder' => $forwarder,
+                'shipper' => $shipper,
+                'cargo' => $cargo,
+                'party' => $party,
+                'clossing_date' => $closing_date,
+                'remark' => $remark,
+                'form_type' => 'CFS Worksheet',
+                'finish_status' => 'Finished'
+            ];
+
+            cfs::create($cfs_data);
+            $cfs_id = cfs::latest()->where('user_name', $username)->first()->id_job_order;
+
+            $optionalColumns = [
+                'strip_container_no',
+                'strip_seal_no',
+                'stuf_container_no',
+                'stuf_seal_no',
+                'is_complete',
+            ];
 
 
-        $total_index = count($request->input('strip_container_no'));
-        $index = 0;
-        for ($index; $index < $total_index; $index++) {
-            $optionalData = [];
-            $fix_temp = '1';
-            foreach ($optionalColumns as $column) {
-                if ($request->has($column)) {
-                    $values = $request->input($column);
-                    $valueToStore = isset($values[$index]) ? $values[$index] : null;
-                    if ($valueToStore == null) {
-                        $fix_temp = '0';
+            $total_index = count($request->input('strip_container_no'));
+            $index = 0;
+            for ($index; $index < $total_index; $index++) {
+                $optionalData = [];
+                $fix_temp = '1';
+                foreach ($optionalColumns as $column) {
+                    if ($request->has($column)) {
+                        $values = $request->input($column);
+                        $valueToStore = isset($values[$index]) ? $values[$index] : null;
+                        if ($valueToStore == null) {
+                            $fix_temp = '0';
+                        }
+                        $optionalData[$column] = $valueToStore;
+                    } else {
+                        $optionalData[$column] = $fix_temp;
                     }
-                    $optionalData[$column] = $valueToStore;
-                } else {
-                    $optionalData[$column] = $fix_temp;
                 }
+                stufstrip::create(array_merge($optionalData, ['Cfs_id_job_order' => $cfs_id]));
+                $group_id = stufstrip::where('strip_container_no', $optionalData['strip_container_no'])->value('idstuffingStripping');
+                stufstrip::where('idstuffingStripping', $group_id)->update(['group_id' => $group_id]);
             }
-            stufstrip::create(array_merge($optionalData, ['Cfs_id_job_order' => $last_id]));
-            $group_id = stufstrip::where('strip_container_no', $optionalData['strip_container_no'])->value('idstuffingStripping');
-            stufstrip::where('idstuffingStripping', $group_id)->update(['group_id' => $group_id]);
+            return redirect()->route('stuffing-stripping');
         }
-        return redirect()->route('stuffing-stripping');
+        return redirect()->back()->withErrors($validate_worksheet_finish)->withInput();
     }
 
     public function finish_form_tally(Request $request)
     {
-        $activity_date = $request->input('activity_date');
-        $no_order = $request->input('no_order');
-        $principal = $request->input('principal');
-        $forwarder  = $request->input('forwarder');
-        $cargo = $request->input('cargo');
-        $party = $request->input('party');
-        $container_strip = $request->input('container_strip');
-        $quantity = intval($request->input('quantity'));
-        $container_stuf = $request->input('container_stuf');
+        $validate_finish_tally = $request->validate([
+            'activity_date' => 'required|date',
+            'no_order' => 'required',
+            'principal' => 'required',
+            'forwarder' => 'required',
+            'cargo' => 'required',
+            'party' => 'required',
+            'container_strip' => 'required',
+            'quantity' => 'required|integer',
+            'container_stuf' => 'required',
 
-        $data_tally = [
-            'activity_date' => $activity_date,
-            'no_order' => $no_order,
-            'principal' => $principal,
-            'forwarder' => $forwarder,
-            'cargo' => $cargo,
-            'party' => $party,
-            'strip_container' => $container_strip,
-            'stuf_container' => $container_stuf,
-            'quantity' => $quantity,
-            'form_type' => 'CFS Tally',
-            'finish_status' => 'Finished'
-        ];
+        ], [
+            'activity_date.required' => 'Tanggal kegiatan harus diisi.',
+            'activity_date.date' => 'Format tanggal kegiatan tidak valid.',
+            'no_order.required' => 'Nomor pesanan harus diisi.',
+            'principal.required' => 'Principal harus diisi.',
+            'forwarder.required' => 'Forwarder harus diisi.',
+            'cargo.required' => 'Kargo harus diisi.',
+            'party.required' => 'Pihak harus diisi.',
+            'container_strip.required' => 'Container strip harus diisi.',
+            'quantity.required' => 'Quantity harus diisi.',
+            'quantity.integer' => 'Quantity harus berupa angka.',
+            'container_stuf.required' => 'Container stuf harus diisi.',
+        ]);
 
-        cfs::create($data_tally);
-        $last_id = cfs::latest()->first()->id_job_order;
+        if ($validate_finish_tally) {
 
-        $columnTally = [
-            'desc',
-            'dimension',
-            'unit',
-            'value',
-            'is_complete'
-        ];
-        $total_tally = count($request->input('desc'));
-        $index_tally = 0;
-        for ($index_tally; $index_tally < $total_tally; $index_tally++) {
-            $Data_tally = [];
-            $fix_temp = '1';
-            foreach ($columnTally as $column) {
-                if ($request->has($column)) {
-                    $values = $request->input($column);
-                    $valueToStore = isset($values[$index_tally]) ? $values[$index_tally] : null;
-                    if ($valueToStore == null) {
-                        $fix_temp = '0';
+            $username = session('username');
+            $activity_date = $request->input('activity_date');
+            $no_order = $request->input('no_order');
+            $principal = $request->input('principal');
+            $forwarder  = $request->input('forwarder');
+            $cargo = $request->input('cargo');
+            $party = $request->input('party');
+            $container_strip = $request->input('container_strip');
+            $quantity = intval($request->input('quantity'));
+            $container_stuf = $request->input('container_stuf');
+
+            $data_tally = [
+                'activity_date' => $activity_date,
+                'no_order' => $no_order,
+                'principal' => $principal,
+                'forwarder' => $forwarder,
+                'cargo' => $cargo,
+                'party' => $party,
+                'strip_container' => $container_strip,
+                'stuf_container' => $container_stuf,
+                'quantity' => $quantity,
+                'form_type' => 'CFS Tally',
+                'finish_status' => 'Finished'
+            ];
+
+            cfs::create($data_tally);
+            $cfs_id = cfs::latest()->where('user_name', $username)->first()->id_job_order;
+
+            $columnTally = [
+                'desc',
+                'dimension',
+                'unit',
+                'value',
+                'is_complete'
+            ];
+            $total_tally = count($request->input('desc'));
+            $index_tally = 0;
+            for ($index_tally; $index_tally < $total_tally; $index_tally++) {
+                $Data_tally = [];
+                $fix_temp = '1';
+                foreach ($columnTally as $column) {
+                    if ($request->has($column)) {
+                        $values = $request->input($column);
+                        $valueToStore = isset($values[$index_tally]) ? $values[$index_tally] : null;
+                        if ($valueToStore == null) {
+                            $fix_temp = '0';
+                        }
+                        $Data_tally[$column] = $valueToStore;
+                    } else {
+                        $Data_tally[$column] = $fix_temp;
                     }
-                    $Data_tally[$column] = $valueToStore;
-                } else {
-                    $Data_tally[$column] = $fix_temp;
                 }
+                tally_stufstrip::create(array_merge($Data_tally, ['id_job_order_tally' => $cfs_id]));
+                $group_id = tally_stufstrip::where('desc', $Data_tally['desc'])->value('idstufstrip_tally');
+                tally_stufstrip::where('idstufstrip_tally', $group_id)->update(['group_id' => $group_id]);
             }
-            tally_stufstrip::create(array_merge($Data_tally, ['id_job_order_tally' => $last_id]));
-            $group_id = tally_stufstrip::where('desc', $Data_tally['desc'])->value('idstufstrip_tally');
-            tally_stufstrip::where('idstufstrip_tally', $group_id)->update(['group_id' => $group_id]);
+            return redirect()->route('stuffing-stripping');
         }
-        return redirect()->route('stuffing-stripping');
+        return redirect()->back()->withErrors($validate_finish_tally)->withInput();
     }
 
     public function finish_form_release(Request $request)
     {
-        $activity_date = $request->input('activity_date');
-        $no_order = $request->input('no_order');
-        $principal = $request->input('principal');
-        $con_size = $request->input('con_size');
-        $veh_type = $request->input('veh_type');
-        $veh_id = $request->input('veh_id');
-        $grounded = $request->input('grounded');
-        $remark = $request->input('remark');
-        $con_act = '';
-        if ($grounded == null) {
-            $con_act = 'ON CHASIS';
-        } else {
-            $con_act = 'GROUNDED';
-        }
+        $validate_finish_release = $request->validate([
+            'activity_date' => 'required|date',
+            'no_order' => 'required',
+            'principal' => 'required',
+            'con_size' => 'required',
+            'veh_type' => 'required',
+            'veh_id' => 'required',
+            'grounded' => 'required|in:GROUNDED,ON CHASIS',
+            'on_chasis' => 'required|in:GROUNDED,ON CHASIS', // Assuming grounded is a boolean value
+            'remark' => 'nullable',
+        ], [
+            'activity_date.required' => 'Tanggal kegiatan harus diisi.',
+            'activity_date.date' => 'Format tanggal kegiatan tidak valid.',
+            'no_order.required' => 'Nomor pesanan harus diisi.',
+            'principal.required' => 'Principal harus diisi.',
+            'con_size.required' => 'Ukuran container harus diisi.',
+            'veh_type.required' => 'Tipe kendaraan harus diisi.',
+            'veh_id.required' => 'ID kendaraan harus diisi.',
+            'grounded.required' => 'Pilih salah satu tipe kegiatan.',
+            'grounded.in' => 'Pilih salah satu tipe kegiatan yang valid.',
+            'on_chasis.required' => 'Pilih salah satu tipe kegiatan.',
+            'on_chasis.in' => 'Pilih salah satu tipe kegiatan yang valid.',
+        ]);
+        if ($validate_finish_release) {
 
-        $data_release = [
-            'activity_date' => $activity_date,
-            'no_order' => $no_order,
-            'principal' => $principal,
-            'con_size' => $con_size,
-            'veh_type' => $veh_type,
-            'veh_id' => $veh_id,
-            'con_act' => $con_act,
-            'remark' => $remark,
-            'form_type' => 'Cargo Release',
-            'finish_status' => 'Finished'
-        ];
-
-        cfs::create($data_release);
-        $last_id = cfs::latest()->first()->id_job_order;
-        $columnRelease = [
-            'desc',
-            'dimension',
-            'unit',
-            'value',
-            'is_complete'
-        ];
-
-        $total_release = count($request->input('desc'));
-        $index_release = 0;
-        for ($index_release; $index_release < $total_release; $index_release++) {
-            $Data_release = [];
-            $fix_temp = '1';
-            foreach ($columnRelease as $column) {
-                if ($request->has($column)) {
-                    $values = $request->input($column);
-                    $valueToStore = isset($values[$index_release]) ? $values[$index_release] : null;
-                    if ($valueToStore == null) {
-                        $fix_temp = '0';
-                    }
-                    $Data_release[$column] = $valueToStore;
-                } else {
-                    $Data_release[$column] = $fix_temp;
-                }
+            $username = session('username');
+            $activity_date = $request->input('activity_date');
+            $no_order = $request->input('no_order');
+            $principal = $request->input('principal');
+            $con_size = $request->input('con_size');
+            $veh_type = $request->input('veh_type');
+            $veh_id = $request->input('veh_id');
+            $grounded = $request->input('grounded');
+            $remark = $request->input('remark');
+            $con_act = '';
+            if ($grounded == null) {
+                $con_act = 'ON CHASIS';
+            } else {
+                $con_act = 'GROUNDED';
             }
 
-            release_stufstrip::create(array_merge($Data_release, ['id_job_order_release' => $last_id]));
-            $group_id = release_stufstrip::where('desc', $Data_release['desc'])->value('idstufstrip_release');
-            release_stufstrip::where('idstufstrip_release', $group_id)->update(['group_id' => $group_id]);
+            $data_release = [
+                'activity_date' => $activity_date,
+                'no_order' => $no_order,
+                'principal' => $principal,
+                'con_size' => $con_size,
+                'veh_type' => $veh_type,
+                'veh_id' => $veh_id,
+                'con_act' => $con_act,
+                'remark' => $remark,
+                'form_type' => 'Cargo Release',
+                'finish_status' => 'Finished'
+            ];
+
+            cfs::create($data_release);
+            $cfs_id = cfs::latest()->where('user_name', $username)->first()->id_job_order;
+            $columnRelease = [
+                'desc',
+                'dimension',
+                'unit',
+                'value',
+                'is_complete'
+            ];
+
+            $total_release = count($request->input('desc'));
+            $index_release = 0;
+            for ($index_release; $index_release < $total_release; $index_release++) {
+                $Data_release = [];
+                $fix_temp = '1';
+                foreach ($columnRelease as $column) {
+                    if ($request->has($column)) {
+                        $values = $request->input($column);
+                        $valueToStore = isset($values[$index_release]) ? $values[$index_release] : null;
+                        if ($valueToStore == null) {
+                            $fix_temp = '0';
+                        }
+                        $Data_release[$column] = $valueToStore;
+                    } else {
+                        $Data_release[$column] = $fix_temp;
+                    }
+                }
+
+                release_stufstrip::create(array_merge($Data_release, ['id_job_order_release' => $cfs_id]));
+                $group_id = release_stufstrip::where('desc', $Data_release['desc'])->value('idstufstrip_release');
+                release_stufstrip::where('idstufstrip_release', $group_id)->update(['group_id' => $group_id]);
+            }
+            return redirect()->route('stuffing-stripping');
         }
-        return redirect()->route('stuffing-stripping');
+        return redirect()->back()->withErrors($validate_finish_release)->withInput();
     }
 
     public function finish_form_receiving(Request $request)
     {
-        $activity_date = $request->input('activity_date');
-        $no_order = $request->input('no_order');
-        $principal = $request->input('principal');
-        $con_size = $request->input('con_size');
-        $veh_type = $request->input('veh_type');
-        $veh_id = $request->input('veh_id');
-        $grounded = $request->input('grounded');
-        $warehouse = $request->input('warehouse');
-        $yard = $request->input('yard');
-        $remark = $request->input('remark');
-        $strip_type = '';
-        $con_act = '';
+        $validate_finish_receiving = $request->validate([
+            'activity_date' => 'required|date',
+            'no_order' => 'required',
+            'principal' => 'required',
+            'con_size' => 'required',
+            'veh_type' => 'required',
+            'veh_id' => 'required',
+            'grounded' => 'required|in:GROUNDED,ON CHASIS',
+            'on_chasis' => 'required|in:GROUNDED,ON CHASIS', // Nullable string
+            'remark' => 'nullable',
+            'warehouse' => 'required_without_all:yard,to_con',
+            'yard' => 'required_without_all:warehouse,to_con',
+            'to_con' => 'required_without_all:warehouse,yard',
+        ], [
+            'activity_date.required' => 'Tanggal kegiatan harus diisi.',
+            'activity_date.date' => 'Format tanggal kegiatan tidak valid.',
+            'no_order.required' => 'Nomor pesanan harus diisi.',
+            'principal.required' => 'Principal harus diisi.',
+            'con_size.required' => 'Ukuran container harus diisi.',
+            'veh_type.required' => 'Tipe kendaraan harus diisi.',
+            'veh_id.required' => 'ID kendaraan harus diisi.',
+            'grounded.required' => 'Pilih salah satu tipe kegiatan.',
+            'grounded.in' => 'Pilih salah satu tipe kegiatan yang valid.',
+            'on_chasis.required' => 'Pilih salah satu tipe kegiatan.',
+            'on_chasis.in' => 'Pilih salah satu tipe kegiatan yang valid.',
+            'warehouse.nullable' => 'Warehouse harus berupa string.',
+            'warehouse.required_without_all' => 'Pilih setidaknya satu tipe stripping.',
+            'yard.required_without_all' => 'Pilih setidaknya satu tipe stripping.',
+            'to_con.required_without_all' => 'Pilih setidaknya satu tipe stripping.',
+        ]);
 
-        if ($warehouse == null and $yard == null) {
-            $strip_type = 'TO CONTAINER';
-        } elseif ($warehouse != null) {
-            $strip_type = 'TO WAREHOUSE';
-        } else {
-            $strip_type = 'TO YARD';
-        }
+        if ($validate_finish_receiving) {
 
-        if ($grounded == null) {
-            $con_act = 'ON CHASIS';
-        } else {
-            $con_act = 'GROUNDED';
-        }
+            $username = session('username');
+            $activity_date = $request->input('activity_date');
+            $no_order = $request->input('no_order');
+            $principal = $request->input('principal');
+            $con_size = $request->input('con_size');
+            $veh_type = $request->input('veh_type');
+            $veh_id = $request->input('veh_id');
+            $grounded = $request->input('grounded');
+            $warehouse = $request->input('warehouse');
+            $yard = $request->input('yard');
+            $remark = $request->input('remark');
+            $strip_type = '';
+            $con_act = '';
 
-        $data_receiving = [
-            'activity_date' => $activity_date,
-            'no_order' => $no_order,
-            'principal' => $principal,
-            'con_size' => $con_size,
-            'veh_type' => $veh_type,
-            'veh_id' => $veh_id,
-            'con_act' => $con_act,
-            'remark' => $remark,
-            'strip_type' => $strip_type,
-            'form_type' => 'Cargo Receiving',
-            'finish_status' => 'Finished'
-        ];
-        cfs::create($data_receiving);
-        $last_id = cfs::latest()->first()->id_job_order;
-        $columnReceiving = [
-            'desc',
-            'dimension',
-            'unit',
-            'value',
-            'is_complete'
-        ];
-
-        $total_receiving = count($request->input('desc'));
-        $index_receiving = 0;
-        for ($index_receiving; $index_receiving < $total_receiving; $index_receiving++) {
-            $Data_receiving = [];
-            $fix_temp = '1';
-            foreach ($columnReceiving as $column) {
-                if ($request->has($column)) {
-                    $values = $request->input($column);
-                    $valueToStore = isset($values[$index_receiving]) ? $values[$index_receiving] : null;
-                    if ($valueToStore == null) {
-                        $fix_temp = '0';
-                    }
-                    $Data_receiving[$column] = $valueToStore;
-                } else {
-                    $Data_receiving[$column] = $fix_temp;
-                }
+            if ($warehouse == null and $yard == null) {
+                $strip_type = 'TO CONTAINER';
+            } elseif ($warehouse != null) {
+                $strip_type = 'TO WAREHOUSE';
+            } else {
+                $strip_type = 'TO YARD';
             }
 
-            receiving_stufstrip::create(array_merge($Data_receiving, ['id_job_order_receiving' => $last_id]));
-            $group_id = receiving_stufstrip::where('desc', $Data_receiving['desc'])->value('idstufstrip_receiving');
-            receiving_stufstrip::where('idstufstrip_receiving', $group_id)->update(['group_id' => $group_id]);
+            if ($grounded == null) {
+                $con_act = 'ON CHASIS';
+            } else {
+                $con_act = 'GROUNDED';
+            }
+
+            $data_receiving = [
+                'activity_date' => $activity_date,
+                'no_order' => $no_order,
+                'principal' => $principal,
+                'con_size' => $con_size,
+                'veh_type' => $veh_type,
+                'veh_id' => $veh_id,
+                'con_act' => $con_act,
+                'remark' => $remark,
+                'strip_type' => $strip_type,
+                'form_type' => 'Cargo Receiving',
+                'finish_status' => 'Finished'
+            ];
+            cfs::create($data_receiving);
+            $cfs_id = cfs::latest()->where('user_name', $username)->first()->id_job_order;
+            $columnReceiving = [
+                'desc',
+                'dimension',
+                'unit',
+                'value',
+                'is_complete'
+            ];
+
+            $total_receiving = count($request->input('desc'));
+            $index_receiving = 0;
+            for ($index_receiving; $index_receiving < $total_receiving; $index_receiving++) {
+                $Data_receiving = [];
+                $fix_temp = '1';
+                foreach ($columnReceiving as $column) {
+                    if ($request->has($column)) {
+                        $values = $request->input($column);
+                        $valueToStore = isset($values[$index_receiving]) ? $values[$index_receiving] : null;
+                        if ($valueToStore == null) {
+                            $fix_temp = '0';
+                        }
+                        $Data_receiving[$column] = $valueToStore;
+                    } else {
+                        $Data_receiving[$column] = $fix_temp;
+                    }
+                }
+
+                receiving_stufstrip::create(array_merge($Data_receiving, ['id_job_order_receiving' => $cfs_id]));
+                $group_id = receiving_stufstrip::where('desc', $Data_receiving['desc'])->value('idstufstrip_receiving');
+                receiving_stufstrip::where('idstufstrip_receiving', $group_id)->update(['group_id' => $group_id]);
+            }
+            return redirect()->route('stuffing-stripping');
         }
-        return redirect()->route('stuffing-stripping');
+        return redirect()->back()->withErrors($validate_finish_receiving)->withInput();
     }
 
     public function finish_resume_worksheet(Request $request)
     {
+
         $id = $request->input('id');
         $activity_date = $request->input('activity_date');
         $no_order = $request->input('no_order');
@@ -1250,5 +1489,10 @@ class staffingstrippingController extends Controller
             receiving_stufstrip::where('idstufstrip_receiving', $id_group)->update($optionalData);
         }
         return redirect()->route('stuffing-stripping');
+    }
+
+    public function create_job_order(Request $request)
+    {
+        dd($request);
     }
 }

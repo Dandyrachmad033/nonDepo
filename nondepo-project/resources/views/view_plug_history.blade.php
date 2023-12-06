@@ -43,6 +43,7 @@
                                 <th>Start Plug</th>
                                 <th>End Plug</th>
                                 <th>Status</th>
+                                <th>First Monitor</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,6 +52,7 @@
                                 <td>{{ $data_plug->time }}</td>
                                 <td>{{ $data_plug->time_end }}</td>
                                 <td>{{ $data_plug->status }}</td>
+                                <td>{{ $data_plug->monitor }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -64,7 +66,8 @@
                                 <th>Supply Point</th>
                                 <th>Return Point</th>
                                 <th>Remark</th>
-                                <th>Monitoring</th>
+                                <th>Time Monitoring</th>
+                                <th>Status monitor</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,6 +79,7 @@
                                     <td>{{ $monitor->ret_temp }}</td>
                                     <td>{{ $monitor->remark }}</td>
                                     <td>{{ $monitor->time_monitoring }}</td>
+                                    <td>{{ $monitor->monitor }}</td>
 
                                 </tr>
                             @endforeach

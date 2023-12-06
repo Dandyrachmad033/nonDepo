@@ -36,15 +36,18 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#end_plugging").on("show.bs.modal", function (event) {
         var button = $(event.relatedTarget);
-        var id = button.data("id");
+        var id = button.data("id-plug");
         var no_container = button.data("no-container");
         var set_temp = button.data("set-temp");
         var remark = button.data("remark");
+        var time = button.data("time-plug");
 
         var modal = $(this);
         modal.find("#modal_no_container").val(no_container);
         modal.find("#modal_set_temp").val(set_temp);
         modal.find("#modal_remark").val(remark);
+        modal.find("#modal_id").val(id);
+        modal.find("#modal_time").val(time);
     });
 
     $("#monitoring_plug").on("show.bs.modal", function (event) {

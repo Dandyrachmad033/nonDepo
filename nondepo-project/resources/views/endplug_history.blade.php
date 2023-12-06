@@ -18,14 +18,21 @@
     @extends('layouts.sidebarcopy')
     @section('content')
         <section class="home-section">
-            <div class="text" style="font-size: 30px">HISTORY PLUGGING</div>
+            <div class="text" style="font-size: 30px">End-Plug & History</div>
             <div data-aos="fade-left" data-aos-duration="300">
                 <div class="table-container shadow p-3 mb-5 bg-white " style="max-width: 98%">
-                    <div class="justify-content-between " style="display: flex; align-items:center;">
-                        <div class="images-logos">
-                            <img src="{{ asset('images/flag-samudera.png') }}" alt="samudera" class="img-fluid"
-                                style="border: 0px; height:50px; width:250px;">
-                        </div>
+                    <div class="justify-content-between mb-3" style="display: flex; align-items:center;">
+                        <form class="d-flex align-items-center" id="searchForm" method="POSt"
+                            action="{{ url('/Export_plug_history') }}">
+                            @csrf
+                            <input id="tanggal_awal" class="form-control me-2 border border-dark border-2" type="date"
+                                name="tanggal_awal">
+
+                            <input id="tanggal_akhir" class="form-control me-2 border border-dark border-2" type="date"
+                                name="tanggal_akhir">
+                            <button class="btn btn-success" type="submit">Download</button>
+                        </form>
+
                         <form class="d-flex align-items-center" id="searchForm">
                             <input id="searchInput" class="form-control me-2 border border-warning border-2" type="search"
                                 placeholder="Search" aria-label="Search">
