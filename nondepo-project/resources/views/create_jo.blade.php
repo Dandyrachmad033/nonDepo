@@ -18,26 +18,26 @@
         <section class="home-section w-100">
             <div class="text w-100" style="font-size: 30px">Create Job Order</div>
             <div class="container-fluid">
-                <div class="d-flex row shadow p-3 mb-5 bg-white justify-content-center w-100">
-                    <div class="row w-100 ">
-                        <div class="d-flex justify-content-center"
-                            style="display: flex; align-items:center; margin-top:-20px; padding-right:50px">
+                <form action="{{ url('/create_job_order') }}" method="post">
+                    <div class="d-flex row shadow p-3 mb-5 bg-white justify-content-center w-100">
+                        <div class="row w-100 ">
+                            <div class="d-flex justify-content-center"
+                                style="display: flex; align-items:center; margin-top:-20px; padding-right:50px">
 
-                            <div>
-                                <img src="{{ asset('images/flag-samudera.png') }}" alt="samudera" class="img-fluid"
-                                    style="border: none; height:50px; width:250px;">
+                                <div>
+                                    <img src="{{ asset('images/flag-samudera.png') }}" alt="samudera" class="img-fluid"
+                                        style="border: none; height:50px; width:250px;">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col text-center">
+                                <p class="fw-bold">JOB ORDER SHEET</p>
+
                             </div>
                         </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col text-center">
-                            <p class="fw-bold">JOB ORDER SHEET</p>
-
-                        </div>
-                    </div>
-                    <form action="{{ url('/create_job_order') }}" method="post">
                         @csrf
                         <div class="row w-100 justify-content-center">
                             <div class="text-center  col-lg-12 col-md-12 col-sm-12 col-12" style="max-width: 60%">
@@ -267,7 +267,7 @@
                                                         <div class="col-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                                                             <div class="row">
                                                                 <div
-                                                                    class="col-lg-6 col-md-6 col-sm-12 col-12 text-center">
+                                                                    class="col-lg-6 col-md-6 col-sm-12 col-12 text-center total-cost">
                                                                     <label class="text-center">TOTAL</label>
                                                                     <input type="text"
                                                                         class="form-control border border-2 border-dark"
@@ -305,7 +305,8 @@
                                     <div class="row">
                                         <div class="col-12 col-lg-6 col-md-6 col-sm-12 text-center">
                                             <label class="text-center" style="color: white">TOTAL ALL REVENUE</label>
-                                            <input type="text" class="form-control border border-2 border-dark "
+                                            <input type="text"
+                                                class="form-control border border-2 border-dark text-center"
                                                 id="total_all_revenue" name="total_all_revenue" readonly>
                                         </div>
                                         <div class="col-12 col-lg-6 col-md-6 col-sm-12 text-center">
@@ -317,9 +318,10 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-success bottom-0 end mb-3">Submit</button>
-                    </form>
-                </div>
+                        <button type="submit" class="btn btn-success bottom-0 end mb-3"
+                            style="max-width: 300px">Submit</button>
+                </form>
+            </div>
         </section>
         <script src="{{ asset('js/create-jo/clone_revenue.js') }}"></script>
         <script src="{{ asset('js/create-jo/clone_cost.js') }}"></script>

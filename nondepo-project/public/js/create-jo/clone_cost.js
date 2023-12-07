@@ -48,6 +48,7 @@ function cloneElement_cost() {
 
         // Memanggil fungsi untuk menghitung dan menampilkan pajak
         updateTax_cost(total_cost, currencyType_cost);
+        updateTotalAllRevenue_cost()
     }
 
     function updateTax_cost(total_cost, currencyType_cost) {
@@ -72,6 +73,66 @@ function cloneElement_cost() {
     document
         .getElementById("rate_cost" + cloneid)
         .addEventListener("input", updateTotal_cost);
+}
+
+function updateTotalAllRevenue_cost() {
+    var count = 1 ;
+    var totalAllRevenue = 0;
+    
+
+    // Loop melalui semua elemen dengan class yang sesuai
+    document.querySelectorAll('.total-cost').forEach(function () {
+        count++;
+        var totalElementawal = document.getElementById('total_cost');
+        var totalElement = document.getElementById('total_cost'+count);
+        var formattedValue = totalElement ? totalElement.value : 0;
+        var formattedAwal = totalElementawal ? totalElementawal.value : 0;
+
+            if(formattedAwal != 0){
+                var numericValue_awal = getNumericValue(formattedAwal);
+                var string_number_awal = numericValue_awal.toString();
+                var stringWithoutTwoZeros_awal = string_number_awal.slice(0, -2); 
+                var total_awal = parseFloat(stringWithoutTwoZeros_awal) || 0;
+                console.log(total_awal);
+            }else{
+                return null;
+            }
+            //nilai awal
+            
+            if(formattedValue != 0){
+                var numericValue = getNumericValue(formattedValue);
+                var string_number = numericValue.toString();
+                var stringWithoutTwoZeros = string_number.slice(0, -2); 
+                var total = parseFloat(stringWithoutTwoZeros) || 0; 
+
+            }else{
+                return null;
+            }
+            totalAllRevenue += total_awal;
+            console.log(totalAllRevenue);
+            // totalAllRevenue += total_awal;
+            
+            var totalFormatted = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(totalAllRevenue);
+            function getNumericValue(value) {
+                
+                    var cleanedValue = value.replaceAll(/[^\d]/g, '');
+        
+                    // Mengonversi ke nilai numerik
+                    var numericValue = parseInt(cleanedValue,10);
+        
+                    // Memeriksa apakah nilai numerik valid dan bukan NaN
+                    if (!isNaN(numericValue)) {
+                        return numericValue;
+                    } 
+    
+                    return null;
+                // Menghilangkan simbol mata uang dan karakter non-numerik
+            }
+        document.getElementById("total_all_cost").value = totalFormatted;
+        
+    });
+    // Setel nilai total_all_revenue dengan total yang dihitung
+    
 }
 
 function removeElement_cost(button) {
@@ -104,6 +165,7 @@ function updateTotal_cost() {
 
     // Memanggil fungsi untuk menghitung dan menampilkan pajak
     updateTax_cost(total_cost, currencyType_cost);
+    updateTotalAllRevenue_cost()
 }
 
 function updateTax_cost(total_cost, currencyType_cost) {
